@@ -19,7 +19,8 @@ module.exports = function(api) {
             '.json'
           ],
           alias: {
-            '@components': './src/components'
+            '@components': './src/components',
+            '@Screens': './src/Screens'
           }
         }
       ]
