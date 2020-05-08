@@ -7,8 +7,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import Index from 'index';
-import ProcessListScreen from '@Screens/ProcessListScreen';
-import CreateProcessScreen from '@Screens/CreateProcessScreen';
+import ScheduleScreen from '@Screens/ScheduleScreen';
+import CreateTaskScreen from '@Screens/CreateTaskScreen';
 
 
 
@@ -52,14 +52,15 @@ function DetailsScreen({ route, navigation }) {
   );
 }
 
-const ProcessListStack = createStackNavigator();
+const ScheduleStack = createStackNavigator();
 
-function ProcessListStackScreen() {
+function ScheduleStackScreen() {
   return (
-    <ProcessListStack.Navigator>
-      <ProcessListStack.Screen name="工程リスト" component={ ProcessListScreen } />
-      <ProcessListStack.Screen name="新規作成" component={CreateProcessScreen} />
-    </ProcessListStack.Navigator>
+    <ScheduleStack.Navigator>
+      <ScheduleStack.Screen name="タスク一覧" component={ScheduleScreen} />
+      <ScheduleStack.Screen name="新規作成" component={CreateTaskScreen} />
+      <ScheduleStack.Screen name="編集" component={CreateTaskScreen} />
+    </ScheduleStack.Navigator>
   )
 }
 
@@ -122,7 +123,7 @@ export default function App(): React.FC {
       >
         <Tab.Screen
           name="スケジュール管理"
-          component={ ProcessListStackScreen }
+          component={ ScheduleStackScreen }
           options={{
             title: 'スケジュール管理'
           }}
