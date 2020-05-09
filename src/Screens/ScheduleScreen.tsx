@@ -28,14 +28,6 @@ export default function ScheduleScreen({ navigation, route }) {
     if (route.params?.task) {
       param = route.params.task;
 
-/*
-      const paramKey = Object.keys(param)[0];
-
-      // 分類キーの有無で場合分け
-      paramKey in tasks
-        ? setTasks({...tasks, [paramKey]:[...tasks[paramKey], ...param[paramKey]]})
-        : setTasks({...tasks, [paramKey]:[...param[paramKey]]});
-    */
       // idがない場合は採番
       param.id = param.id ?? tasks.length;
       // paramと同じidがある場合は取り除く
@@ -49,7 +41,7 @@ export default function ScheduleScreen({ navigation, route }) {
   const taskList = <TaskListView tasks={tasks} navigation={navigation} />;
 
   // カレンダービュー
-  const calendar = <TaskCalendarView />;
+  const calendar = <TaskCalendarView tasks={tasks} />;
 
   // JSX
   return (

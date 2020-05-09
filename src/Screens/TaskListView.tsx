@@ -8,9 +8,10 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { Container, Segment, Content, View, Body, Right, Text, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
 import moment from 'moment';
+import FormatTasks from '@Screens/FormatTasks'
 
 
-// 日付文字列を取得
+// 日付（期間）の文字列を取得
 const getPeriodString = (jsonDateStart: String, jsonDateEnd: String): String => {
   const dateStart = JSON.parse(jsonDateStart);
   const dateEnd = JSON.parse(jsonDateEnd);
@@ -37,25 +38,9 @@ export default function TaskListView(props) {
   // 引数
   const {tasks, navigation} = props;
 
-  // tasks配列を表示用に整形
-  // categoryのセット(の配列)を取得
-  const categories = Array.from(new Set(tasks.map(task => task.category)));
+  const [categories, tasksFormatted] = FormatTasks(tasks);
 
-  // 一旦、category毎の配列にする
-  const tasksArranged = categories.map(category => {
-    return tasks.filter(task => task.category === category);
-  });
-
-  // 各categoryをキーとするオブジェクトに上記配列を割り当てる
-  let tasksDisplay = {};
-
-  tasksArranged.forEach(taskList => {
-    tasksDisplay = {...tasksDisplay, [taskList[0].category]: taskList}
-  });
-  console.log(tasksDisplay);
-  console.log(tasks);
-
-  // タスクリストのJSXを取得
+  // リスト1つのJSXを取得
   const getTaskList = (item, index) => {
     return (
         <ListItem key={`ListItem-${index}`}>
@@ -92,7 +77,7 @@ export default function TaskListView(props) {
                   <Separator bordered key={`Separator-${category}`}>
                     <Text>{category}</Text>
                   </Separator>
-                  {tasksDisplay[category].map ((item, index) => getTaskList(item, index))}
+                  {tasksFormatted[category].map ((item, index) => getTaskList(item, index))}
                 </List>
               )
             })

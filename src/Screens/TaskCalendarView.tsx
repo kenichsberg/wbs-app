@@ -9,6 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Container, Segment, Content, View, Body, Right, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
 import moment from 'moment';
 import Svg, { Line, Text } from 'react-native-svg';
+import FormatTasks from '@Screens/FormatTasks';
 
 
 // 定数
@@ -36,7 +37,9 @@ const getTaskLength = (diffMilliseconds: int): int => {
 
 export default function TaskCalendarlView(props) {
   // 引数
-  const {param, tasks} = props;
+  const {tasks} = props;
+
+  const [categories, tasksFormatted] = FormatTasks(tasks);
 
   const getGantt = (item, index) => {
     const origin = new Date(2020, 4, 5, 9, 0);
