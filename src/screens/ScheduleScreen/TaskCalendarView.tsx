@@ -1,17 +1,33 @@
 import * as React from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import * as Font from 'expo-font';
-import { Ionicons } from '@expo/vector-icons';
 import { Container, Segment, Content, View, Body, Right, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
 import moment from 'moment';
 import Svg, { Line, Text } from 'react-native-svg';
-import FormatTasks from '@Screens/FormatTasks';
+import { FormatTasks } from '/components/FormatTasks';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { GanttChart } from '/components/GanttChart';
 
+const TopTab = createMaterialTopTabNavigator();
 
+export const TaskCalendarView: React.FC = props => {
+  // 引数
+  const {tasks} = props;
+
+  const [categories, tasksFormatted] = FormatTasks(tasks);
+
+  return (
+    <GanttChart tasks={tasks} />
+  );
+};
+
+  /*
+    <TopTab.Navigator>
+      <TopTab.Screen name="Home" component={HomeScreen} />
+      <TopTab.Screen name="Settings" component={SettingsScreen} />
+    </TopTab.Navigator>
+    */
+/*
 // 定数
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -74,7 +90,7 @@ export default function TaskCalendarlView(props) {
     <>
       <View style={{backgroundColor: '#051B26', paddingLeft: paddingX, paddingRight: paddingX, paddingTop: paddingY, paddingButtom: paddingY }}>
         <Svg height="1300" width={windowWidth}>
-          {/* 縦線 */}
+
           {[...Array(7).keys()].map(i => (
             <Line 
               key={i}
@@ -86,7 +102,7 @@ export default function TaskCalendarlView(props) {
               strokeWidth="1" 
             />
           ))}
-          {/* Gantt */}
+
           {getGantt(item, 0)}
         </Svg>
       </View>
@@ -94,3 +110,4 @@ export default function TaskCalendarlView(props) {
   );
 
 }
+*/

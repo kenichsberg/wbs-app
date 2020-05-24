@@ -1,17 +1,12 @@
 import * as React from 'react';
-import { StyleSheet, TextInput } from 'react-native';
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { Container, Header, Content, Text, View, Body, Right, Button, Form, Item, Input, Label, Picker, Icon, DatePicker, List, ListItem } from 'native-base';
 import moment from 'moment'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 
-export default function CreateTaskScreen({ navigation, route }) {
+export const CreateTaskScreen: React.FC = ({ navigation, route }) => {
   // id
   const [id, setId] = React.useState(null);
   // 分類

@@ -5,7 +5,11 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "lint": "eslint src/index.ts",
+    "lint:fix": "eslint --fix src/index.ts",
+    "test": "npm run lint && jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "2.1.0",
@@ -30,8 +34,10 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@react-navigation/bottom-tabs": "^5.2.7",
+    "@react-navigation/material-top-tabs": "^5.2.1",
     "@react-navigation/native": "^5.1.5",
     "@react-navigation/stack": "^5.2.10",
+    "@types/jest": "^25.2.3",
     "@types/react": "~16.9.0",
     "@types/react-native": "~0.60.23",
     "babel-plugin-module-resolver": "^4.0.0",
@@ -39,10 +45,36 @@
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.20.0",
+    "jest": "^26.0.1",
     "moment": "^2.24.0",
     "prettier": "^1.19.1",
     "react-devtools": "^3",
-    "typescript": "~3.6.3"
+    "react-native-tab-view": "^2.14.0",
+    "ts-jest": "^26.0.0",
+    "typescript": "^3.9.3"
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/.cache"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ],
+    "moduleNameMapper": {
+      "*": "<rootDir>/src/$1",
+      "@navigations/(.*)": "<rootDir>/src/navigations/$1",
+      "@components/(.*)": "<rootDir>/src/components/$1",
+      "@screens/(.*)": "<rootDir>/src/screens/$1"
+    }
   },
   "private": true
 }

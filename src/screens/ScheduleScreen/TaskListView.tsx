@@ -1,14 +1,8 @@
 import * as React from 'react';
-import { StyleSheet, TextInput } from 'react-native';
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import * as Font from 'expo-font';
-import { Ionicons } from '@expo/vector-icons';
 import { Container, Segment, Content, View, Body, Right, Text, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
 import moment from 'moment';
-import FormatTasks from '@Screens/FormatTasks'
+import { FormatTasks } from '/components/FormatTasks'
 
 
 // 日付（期間）の文字列を取得
@@ -34,7 +28,7 @@ const getPeriodString = (jsonDateStart: String, jsonDateEnd: String): String => 
 
 
 
-export default function TaskListView(props) {
+export const TaskListView: React.FC = props => {
   // 引数
   const {tasks, navigation} = props;
 

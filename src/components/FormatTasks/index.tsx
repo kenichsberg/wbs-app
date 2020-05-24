@@ -10,7 +10,7 @@
  * ]
  *
  */
-export default function FormatTasks(tasks) {
+export const FormatTasks: React.FC = tasks => {
 
   // categoryのセット(の配列)を取得
   const categories = Array.from(new Set(tasks.map(task => task.category)));

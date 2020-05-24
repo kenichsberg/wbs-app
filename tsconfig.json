@@ -3,8 +3,9 @@
     "baseUrl": ".",
     "paths": {
       "*": ["src/*"],
+      "@navigations/*": ["src/navigations/*"],
       "@components/*": ["src/components/*"],
-      "@Screens/*": ["src/Screens/*"]
+      "@screens/*": ["src/screens/*"]
     },
     "allowSyntheticDefaultImports": true,
     "jsx": "react-native",
@@ -13,5 +14,5 @@
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true
-  },
+  }
 }

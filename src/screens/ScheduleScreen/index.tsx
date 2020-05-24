@@ -1,18 +1,12 @@
 import * as React from 'react';
-import { StyleSheet, TextInput } from 'react-native';
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import * as Font from 'expo-font';
-import { Ionicons } from '@expo/vector-icons';
 import { Container, Segment, Content, View, Body, Right, Text, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
 import moment from 'moment';
-import TaskListView from '@Screens/TaskListView';
-import TaskCalendarView from '@Screens/TaskCalendarView';
+import { TaskListView } from '/screens/ScheduleScreen/TaskListView';
+import { TaskCalendarView } from '/screens/ScheduleScreen/TaskCalendarView';
 
 
-export default function ScheduleScreen({ navigation, route }) {
+export const ScheduleScreen: React.FC = ({ navigation, route }) => {
 
   // プロセスオブジェクトを保持するstate
   const [tasks, setTasks] = React.useState([]);
@@ -73,13 +67,10 @@ export default function ScheduleScreen({ navigation, route }) {
       <Fab 
         position="bottomRight"
         active={false}
-        direction=""
         containerStyle={{ }}
-        large
-        primary
         onPress={() => navigation.navigate('新規作成')}
       >
-        <Icon name="ios-add" secondary />
+        <Icon name="ios-add" />
       </Fab>
     </Container>
   );
