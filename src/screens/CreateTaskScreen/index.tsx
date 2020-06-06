@@ -116,7 +116,6 @@ console.log({
       {
         category: category,
         taskName: taskName,
-        //startDatetimePlanned: moment(startDatetimePlanned).format('YYYY年MM月DD日 HH:mm'),
         startDatetimePlanned: JSON.stringify(startDatetimePlanned),
         endDatetimePlanned: JSON.stringify(endDatetimePlanned),
         startDatetimeResult: JSON.stringify(startDatetimeResult),
@@ -178,9 +177,9 @@ console.log({
             </Item>
           </Form>
           <Button
-            full
+            block
             onPress={() => {
-              navigation.navigate('タスク一覧', {
+              navigation.navigate('TaskList', {
                 task: {
                   id: id,
                   category: category,
@@ -197,9 +196,9 @@ console.log({
                 }
               });
             }}
-            style={{ marginTop: 30 }}
+            style={{ marginTop: 90 }}
           >
-            <Text>この内容で作成する</Text>
+            <Text>作成する</Text>
           </Button>
         </Content>
       </Container>

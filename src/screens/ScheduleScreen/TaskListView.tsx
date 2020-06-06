@@ -32,7 +32,7 @@ export const TaskListView: React.FC = props => {
   // 引数
   const {tasks, navigation} = props;
 
-  const [categories, tasksFormatted] = FormatTasks(tasks);
+  const { categories, tasksFormatted } = FormatTasks(tasks);
 
   // リスト1つのJSXを取得
   const getTaskList = (item, index) => {
@@ -49,7 +49,7 @@ export const TaskListView: React.FC = props => {
               <Icon 
                 name="ios-create" 
                 style={{color: 'tomato'}}
-                onPress={() => navigation.navigate('編集', {values: item })}
+                onPress={() => navigation.navigate('EditTask', {values: item })}
               />
             </Button>
           </Right>

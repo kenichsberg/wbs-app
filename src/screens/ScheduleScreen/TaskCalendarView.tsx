@@ -14,7 +14,7 @@ export const TaskCalendarView: React.FC = props => {
   // 引数
   const {tasks} = props;
 
-  const [categories, tasksFormatted] = FormatTasks(tasks);
+  const { categories, tasksFormatted } = FormatTasks(tasks);
 
   return (
     <GanttChart tasks={tasks} />

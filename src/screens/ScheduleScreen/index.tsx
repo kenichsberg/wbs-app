@@ -68,7 +68,7 @@ export const ScheduleScreen: React.FC = ({ navigation, route }) => {
         position="bottomRight"
         active={false}
         containerStyle={{ }}
-        onPress={() => navigation.navigate('新規作成')}
+        onPress={() => navigation.navigate('CreateTask')}
       >
         <Icon name="ios-add" />
       </Fab>

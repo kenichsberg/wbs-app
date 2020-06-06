@@ -10,14 +10,43 @@
  * ]
  *
  */
-export const FormatTasks: React.FC = tasks => {
+type Tasks = {
+  id: number;
+  category: string;
+  taskName: string;
+  startDatetimePlanned: string;
+  endDatetimePlanned: string;
+  startDatetimeResult: null | string;
+  endDatetimeResult: null | string;
+  selectedDocument: number;
+};
+
+type Props = {
+  tasks: Array<Tasks>;
+  children?: never;
+};
+
+type Categories = {
+  categories: Array<string>;
+};
+
+type TasksFormatted = {
+  [key: string]: Array<Tasks>;
+};
+
+type Formatted = {
+  categories: Array<string>;
+  tasksFormatted: TasksFormatted;
+}
+
+export const FormatTasks = (tasks: Array<Tasks>): Formatted => {
 
   // categoryのセット(の配列)を取得
-  const categories = Array.from(new Set(tasks.map(task => task.category)));
+  const categories: Array<string> = Array.from(new Set(tasks.map(task => task.category)));
 
 
   // キー：category、値：taskの配列 となるオブジェクトを生成
-  let tasksFormatted = {};
+  let tasksFormatted: TasksFormatted = {};
 
   categories.forEach(category => {
     tasksFormatted = {
@@ -26,5 +55,8 @@ export const FormatTasks: React.FC = tasks => {
     }
   });
 
-  return [categories, tasksFormatted];
+  return {
+    categories: categories,
+    tasksFormatted: tasksFormatted
+  };
 }

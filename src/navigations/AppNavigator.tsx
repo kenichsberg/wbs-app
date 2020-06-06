@@ -7,14 +7,20 @@ import { ScheduleScreen } from '/screens/ScheduleScreen';
 import { CreateTaskScreen } from '/screens/CreateTaskScreen';
 import { SettingsScreen } from '/screens/SettingsScreen';
 
-const ScheduleStack = createStackNavigator();
+type ScheduleStackParamList = {
+  TaskList: undefined;
+  CreateTask: undefined;
+  EditTask: undefined;
+};
+
+const ScheduleStack = createStackNavigator<ScheduleStackParamList>();
 
 function ScheduleStackScreen() {
   return (
     <ScheduleStack.Navigator>
-      <ScheduleStack.Screen name="タスク一覧" component={ScheduleScreen} />
-      <ScheduleStack.Screen name="新規作成" component={CreateTaskScreen} />
-      <ScheduleStack.Screen name="編集" component={CreateTaskScreen} />
+      <ScheduleStack.Screen name="TaskList" component={ScheduleScreen} />
+      <ScheduleStack.Screen name="CreateTask" component={CreateTaskScreen} />
+      <ScheduleStack.Screen name="EditTask" component={CreateTaskScreen} />
     </ScheduleStack.Navigator>
   );
 }
