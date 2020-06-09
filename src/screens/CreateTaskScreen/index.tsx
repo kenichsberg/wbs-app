@@ -4,42 +4,59 @@ import { Ionicons } from '@expo/vector-icons';
 import { Container, Header, Content, Text, View, Body, Right, Button, Form, Item, Input, Label, Picker, Icon, DatePicker, List, ListItem } from 'native-base';
 import moment from 'moment'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { CreateTaskProps } from '/navigations/types.tsx';
 
 
-export const CreateTaskScreen: React.FC = ({ navigation, route }) => {
+export type Task = {
+  id: number;
+  category: string;
+  taskName: string;
+  startDatetimePlanned: string;
+  endDatetimePlanned: string;
+  startDatetimeResult: string;
+  endDatetimeResult: string;
+  selectedDocument: number;
+};
+
+type DatePickerVisibilities = {
+  startDatetimePlanned: boolean;
+  endDatetimePlanned: boolean;
+  startDatetimeResult: boolean;
+  endDatetimeResult: boolean;
+};
+
+
+export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route }) => {
   // id
-  const [id, setId] = React.useState(null);
+  const [id, setId] = React.useState<number | null>(null);
   // 分類
-  const [category, setCategory] = React.useState('');
+  const [category, setCategory] = React.useState<string>('');
   // プロセス名
-  const [taskName, setTaskName] = React.useState('');
+  const [taskName, setTaskName] = React.useState<string>('');
 
   // datetime初期値を設定
   const now = new Date;
   now.setMinutes(0);
   // 予定開始日時
-  const [startDatetimePlanned, setStartDatetimePlanned] = React.useState(now);
+  const [startDatetimePlanned, setStartDatetimePlanned] = React.useState<Date>(now);
   // 予定終了日時
-  const [endDatetimePlanned, setEndDatetimePlanned] = React.useState(now);
+  const [endDatetimePlanned, setEndDatetimePlanned] = React.useState<Date>(now);
   // 実績開始日時
-  const [startDatetimeResult, setStartDatetimeResult] = React.useState(null);
+  const [startDatetimeResult, setStartDatetimeResult] = React.useState<Date | null>(null);
   // 実績終了日時
-  const [endDatetimeResult, setEndDatetimeResult] = React.useState(null);
+  const [endDatetimeResult, setEndDatetimeResult] = React.useState<Date | null>(null);
   // 成果物
-  const [selectedDocument, setSelectedDocument] = React.useState('');
+  const [selectedDocument, setSelectedDocument] = React.useState<number | null>(null);
 
 
   // 日時選択モーダル　表示・非表示
-  const [datePickerVisibilities, setDatePickerVisibilities] = React.useState({
+  const [datePickerVisibilities, setDatePickerVisibilities] = React.useState<DatePickerVisibilities>({
     startDatetimePlanned: false,
     endDatetimePlanned: false,
     startDatetimeResult: false,
     endDatetimeResult: false,
   });
 
-
-  //// 引数を受け取る
-  //const action: String = route.params?.action ?? '';
 
   // 引数を受け取った時の処理
   React.useEffect(() => {
@@ -60,12 +77,12 @@ export const CreateTaskScreen: React.FC = ({ navigation, route }) => {
 
 
   // 日時選択モーダルの表示・非表示切り替え
-  const handleDatePicker = (shouldShow, name) => {
+  const handleDatePicker = (shouldShow: boolean, name: string): void => {
     setDatePickerVisibilities({...datePickerVisibilities, [name]: shouldShow});
   };
 
   // 日時選択モーダル　選択時の処理
-  const handleConfirm = (date, name) => {
+  const handleConfirm = (date: Date, name: string): void => {
     const nameToSetStateFunc = new Map([
       ['startDatetimePlanned', setStartDatetimePlanned],
       ['endDatetimePlanned', setEndDatetimePlanned],
@@ -80,7 +97,7 @@ export const CreateTaskScreen: React.FC = ({ navigation, route }) => {
   };
 
   // datetime型入力フィールドを取得
-  const getDatetimeInputField = (value: object, name: string, label: string) => {
+  const getDatetimeInputField = (value: object, name: string, label: string): JSX.Element => {
     return (
       <Item stackedLabel>
         <Label>{label}</Label>
@@ -110,21 +127,20 @@ export const CreateTaskScreen: React.FC = ({ navigation, route }) => {
     );
   }
 
-console.log({
-  create: {
-    [category]: [
-      {
-        category: category,
-        taskName: taskName,
-        startDatetimePlanned: JSON.stringify(startDatetimePlanned),
-        endDatetimePlanned: JSON.stringify(endDatetimePlanned),
-        startDatetimeResult: JSON.stringify(startDatetimeResult),
-        endDatetimeResult: JSON.stringify(endDatetimeResult),
-        selectedDocument: selectedDocument
-      }
-    ]
-  }
-});
+  const task: Task = {
+    id: id,
+    category: category,
+    taskName: taskName,
+    startDatetimePlanned: JSON.stringify(startDatetimePlanned),
+    endDatetimePlanned: JSON.stringify(endDatetimePlanned),
+    startDatetimeResult: startDatetimeResult
+      ? JSON.stringify(startDatetimeResult)
+      : 'null',
+    endDatetimeResult: endDatetimeResult
+      ? JSON.stringify(endDatetimeResult)
+      : 'null',
+    selectedDocument: selectedDocument
+  };
 
   // JSX
   return (
@@ -179,22 +195,7 @@ console.log({
           <Button
             block
             onPress={() => {
-              navigation.navigate('TaskList', {
-                task: {
-                  id: id,
-                  category: category,
-                  taskName: taskName,
-                  startDatetimePlanned: JSON.stringify(startDatetimePlanned),
-                  endDatetimePlanned: JSON.stringify(endDatetimePlanned),
-                  startDatetimeResult: startDatetimeResult
-                    ? JSON.stringify(startDatetimeResult)
-                    : 'null',
-                  endDatetimeResult: endDatetimeResult
-                    ? JSON.stringify(endDatetimeResult)
-                    : 'null',
-                  selectedDocument: selectedDocument
-                }
-              });
+              navigation.navigate('TaskList', { task: task });
             }}
             style={{ marginTop: 90 }}
           >

@@ -3,10 +3,14 @@ import 'react-native-gesture-handler';
 import { Container, Segment, Content, View, Body, Right, Text, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
 import moment from 'moment';
 import { FormatTasks } from '/components/FormatTasks'
+import { TaskListProps } from '/navigations/types.tsx';
+import { Task } from '/screens/CreateTaskScreen';
+
+type Props = TaskListProps & Task;
 
 
 // 日付（期間）の文字列を取得
-const getPeriodString = (jsonDateStart: String, jsonDateEnd: String): String => {
+const getPeriodString = (jsonDateStart: string, jsonDateEnd: string): string => {
   const dateStart = JSON.parse(jsonDateStart);
   const dateEnd = JSON.parse(jsonDateEnd);
 
@@ -28,7 +32,7 @@ const getPeriodString = (jsonDateStart: String, jsonDateEnd: String): String => 
 
 
 
-export const TaskListView: React.FC = props => {
+export const TaskListView: React.FC<Props> = props => {
   // 引数
   const {tasks, navigation} = props;
 

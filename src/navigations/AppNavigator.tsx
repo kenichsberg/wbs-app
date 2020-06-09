@@ -6,12 +6,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { ScheduleScreen } from '/screens/ScheduleScreen';
 import { CreateTaskScreen } from '/screens/CreateTaskScreen';
 import { SettingsScreen } from '/screens/SettingsScreen';
+import { ScheduleStackParamList } from '/navigations/types.tsx';
 
-type ScheduleStackParamList = {
-  TaskList: undefined;
-  CreateTask: undefined;
-  EditTask: undefined;
-};
 
 const ScheduleStack = createStackNavigator<ScheduleStackParamList>();
 
@@ -30,7 +26,7 @@ const SettingsStack = createStackNavigator();
 function SettingsStackScreen() {
   return (
     <SettingsStack.Navigator>
-      <SettingsStack.Screen name="設定" component={SettingsScreen} />
+      <SettingsStack.Screen name="Settings" component={SettingsScreen} />
     </SettingsStack.Navigator>
   );
 }

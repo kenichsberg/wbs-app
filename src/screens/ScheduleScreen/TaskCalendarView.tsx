@@ -7,10 +7,14 @@ import Svg, { Line, Text } from 'react-native-svg';
 import { FormatTasks } from '/components/FormatTasks';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { GanttChart } from '/components/GanttChart';
+import { TaskListProps } from '/navigations/types.tsx';
+import { Task } from '/screens/CreateTaskScreen';
+
+type Props = TaskListProps & Task;
 
 const TopTab = createMaterialTopTabNavigator();
 
-export const TaskCalendarView: React.FC = props => {
+export const TaskCalendarView: React.FC<Props> = props => {
   // 引数
   const {tasks} = props;
 

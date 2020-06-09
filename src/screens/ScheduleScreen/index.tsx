@@ -4,18 +4,23 @@ import { Container, Segment, Content, View, Body, Right, Text, Button, List, Lis
 import moment from 'moment';
 import { TaskListView } from '/screens/ScheduleScreen/TaskListView';
 import { TaskCalendarView } from '/screens/ScheduleScreen/TaskCalendarView';
+import { TaskListProps } from '/navigations/types.tsx';
+import { Task } from '/screens/CreateTaskScreen';
 
+type PartialTask = Partial<Task>;
 
-export const ScheduleScreen: React.FC = ({ navigation, route }) => {
+type ViewType = 'LIST' | 'CALENDAR';
+
+export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) => {
 
   // プロセスオブジェクトを保持するstate
-  const [tasks, setTasks] = React.useState([]);
+  const [tasks, setTasks] = React.useState<Array<PartialTask>>([]);
 
   // ビュー切り替え用state
-  const [viewType, setViewType] = React.useState('LIST');
+  const [viewType, setViewType] = React.useState<ViewType>('LIST');
 
   // 引数を格納する変数
-  let param = {};
+  let param: PartialTask = {};
 
   // 引数を受け取った時の処理
   React.useEffect(() => {

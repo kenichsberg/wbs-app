@@ -1,3 +1,5 @@
+import { Task } from '/screens/CreateTaskScreen';
+
 /** 
  *
  * タスクリストのJSX構築のため、
@@ -10,19 +12,8 @@
  * ]
  *
  */
-type Tasks = {
-  id: number;
-  category: string;
-  taskName: string;
-  startDatetimePlanned: string;
-  endDatetimePlanned: string;
-  startDatetimeResult: null | string;
-  endDatetimeResult: null | string;
-  selectedDocument: number;
-};
-
 type Props = {
-  tasks: Array<Tasks>;
+  tasks: Array<Task>;
   children?: never;
 };
 
@@ -31,7 +22,7 @@ type Categories = {
 };
 
 type TasksFormatted = {
-  [key: string]: Array<Tasks>;
+  [key: string]: Array<Task>;
 };
 
 type Formatted = {
@@ -39,7 +30,7 @@ type Formatted = {
   tasksFormatted: TasksFormatted;
 }
 
-export const FormatTasks = (tasks: Array<Tasks>): Formatted => {
+export const FormatTasks = (tasks: Array<Task>): Formatted => {
 
   // categoryのセット(の配列)を取得
   const categories: Array<string> = Array.from(new Set(tasks.map(task => task.category)));
