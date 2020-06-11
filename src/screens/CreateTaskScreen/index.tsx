@@ -2,10 +2,10 @@ import * as React from 'react';
 import 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import { Container, Header, Content, Text, View, Body, Right, Button, Form, Item, Input, Label, Picker, Icon, DatePicker, List, ListItem } from 'native-base';
-import moment = require('moment');
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { CreateTaskProps } from '/navigations/types.tsx';
 
+let moment = require('moment');
 
 export type Task = {
   id: number;
