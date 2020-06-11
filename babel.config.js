@@ -3,31 +3,7 @@ module.exports = function(api) {
   return {
     presets: [
       ['babel-preset-expo'], 
-      [
-        '@babel/preset-env',
-        {
-          targets: {
-            node: 'current'
-          }
-        }
-      ],
-      ['@babel/preset-react'], 
-      ['@babel/preset-typescript']
     ],
-    env: {
-      test: {
-        presets: [
-          [
-            '@babel/preset-env',
-            {
-              targets: {
-                modules: 'commonjs'
-              }
-            }
-          ]
-        ],
-      },
-    },
     plugins: [
       [
         'module-resolver',
@@ -43,13 +19,8 @@ module.exports = function(api) {
             '.jsx',
             '.js',
             '.json'
-          ],
-          alias: {
-            '@components': './src/components',
-            '@Screens': './src/Screens'
-          }
-        },
-        'transform-export-extensions'
+          ]
+        }
       ]
     ]
   };
