@@ -2,7 +2,7 @@ import * as React from 'react';
 import 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import { Container, Header, Content, Text, View, Body, Right, Button, Form, Item, Input, Label, Picker, Icon, DatePicker, List, ListItem } from 'native-base';
-import moment from 'moment'
+import moment = require('moment');
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { CreateTaskProps } from '/navigations/types.tsx';
 
@@ -113,7 +113,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
         />
         <ListItem onPress={() => handleDatePicker(true, name)} >
           <Text>
-            {moment(value).format('YYYY年MM月DD日 HH:mm')}
+            { moment(value).format('YYYY年MM月DD日 HH:mm') }
           </Text>
           <Button 
             small

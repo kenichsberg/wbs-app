@@ -45,7 +45,9 @@ describe('CreateTaskScreen', () => {
   let wrapper: ShallowWrapper;
   let props: any;
   beforeEach(() => {
-    props = createTestProps({});
+    props = createTestProps({
+      route: {}
+    });
     wrapper = shallow(<CreateTaskScreen {...props} />);
   });
 
