@@ -53,7 +53,7 @@ export const TaskListView: React.FC<Props> = props => {
               <Icon 
                 name="ios-create" 
                 style={{color: 'tomato'}}
-                onPress={() => navigation.navigate('EditTask', {values: item })}
+                onPress={() => navigation.navigate('EditTask', {task: item })}
               />
             </Button>
           </Right>

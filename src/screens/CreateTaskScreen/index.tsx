@@ -60,8 +60,8 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
 
   // 引数を受け取った時の処理
   React.useEffect(() => {
-    if (route.params?.values) {
-      const values = route.params.values;
+    if (route.params?.task) {
+      const values = route.params.task;
 
       setId(values.id);
       setCategory(values.category);
@@ -73,7 +73,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
       setSelectedDocument(values.selectedDocument);
 
     }
-  }, [route.params?.values]);
+  }, [route.params?.task]);
 
 
   // 日時選択モーダルの表示・非表示切り替え
@@ -97,7 +97,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   };
 
   // datetime型入力フィールドを取得
-  const getDatetimeInputField = (value: object, name: string, label: string): JSX.Element => {
+  const getDatetimeInputField = (value: Date, name: string, label: string): JSX.Element => {
     return (
       <Item stackedLabel>
         <Label>{label}</Label>
@@ -165,10 +165,10 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
 
             {getDatetimeInputField(startDatetimePlanned, 'startDatetimePlanned', '予定開始日時')}
             {getDatetimeInputField(endDatetimePlanned, 'endDatetimePlanned', '予定終了日時')}
-            {route.params?.values == null
+            {route.params?.task == null
                 ? null
                 : getDatetimeInputField(startDatetimeResult, 'startDatetimeResult', '実績開始日時')}
-            {route.params?.values == null
+            {route.params?.task == null
                 ? null
                 : getDatetimeInputField(endDatetimeResult, 'endDatetimeResult', '実績終了日時')}
 
@@ -193,11 +193,12 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
             </Item>
           </Form>
           <Button
+            data-test="create-button"
             block
             onPress={() => {
               navigation.navigate('TaskList', { task: task });
             }}
-            style={{ marginTop: 90 }}
+            style={{ marginTop: 60 }}
           >
             <Text>作成する</Text>
           </Button>

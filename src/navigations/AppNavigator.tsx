@@ -7,11 +7,12 @@ import { ScheduleScreen } from '/screens/ScheduleScreen';
 import { CreateTaskScreen } from '/screens/CreateTaskScreen';
 import { SettingsScreen } from '/screens/SettingsScreen';
 import { ScheduleStackParamList } from '/navigations/types.tsx';
+import { SettingsStackParamList } from '/navigations/types.tsx';
 
 
 const ScheduleStack = createStackNavigator<ScheduleStackParamList>();
 
-function ScheduleStackScreen() {
+const ScheduleStackScreen: React.FC = () => {
   return (
     <ScheduleStack.Navigator>
       <ScheduleStack.Screen name="TaskList" component={ScheduleScreen} />
@@ -21,9 +22,9 @@ function ScheduleStackScreen() {
   );
 }
 
-const SettingsStack = createStackNavigator();
+const SettingsStack = createStackNavigator<SettingsStackParamList>();
 
-function SettingsStackScreen() {
+const SettingsStackScreen: React.FC = () => {
   return (
     <SettingsStack.Navigator>
       <SettingsStack.Screen name="Settings" component={SettingsScreen} />

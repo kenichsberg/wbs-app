@@ -1,10 +1,5 @@
-//import 'react-native';
-//import 'jest-enzyme';
-//import Enzyme, { shallow } from 'enzyme';
-//import EnzymeAdapter from 'enzyme-adapter-react-16';
 import { FormatTasks } from './index'
 
-//Enzyme.configure( { adapter: new EnzymeAdapter() });
 
 const task1 = {
   id: 0,

@@ -12,15 +12,6 @@ import { Task } from '/screens/CreateTaskScreen';
  * ]
  *
  */
-type Props = {
-  tasks: Array<Task>;
-  children?: never;
-};
-
-type Categories = {
-  categories: Array<string>;
-};
-
 type TasksFormatted = {
   [key: string]: Array<Task>;
 };
