@@ -117,10 +117,11 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
           </Text>
           <Button 
             small
+            primary
             transparent
             onPress={() => handleDatePicker(true, name)}
           >
-            <Text small primary>変更する</Text>
+            <Text>変更する</Text>
           </Button>
         </ListItem>
       </Item>
