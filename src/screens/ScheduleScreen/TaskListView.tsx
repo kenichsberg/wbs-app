@@ -4,9 +4,12 @@ import { Container, Segment, Content, View, Body, Right, Text, Button, List, Lis
 import moment from 'moment';
 import { FormatTasks } from '/components/FormatTasks'
 import { TaskListProps } from '/navigations/types.tsx';
-import { Task } from '/screens/CreateTaskScreen';
+import { PartialTask } from './index';
 
-type Props = TaskListProps & Task;
+type Props = Partial<TaskListProps> 
+  & {
+    tasks: Array<PartialTask>;
+  };
 
 
 // 日付（期間）の文字列を取得
@@ -32,9 +35,7 @@ const getPeriodString = (jsonDateStart: string, jsonDateEnd: string): string => 
 
 
 
-export const TaskListView: React.FC<Props> = props => {
-  // 引数
-  const {tasks, navigation} = props;
+export const TaskListView: React.FC<Props> = ({ navigation, tasks }) => {
 
   const { categories, tasksFormatted } = FormatTasks(tasks);
 

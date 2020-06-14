@@ -7,7 +7,7 @@ import { TaskCalendarView } from '/screens/ScheduleScreen/TaskCalendarView';
 import { TaskListProps } from '/navigations/types.tsx';
 import { Task } from '/screens/CreateTaskScreen';
 
-type PartialTask = Partial<Task>;
+export type PartialTask = Partial<Task>;
 
 type ViewType = 'LIST' | 'CALENDAR';
 
