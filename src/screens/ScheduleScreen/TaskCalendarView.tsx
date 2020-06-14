@@ -11,17 +11,12 @@ import { TaskListProps } from '/navigations/types.tsx';
 import { Task } from '/screens/CreateTaskScreen';
 import { PartialTask } from './index';
 
-/*
-type Props = Partial<TaskListProps> 
-  & {
-    tasks: Array<PartialTask>;
-  };
- */
 type Props = {
   tasks: Array<PartialTask>;
 };
 
 const TopTab = createMaterialTopTabNavigator();
+
 
 export const TaskCalendarView: React.FC<Props> = ({ tasks }) => {
 
