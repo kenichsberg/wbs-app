@@ -2,7 +2,7 @@ import * as React from 'react';
 import 'react-native';
 import 'jest-enzyme';
 import { shallow, ShallowWrapper } from 'enzyme';
-import renderer from 'react-test-renderer';
+import * as renderer from 'react-test-renderer';
 
 import { CreateTaskScreen } from './index'
 import { CreateTaskProps, ScheduleStackParamList } from '/navigations/types.tsx';
@@ -68,7 +68,12 @@ describe('CreateTaskScreen', () => {
 
   it("should navigate to ScheduleScreen", () => {
     const navigate = jest.spyOn(props.navigation, 'navigate');
-    wrapper.find('[data-test="create-button"]').simulate('click');
-    expect(navigate).toBeCalledWith('TaskList');
+
+    const simulateClick = async () => {
+      await wrapper.find('[data-test="create-button"]').simulate('click');
+      expect(navigate).toBeCalledWith('TaskList');
+    };
+
+    simulateClick();
   });
 });
