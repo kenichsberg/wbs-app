@@ -6,12 +6,6 @@ import { PartialTask } from '/screens/ScheduleScreen';
  * タスクリストのJSX構築のため、
  * キー：category、値：taskの配列 となるオブジェクトを生成する。
  *
- * @param tasks = [task1, task2, ...]
- * @return [
- *    categories ： categoryの配列,
- *    tasksFormatted = {[category1]: [taskA, ...], [category2]: [taskX, ...], ...}
- * ]
- *
  */
 type TasksFormatted = {
   [key: string]: Array<PartialTask>;

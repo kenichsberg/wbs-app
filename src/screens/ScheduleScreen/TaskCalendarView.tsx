@@ -9,14 +9,21 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { GanttChart } from '/components/GanttChart';
 import { TaskListProps } from '/navigations/types.tsx';
 import { Task } from '/screens/CreateTaskScreen';
+import { PartialTask } from './index';
 
-type Props = TaskListProps & Task;
+/*
+type Props = Partial<TaskListProps> 
+  & {
+    tasks: Array<PartialTask>;
+  };
+ */
+type Props = {
+  tasks: Array<PartialTask>;
+};
 
 const TopTab = createMaterialTopTabNavigator();
 
-export const TaskCalendarView: React.FC<Props> = props => {
-  // 引数
-  const {tasks} = props;
+export const TaskCalendarView: React.FC<Props> = ({ tasks }) => {
 
   const { categories, tasksFormatted } = FormatTasks(tasks);
 
