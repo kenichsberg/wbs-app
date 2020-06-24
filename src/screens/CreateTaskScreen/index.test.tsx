@@ -3,6 +3,7 @@ import 'react-native';
 import 'jest-enzyme';
 import { shallow, ShallowWrapper } from 'enzyme';
 import * as renderer from 'react-test-renderer';
+import MockDate from 'mockdate';
 
 import { CreateTaskScreen } from './index'
 import { CreateTaskProps, ScheduleStackParamList } from '/navigations/types.tsx';
@@ -20,6 +21,19 @@ type Props = {
   route: CrateTaskScreenRouteProp;
   navigation: CreateTaskNavigationProp;
 };
+
+/*
+type DateComponents = [number, number, number, number, number, number, number] 
+  | [number, number, number, number, number, number] 
+  | [number, number, number, number, number] 
+  | [number, number, number, number] 
+  | [number, number, number] 
+  | [number, number]
+  | [string];
+ */
+/*
+  | [];
+ */
 
 
 const createTestProps = (props: Object) => ({
@@ -42,6 +56,50 @@ const task = {
 
 
 describe('CreateTaskScreen', () => {
+  let now: Date;
+  let spiedDate: any;
+  
+  beforeAll(() => {
+    /*
+    const OriginalDate = Date; // 退避
+    now = new OriginalDate('2020-6-14 14:00:00');
+
+    // Date.now() と new Date() のみmocking
+    //Date.now = jest.fn(() => Date.parse('2020/6/14 14:00:00'));
+    spiedDate = jest.spyOn(global, 'Date').mockImplementation(
+      (...arg: DateComponents | []): any => {
+        if (arg.length === 0) return now;
+        if (arg.length > 7) return;
+
+        return new OriginalDate(...arg);
+
+        /*
+        if (arg.length === 0) return now;
+        
+        if (arg.length === 1) return new OriginalDate(arg[0]);
+
+        if (arg.length === 2) return new OriginalDate(arg[0], arg[1]);
+
+        if (arg.length === 3) return new OriginalDate(arg[0], arg[1], arg[2]);
+
+        if (arg.length === 4) return new OriginalDate(arg[0], arg[1], arg[2], arg[3]);
+
+        if (arg.length === 5) return new OriginalDate(arg[0], arg[1], arg[2], arg[3], arg[4]);
+
+        if (arg.length === 6) return new OriginalDate(arg[0], arg[1], arg[2], arg[3], arg[4], arg[5]);
+
+        if (arg.length === 7) return new OriginalDate(arg[0], arg[1], arg[2], arg[3], arg[4], arg[5], arg[6]);
+         */
+    /*
+      }
+    );
+    Date.now = jest.fn().mockReturnValue(now.valueOf());
+    console.log(new Date());
+     */
+    MockDate.set('2020/6/14 14:00:00');
+  });
+
+
   let wrapper: ShallowWrapper;
   let props: any;
   beforeEach(() => {
@@ -51,10 +109,22 @@ describe('CreateTaskScreen', () => {
     wrapper = shallow(<CreateTaskScreen {...props} />);
   });
 
+
+  afterAll(() => {
+    //spiedDate.mockRestore();
+    MockDate.reset();
+  });
+
+
+
   it("should render correctly without params", () => {
+    console.log(Date.now);
+    console.log(Date.now());
+
     const tree = renderer.create(<CreateTaskScreen {...props}  />).toJSON();
     expect(tree).toMatchSnapshot();
   });
+
 
   it("should render correctly with params", () => {
     props = createTestProps({
@@ -65,6 +135,7 @@ describe('CreateTaskScreen', () => {
     const tree = renderer.create(<CreateTaskScreen {...props}  />).toJSON();
     expect(tree).toMatchSnapshot();
   });
+
 
   it("should navigate to ScheduleScreen", () => {
     const navigate = jest.spyOn(props.navigation, 'navigate');

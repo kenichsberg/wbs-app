@@ -5,7 +5,7 @@ import { Container, Header, Content, Text, View, Body, Right, Button, Form, Item
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { CreateTaskProps } from '/navigations/types.tsx';
 
-let moment = require('moment');
+const moment = require('moment');
 
 export type Task = {
   id: number;
@@ -35,7 +35,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   const [taskName, setTaskName] = React.useState<string>('');
 
   // datetime初期値を設定
-  const now = new Date;
+  const now = new Date();
   now.setMinutes(0);
   // 予定開始日時
   const [startDatetimePlanned, setStartDatetimePlanned] = React.useState<Date>(now);
@@ -78,7 +78,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
 
   // 日時選択モーダルの表示・非表示切り替え
   const handleDatePicker = (shouldShow: boolean, name: string): void => {
-    setDatePickerVisibilities({...datePickerVisibilities, [name]: shouldShow});
+    setDatePickerVisibilities({ ...datePickerVisibilities, [name]: shouldShow });
   };
 
   // 日時選択モーダル　選択時の処理
