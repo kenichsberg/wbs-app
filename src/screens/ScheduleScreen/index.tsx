@@ -36,11 +36,23 @@ export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) =
     }
   }, [route.params?.task]);
 
+  /*
   // リストビュー
   const taskList = <TaskListView tasks={tasks} navigation={navigation} />;
 
   // カレンダービュー
   const calendar = <TaskCalendarView tasks={tasks} />;
+   */
+
+  let view: JSX.Element; 
+  switch (viewType) {
+    case 'LIST':
+      view = <TaskListView tasks={tasks} navigation={navigation} />;
+    case 'CALENDAR':
+      view = <TaskCalendarView tasks={tasks} />;
+    default:
+      view = <Text>error</Text>;
+  }
 
   // JSX
   return (
@@ -63,9 +75,12 @@ export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) =
       </Segment>
       <Content>
         { 
+          /*
           viewType === 'LIST'
             ? taskList 
             : calendar
+           */
+          view
         }
       </Content>
 
