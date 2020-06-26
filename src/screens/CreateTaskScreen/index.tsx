@@ -61,15 +61,25 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   // 引数を受け取った時の処理
   React.useEffect(() => {
     if (route.params?.task) {
-      const values = route.params.task;
+      const values: Task = route.params.task;
+      console.log(values);
 
       setId(values.id);
       setCategory(values.category);
       setTaskName(values.taskName);
       setStartDatetimePlanned(new Date(JSON.parse(values.startDatetimePlanned)));
       setEndDatetimePlanned(new Date(JSON.parse(values.endDatetimePlanned)));
-      setStartDatetimeResult(new Date(JSON.parse(values.startDatetimeResult)));
-      setEndDatetimeResult(new Date(JSON.parse(values.endDatetimeResult)));
+
+      const startDatetimeResult = JSON.parse(values.startDatetimeResult) == null
+        ? now
+        : new Date(JSON.parse(values.startDatetimeResult));
+      setStartDatetimeResult(startDatetimeResult);
+
+      const endDatetimeResult = JSON.parse(values.endDatetimeResult) == null
+        ? now
+        : new Date(JSON.parse(values.endDatetimeResult));
+      setEndDatetimeResult(endDatetimeResult);
+
       setSelectedDocument(values.selectedDocument);
 
     }
@@ -81,15 +91,16 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
     setDatePickerVisibilities({ ...datePickerVisibilities, [name]: shouldShow });
   };
 
+  // map of name -> setState()
+  const nameToSetStateFunc = new Map([
+    ['startDatetimePlanned', setStartDatetimePlanned],
+    ['endDatetimePlanned', setEndDatetimePlanned],
+    ['startDatetimeResult', setStartDatetimeResult],
+    ['endDatetimeResult', setEndDatetimeResult]
+  ]);
+
   // 日時選択モーダル　選択時の処理
   const handleConfirm = (date: Date, name: string): void => {
-    const nameToSetStateFunc = new Map([
-      ['startDatetimePlanned', setStartDatetimePlanned],
-      ['endDatetimePlanned', setEndDatetimePlanned],
-      ['startDatetimeResult', setStartDatetimeResult],
-      ['endDatetimeResult', setEndDatetimeResult]
-    ]);
-
     const func = nameToSetStateFunc.get(name);
     func(date);
 
@@ -102,7 +113,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
       <Item stackedLabel>
         <Label>{label}</Label>
         <DateTimePickerModal
-          isVisible={datePickerVisibilities[name]}
+          isVisible={ datePickerVisibilities[name] }
           mode="datetime"
           date={value}
           onConfirm={event => handleConfirm(event, name)}

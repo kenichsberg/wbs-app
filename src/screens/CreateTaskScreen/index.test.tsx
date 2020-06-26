@@ -6,10 +6,11 @@ import * as renderer from 'react-test-renderer';
 import MockDate from 'mockdate';
 
 import { CreateTaskScreen } from './index'
-import { CreateTaskProps, ScheduleStackParamList } from '/navigations/types.tsx';
-import { StackNavigationProp } from '@react-navigation/stack';
+//import { CreateTaskProps, ScheduleStackParamList } from '/navigations/types.tsx';
+//import { StackNavigationProp } from '@react-navigation/stack';
 
 
+/*
 type CrateTaskScreenRouteProp = StackNavigationProp<ScheduleStackParamList, 'CreateTask'>;
 
 type CreateTaskNavigationProp = StackNavigationProp<
@@ -21,6 +22,7 @@ type Props = {
   route: CrateTaskScreenRouteProp;
   navigation: CreateTaskNavigationProp;
 };
+ */
 
 /*
 type DateComponents = [number, number, number, number, number, number, number] 
@@ -68,12 +70,11 @@ describe('CreateTaskScreen', () => {
     //Date.now = jest.fn(() => Date.parse('2020/6/14 14:00:00'));
     spiedDate = jest.spyOn(global, 'Date').mockImplementation(
       (...arg: DateComponents | []): any => {
-        if (arg.length === 0) return now;
-        if (arg.length > 7) return;
+        //if (arg.length === 0) return now;
+        //if (arg.length > 7) return;
 
-        return new OriginalDate(...arg);
+        //return new OriginalDate(...arg);
 
-        /*
         if (arg.length === 0) return now;
         
         if (arg.length === 1) return new OriginalDate(arg[0]);
@@ -89,8 +90,6 @@ describe('CreateTaskScreen', () => {
         if (arg.length === 6) return new OriginalDate(arg[0], arg[1], arg[2], arg[3], arg[4], arg[5]);
 
         if (arg.length === 7) return new OriginalDate(arg[0], arg[1], arg[2], arg[3], arg[4], arg[5], arg[6]);
-         */
-    /*
       }
     );
     Date.now = jest.fn().mockReturnValue(now.valueOf());
