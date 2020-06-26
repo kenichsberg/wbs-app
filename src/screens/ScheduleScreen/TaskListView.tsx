@@ -50,7 +50,7 @@ export const TaskListView: React.FC<Props> = ({ navigation, tasks }) => {
             <Text note>成果物: {item.selectedDocument}</Text>
           </Body>
           <Right>
-            <Button transparent>
+            <Button transparent data-test="edit-button">
               <Icon 
                 name="ios-create" 
                 style={{color: 'tomato'}}
