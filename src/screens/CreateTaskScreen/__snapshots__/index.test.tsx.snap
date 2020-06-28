@@ -259,8 +259,6 @@ exports[`CreateTaskScreen should render correctly with params 1`] = `
           <Modal
             animationType="none"
             hardwareAccelerated={false}
-            isVisible={false}
-            onHide={[Function]}
             transparent={true}
             visible={false}
           >
@@ -438,8 +436,6 @@ exports[`CreateTaskScreen should render correctly with params 1`] = `
           <Modal
             animationType="none"
             hardwareAccelerated={false}
-            isVisible={false}
-            onHide={[Function]}
             transparent={true}
             visible={false}
           >
@@ -1685,8 +1681,6 @@ exports[`CreateTaskScreen should render correctly without params 1`] = `
           <Modal
             animationType="none"
             hardwareAccelerated={false}
-            isVisible={false}
-            onHide={[Function]}
             transparent={true}
             visible={false}
           >
@@ -1864,8 +1858,6 @@ exports[`CreateTaskScreen should render correctly without params 1`] = `
           <Modal
             animationType="none"
             hardwareAccelerated={false}
-            isVisible={false}
-            onHide={[Function]}
             transparent={true}
             visible={false}
           >
