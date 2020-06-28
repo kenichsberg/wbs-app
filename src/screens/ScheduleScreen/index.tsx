@@ -36,14 +36,8 @@ export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) =
     }
   }, [route.params?.task]);
 
-  /*
-  // リストビュー
-  const taskList = <TaskListView tasks={tasks} navigation={navigation} />;
 
-  // カレンダービュー
-  const calendar = <TaskCalendarView tasks={tasks} />;
-   */
-
+  // ビューの切り替え
   let view: JSX.Element; 
   switch (viewType) {
     case 'LIST':
@@ -78,14 +72,7 @@ export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) =
         </Button>
       </Segment>
       <Content>
-        { 
-          /*
-          viewType === 'LIST'
-            ? taskList 
-            : calendar
-           */
-          view
-        }
+        { view }
       </Content>
 
       <Fab 
