@@ -58,8 +58,8 @@ const task = {
 
 
 describe('CreateTaskScreen', () => {
-  let now: Date;
-  let spiedDate: any;
+  //let now: Date;
+  //let spiedDate: any;
   
   beforeAll(() => {
     /*
@@ -117,9 +117,6 @@ describe('CreateTaskScreen', () => {
 
 
   it("should render correctly without params", () => {
-    console.log(Date.now);
-    console.log(Date.now());
-
     const tree = renderer.create(<CreateTaskScreen {...props}  />).toJSON();
     expect(tree).toMatchSnapshot();
   });
