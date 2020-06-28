@@ -1,8 +1,8 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
 import { Container, Segment, Content, View, Body, Right, Text, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
-import moment from 'moment';
-import { FormatTasks } from '/components/FormatTasks'
+//import moment from 'moment';
+import { FormatTasks } from '/components/FormatTasks/';
 import { TaskListProps } from '/navigations/types.tsx';
 import { PartialTask } from './index';
 
@@ -11,6 +11,7 @@ type Props = Partial<TaskListProps>
     tasks: Array<PartialTask>;
   };
 
+const moment = require('moment');
 
 // 日付（期間）の文字列を取得
 const getPeriodString = (jsonDateStart: string, jsonDateEnd: string): string => {
