@@ -62,7 +62,6 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   React.useEffect(() => {
     if (route.params?.task) {
       const values: Task = route.params.task;
-      console.log(values);
 
       setId(values.id);
       setCategory(values.category);
