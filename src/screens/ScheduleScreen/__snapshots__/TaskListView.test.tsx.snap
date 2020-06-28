@@ -1,0 +1,400 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScheduleScreen should render correctly with params 1`] = `
+<View
+  style={Object {}}
+>
+  <View
+    bordered={true}
+    style={
+      Object {
+        "backgroundColor": "#F0EFF5",
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9",
+        "borderTopWidth": 0.5,
+        "flex": 1,
+        "height": 35,
+        "justifyContent": "center",
+        "paddingBottom": 10,
+        "paddingLeft": 15,
+        "paddingTop": 12,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#777",
+          "fontFamily": "System",
+          "fontSize": 12,
+        }
+      }
+      uppercase={false}
+    >
+      開発
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    focusable={false}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={null}
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderBottomWidth": 0.5,
+          "borderColor": "#c9c9c9",
+          "flexDirection": "row",
+          "marginLeft": 16,
+          "paddingBottom": 13,
+          "paddingRight": 16,
+          "paddingTop": 13,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": null,
+            "alignSelf": null,
+            "flex": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "#000",
+              "fontFamily": "System",
+              "fontSize": 16,
+              "marginLeft": 10,
+              "marginRight": 10,
+            }
+          }
+          uppercase={false}
+        >
+          Hello World
+        </Text>
+        <Text
+          note={true}
+          style={
+            Object {
+              "color": "#808080",
+              "fontFamily": "System",
+              "fontSize": 14,
+              "fontWeight": "200",
+              "marginLeft": 10,
+              "marginRight": 10,
+            }
+          }
+          uppercase={false}
+        >
+          予定：
+          2020年06月28日 17:00 〜 2020年06月29日 17:00
+        </Text>
+        <Text
+          note={true}
+          style={
+            Object {
+              "color": "#808080",
+              "fontFamily": "System",
+              "fontSize": 14,
+              "fontWeight": "200",
+              "marginLeft": 10,
+              "marginRight": 10,
+            }
+          }
+          uppercase={false}
+        >
+          実績：
+          未入力
+        </Text>
+        <Text
+          note={true}
+          style={
+            Object {
+              "color": "#808080",
+              "fontFamily": "System",
+              "fontSize": 14,
+              "fontWeight": "200",
+              "marginLeft": 10,
+              "marginRight": 10,
+            }
+          }
+          uppercase={false}
+        >
+          成果物: 
+          4
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "alignSelf": "center",
+            "flex": 0.28,
+            "paddingBottom": null,
+            "paddingLeft": null,
+            "paddingRight": null,
+            "paddingTop": null,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          focusable={false}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": null,
+              "backgroundColor": "transparent",
+              "borderBottomWidth": null,
+              "borderColor": "#007aff",
+              "borderLeftWidth": null,
+              "borderRadius": 5,
+              "borderRightWidth": null,
+              "borderTopWidth": null,
+              "borderWidth": undefined,
+              "elevation": 0,
+              "flexDirection": "row",
+              "height": 45,
+              "justifyContent": "space-between",
+              "opacity": 1,
+              "paddingBottom": 6,
+              "paddingTop": 6,
+              "shadowColor": null,
+              "shadowOffset": null,
+              "shadowOpacity": null,
+              "shadowRadius": null,
+            }
+          }
+        >
+          <Text />
+        </View>
+      </View>
+    </View>
+  </View>
+  <View
+    accessible={true}
+    focusable={false}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={null}
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "borderBottomWidth": 0.5,
+          "borderColor": "#c9c9c9",
+          "flexDirection": "row",
+          "marginLeft": 16,
+          "paddingBottom": 13,
+          "paddingRight": 16,
+          "paddingTop": 13,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": null,
+            "alignSelf": null,
+            "flex": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "#000",
+              "fontFamily": "System",
+              "fontSize": 16,
+              "marginLeft": 10,
+              "marginRight": 10,
+            }
+          }
+          uppercase={false}
+        >
+          ログイン機能開発
+        </Text>
+        <Text
+          note={true}
+          style={
+            Object {
+              "color": "#808080",
+              "fontFamily": "System",
+              "fontSize": 14,
+              "fontWeight": "200",
+              "marginLeft": 10,
+              "marginRight": 10,
+            }
+          }
+          uppercase={false}
+        >
+          予定：
+          2020年06月29日 17:00 〜 2020年06月30日 17:00
+        </Text>
+        <Text
+          note={true}
+          style={
+            Object {
+              "color": "#808080",
+              "fontFamily": "System",
+              "fontSize": 14,
+              "fontWeight": "200",
+              "marginLeft": 10,
+              "marginRight": 10,
+            }
+          }
+          uppercase={false}
+        >
+          実績：
+          未入力
+        </Text>
+        <Text
+          note={true}
+          style={
+            Object {
+              "color": "#808080",
+              "fontFamily": "System",
+              "fontSize": 14,
+              "fontWeight": "200",
+              "marginLeft": 10,
+              "marginRight": 10,
+            }
+          }
+          uppercase={false}
+        >
+          成果物: 
+          4
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "alignSelf": "center",
+            "flex": 0.28,
+            "paddingBottom": null,
+            "paddingLeft": null,
+            "paddingRight": null,
+            "paddingTop": null,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          focusable={false}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": null,
+              "backgroundColor": "transparent",
+              "borderBottomWidth": null,
+              "borderColor": "#007aff",
+              "borderLeftWidth": null,
+              "borderRadius": 5,
+              "borderRightWidth": null,
+              "borderTopWidth": null,
+              "borderWidth": undefined,
+              "elevation": 0,
+              "flexDirection": "row",
+              "height": 45,
+              "justifyContent": "space-between",
+              "opacity": 1,
+              "paddingBottom": 6,
+              "paddingTop": 6,
+              "shadowColor": null,
+              "shadowOffset": null,
+              "shadowOpacity": null,
+              "shadowRadius": null,
+            }
+          }
+        >
+          <Text />
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`ScheduleScreen should render correctly without params 1`] = `
+<View
+  accessible={true}
+  focusable={false}
+  isTVSelectable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={null}
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "transparent",
+        "borderBottomWidth": 0.5,
+        "borderColor": "#c9c9c9",
+        "flexDirection": "row",
+        "marginLeft": 16,
+        "paddingBottom": 13,
+        "paddingRight": 16,
+        "paddingTop": 13,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "alignSelf": "center",
+          "color": "#000",
+          "fontFamily": "System",
+          "fontSize": 16,
+        }
+      }
+      uppercase={false}
+    >
+      タスクを追加してください
+    </Text>
+  </View>
+</View>
+`;
