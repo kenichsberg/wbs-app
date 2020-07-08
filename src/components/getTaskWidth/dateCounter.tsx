@@ -3,22 +3,22 @@ import * as consts from '/components/GanttChart/consts';
 
 const moment = require('moment');
 
-export const getMostLeftDate = (dates: Array<Date>): Date => {
-  const leftDate = moment.min(dates);
-  const leftSunday = leftDate.subtract(leftDate.day(), 'days');
+export const getLeftEndDate = (dates: Array<Date>): Date => {
+  const minDate = moment.min(dates);
+  const leftEndSunday = minDate.subtract(minDate.day(), 'days');
 
-  return leftSunday.toDate();
+  return leftEndSunday.toDate();
 };
 
-export const getMostRightDate = (dates: Array<Date>): Date => {
-  const rightDate = moment.max(dates);
-  const durationToSaturday = 6 - rightDate.day();
-  const rightSaturday = rightDate.add(durationToSaturday, 'days');
+export const getRightEndDate = (dates: Array<Date>): Date => {
+  const maxDate = moment.max(dates);
+  const durationToSaturday = 6 - maxDate.day();
+  const rightEndSaturday = maxDate.add(durationToSaturday, 'days');
 
-  return rightSaturday.toDate();
+  return rightEndSaturday.toDate();
 };
 
-export const getWeeksCount = (startDate: Date, endDate: Date): number => {
+export const getWeekCount = (startDate: Date, endDate: Date): number => {
   const diffWeeks: number = moment(endDate).diff(moment(startDate), 'week');
 
   return diffWeeks + 1;

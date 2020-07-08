@@ -1,4 +1,4 @@
-import { getMostLeftDate, getMostRightDate, getWeeksCount } from './dateCounter';
+import { getLeftEndDate, getRightEndDate, getWeekCount } from './dateCounter';
 import * as consts from '/components/GanttChart/consts';
 
 const moment = require('moment');
@@ -9,8 +9,8 @@ const dates: Array<Date> = [
   moment('2020/7/20')
 ];
 
-const leftSunday = getMostLeftDate(dates);
-const rightSaturday = getMostRightDate(dates);
+const leftSunday = getLeftEndDate(dates);
+const rightSaturday = getRightEndDate(dates);
 
 describe('dateCounter', () => {
   describe('getMostLeftDate method', () => {
@@ -29,7 +29,7 @@ describe('dateCounter', () => {
 
   describe('getDiffWeeks method', () => {
     it('should calculate weeks', () => {
-      const weeks = getWeeksCount(leftSunday, rightSaturday);
+      const weeks = getWeekCount(leftSunday, rightSaturday);
 
       expect(weeks).toBe(3);
     });
