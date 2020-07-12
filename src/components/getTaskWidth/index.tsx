@@ -1,5 +1,8 @@
 import * as React from 'react';
 import * as consts from '/components/GanttChart/consts';
+import { Moment } from 'moment';
+
+const moment = require('moment');
 
 
 // 期間の長さに応じて、画面上のグラフの長さを計算する
@@ -9,33 +12,44 @@ export const getTaskWidth = (diffHour: number): number => {
   return diffDays * consts.DAY_WIDTH;
 };
 
-export const getTermWidth = (startDate: Date, endDate: Date): number => {
-  return getManDayByDates(startDate, endDate) * consts.DAY_WIDTH;
+
+export const getTermWidth = (startDatetime: Date, endDatetime: Date): number => {
+  return getManDayByDates(startDatetime, endDatetime) * consts.DAY_WIDTH;
 };
 
+
 // milliSeconds -> days 換算
-const factor = 1 / (1000 * 60 * 60 * 24);
+//const factor = 1 / (1000 * 60 * 60 * 24);
 
-export const getManDayByDates = (startDate: Date, endDate: Date): number => {
+export const getManDayByDates = (startDatetime: Date, endDatetime: Date): number => {
 
-  const diffDays: number = (endDate.getTime() - startDate.getTime()) * factor;
+  const startDate: Moment = getDateByDatetime(moment(startDatetime));
+  const endDate: Moment = getDateByDatetime(moment(endDatetime));
+  const dayCount: number = endDate.diff(startDate, 'days');
+
+  const isSameDay: boolean = moment(startDatetime, 'YYYY/MM/DD').isSame(moment(endDatetime, 'YYYY/MM/DD'));
   
   let diffWorkingHours: number;
 
-  if (diffDays < 1) {
-    diffWorkingHours = getActualWorkingHours(startDate.getHours(), endDate.getHours());
+  if (isSameDay) {
+    diffWorkingHours = getActualWorkingHours(startDatetime.getHours(), endDatetime.getHours());
 
+    //console.log('diffhour:', diffWorkingHours);
   } else {
-    const workingHoursStartDay: number = getActualWorkingHours(startDate.getHours(), 24);
+    const workingHoursStartDay: number = getActualWorkingHours(startDatetime.getHours(), 24);
 
-    const workingHoursEndDay: number = getActualWorkingHours(0, endDate.getHours());
+    const workingHoursEndDay: number = getActualWorkingHours(0, endDatetime.getHours());
 
-    const diffDaysInt: number = parseInt(String(diffDays));
-
-    diffWorkingHours = workingHoursStartDay + workingHoursEndDay + (diffDaysInt - 1) * 8;
+    diffWorkingHours = workingHoursStartDay + workingHoursEndDay + (dayCount - 1) * 8;
+    //console.log(startDatetime, startDatetime.getHours(), endDatetime, endDatetime.getHours(), 'day:', dayCount, 'hour: ', diffWorkingHours);
   }
 
   return diffWorkingHours / 8;
+};
+
+
+export const getDateByDatetime = (datetime: Moment) => {
+  return moment(datetime.clone().startOf('day').format('LL')).startOf('day');
 };
 
 
@@ -57,6 +71,8 @@ export const getActualWorkingHours = (startHour: number, endHour: number): numbe
   } 
 
   const breakTime = getBreakTime(startHour, endHour);
+
+  console.log('hour2', endHour - startHour - breakTime);
 
   return endHour - startHour - breakTime;
 }
