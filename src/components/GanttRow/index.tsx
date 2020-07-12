@@ -19,8 +19,10 @@ type Props = {
 };
 
 
-const parseJsonToDate = (jsonDateString: string): Date => {
-  return new Date(JSON.parse(jsonDateString));
+//const parseJsonToDate = (jsonDateString: string): Date => {
+const parseJsonToDate = (jsonDateString: string): Moment => {
+  //return new Date(JSON.parse(jsonDateString));
+  return moment(JSON.parse(jsonDateString));
 };
 
 
@@ -35,14 +37,14 @@ export const GanttRow: React.FC<Props> = ({ task, index, leftEndDate }) => {
   const lengthPlanned: number = getTermWidth(startPlanned, endPlanned);
 
   // 予定開始のX座標
-  const xStartPlanned: number = getTermWidth(leftEndDate.toDate(), startPlanned);
+  const xStartPlanned: number = getTermWidth(leftEndDate, startPlanned);
   // 予定終了のX座標
   const xEndPlanned: number = xStartPlanned + lengthPlanned;
 
   // 実績開始のX座標
   const xStartResult: number | null = JSON.parse(task.startDatetimeResult) == null
     ? null
-    : getTermWidth(leftEndDate.toDate(), startResult);
+    : getTermWidth(leftEndDate, startResult);
 
   let lengthResult: number | null;
   let xEndResult: number | null;

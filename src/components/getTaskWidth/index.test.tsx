@@ -26,22 +26,6 @@ describe('getTaskWidth file', () => {
 
       expect(termWidth).toBe(2);
     });
-
-    it('should calculate proper term width when not even', () => {
-      const startDate = new Date('2020-07-01 09:00');
-      const endDate = new Date('2020-07-02 13:00');
-      const termWidth = getTermWidth(startDate, endDate);
-
-      expect(termWidth).toBe(1.5);
-    });
-
-    it('should calculate proper term width when not even 2', () => {
-      const startDate = new Date('2020-07-01 09:00');
-      const endDate = new Date('2020-07-01 13:00');
-      const termWidth = getTermWidth(startDate, endDate);
-
-      expect(termWidth).toBe(0.5);
-    });
   });
    */
   describe('getManDayByDates method', () => {

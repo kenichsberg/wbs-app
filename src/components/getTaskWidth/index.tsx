@@ -13,15 +13,17 @@ export const getTaskWidth = (diffHour: number): number => {
 };
 
 
-export const getTermWidth = (startDatetime: Date, endDatetime: Date): number => {
+export const getTermWidth = (startDatetime: Moment, endDatetime: Moment): number => {
   return getManDayByDates(startDatetime, endDatetime) * consts.DAY_WIDTH;
 };
 
 
+export const getWorkingDates
+
 // milliSeconds -> days 換算
 //const factor = 1 / (1000 * 60 * 60 * 24);
 
-export const getManDayByDates = (startDatetime: Date, endDatetime: Date): number => {
+export const getManDayByDates = (startDatetime: Moment, endDatetime: Moment): number => {
 
   const startDate: Moment = getDateByDatetime(moment(startDatetime));
   const endDate: Moment = getDateByDatetime(moment(endDatetime));
@@ -32,16 +34,16 @@ export const getManDayByDates = (startDatetime: Date, endDatetime: Date): number
   let diffWorkingHours: number;
 
   if (isSameDay) {
-    diffWorkingHours = getActualWorkingHours(startDatetime.getHours(), endDatetime.getHours());
+    diffWorkingHours = getActualWorkingHours(startDatetime.hour(), endDatetime.hour());
 
     //console.log('diffhour:', diffWorkingHours);
   } else {
-    const workingHoursStartDay: number = getActualWorkingHours(startDatetime.getHours(), 24);
+    const workingHoursStartDay: number = getActualWorkingHours(startDatetime.hour(), 24);
 
-    const workingHoursEndDay: number = getActualWorkingHours(0, endDatetime.getHours());
+    const workingHoursEndDay: number = getActualWorkingHours(0, endDatetime.hour());
 
     diffWorkingHours = workingHoursStartDay + workingHoursEndDay + (dayCount - 1) * 8;
-    //console.log(startDatetime, startDatetime.getHours(), endDatetime, endDatetime.getHours(), 'day:', dayCount, 'hour: ', diffWorkingHours);
+    //console.log(startDatetime, startDatetime.hour(), endDatetime, endDatetime.hour(), 'day:', dayCount, 'hour: ', diffWorkingHours);
   }
 
   return diffWorkingHours / 8;
