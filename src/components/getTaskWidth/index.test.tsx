@@ -1,5 +1,10 @@
-import { getTaskWidth, getActualWorkingHours } from './index';
+import { getTaskWidth, getManDayByDates, getActualWorkingHours } from './index';
 import * as consts from '/components/GanttChart/consts';
+
+import { Moment } from 'moment';
+
+const moment = require('moment');
+
 
 const taskLength = 12;
 
@@ -39,6 +44,24 @@ describe('getTaskWidth file', () => {
     });
   });
    */
+  describe('getManDayByDates method', () => {
+    it('other days but less than 24h', () => {
+      const startDatetime = moment('2020/07/13 15:00', 'YYYY/MM/DD hh:mm').toDate();
+      const endDatetime = moment('2020/07/14 10:00', 'YYYY/MM/DD hh:mm').toDate();
+      const ManDay = getManDayByDates(startDatetime, endDatetime);
+
+      expect(ManDay).toBe(0.5);
+    });
+
+    it('more than 2 days', () => {
+      const startDatetime = moment('2020/07/13 15:00', 'YYYY/MM/DD hh:mm').toDate();
+      const endDatetime = moment('2020/07/16 10:00', 'YYYY/MM/DD hh:mm').toDate();
+      const ManDay = getManDayByDates(startDatetime, endDatetime);
+
+      expect(ManDay).toBe(2.5);
+    });
+  });
+
 
   describe('getActualWorkingHours method', () => {
     it('1: end < opening', () => {
