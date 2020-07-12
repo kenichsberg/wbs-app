@@ -1,25 +1,27 @@
 import * as React from 'react';
 import * as consts from '/components/GanttChart/consts';
+import { Moment } from 'moment';
 
 const moment = require('moment');
 
-export const getLeftEndDate = (dates: Array<Date>): Date => {
-  const minDate = moment.min(dates);
-  const leftEndSunday = minDate.subtract(minDate.day(), 'days');
 
-  return leftEndSunday.toDate();
+export const getLeftEndDate = (dates: Array<Moment>): Moment => {
+  const minDate = moment.min(dates);
+  const leftEndSunday = minDate.clone().subtract(minDate.day(), 'days');
+
+  return leftEndSunday.hour(0).minute(0).second(0);
 };
 
-export const getRightEndDate = (dates: Array<Date>): Date => {
+export const getRightEndDate = (dates: Array<Moment>): Moment => {
   const maxDate = moment.max(dates);
   const durationToSaturday = 6 - maxDate.day();
-  const rightEndSaturday = maxDate.add(durationToSaturday, 'days');
+  const rightEndSaturday = maxDate.clone().add(durationToSaturday, 'days');
 
-  return rightEndSaturday.toDate();
+  return rightEndSaturday.hour(23).minute(59).second(59);
 };
 
-export const getWeekCount = (startDate: Date, endDate: Date): number => {
-  const diffWeeks: number = moment(endDate).diff(moment(startDate), 'week');
+export const getWeekCount = (startDate: Moment, endDate: Moment): number => {
+  const diffWeeks: number = endDate.diff(startDate, 'week');
 
   return diffWeeks + 1;
 };
