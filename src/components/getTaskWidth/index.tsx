@@ -13,23 +13,60 @@ export const getTaskWidth = (diffHour: number): number => {
 };
 
 
-export const getTermWidth = (startDatetime: Moment, endDatetime: Moment): number => {
+export const getTermWidth = (startDatetime: Moment, endDatetime: Moment): number | false => {
+
+  if (startDatetime.isAfter(endDatetime)) return false;
+
   return getManDayByDates(startDatetime, endDatetime) * consts.DAY_WIDTH;
 };
 
 
-export const getWorkingDates
+export const getHolidayCount = (startDatetime: Moment, endDatetime: Moment): number => {
+
+  const startDate = getDateByDatetime(startDatetime);
+  const endDate = getDateByDatetime(endDatetime);
+
+  let date: Moment = startDate.clone();
+  let dates: Array<Moment> = [];
+
+  dates.push(date.clone());
+
+  while (!date.isSame(endDate)) {
+    date.add(1, 'day');
+    dates.push(date.clone());
+  } 
+
+  const holidayCount: number = dates
+    .filter(date => date.day() === 0 || date.day() === 6)
+    .length;
+
+  const publicHolidayCount: number = consts.PUBLIC_HOLIDAYS
+    .filter(publicHoliday => publicHoliday.isBetween(startDate, endDate))
+    .length;
+
+  const additionalHolidayCount: number = consts.ADDITIONAL_HOLIDAYS
+    .filter(additionalHoliday => additionalHoliday.isBetween(startDate, endDate))
+    .length;
+
+  const additionalWorkingDayCount: number = consts.ADDITIONAL_WORKING_DAYS
+    .filter(additionalWorkingDay => additionalWorkingDay.isBetween(startDate, endDate))
+    .length;
+
+
+  return holidayCount + publicHolidayCount + additionalHolidayCount - additionalWorkingDayCount;
+};
 
 // milliSeconds -> days 換算
 //const factor = 1 / (1000 * 60 * 60 * 24);
 
 export const getManDayByDates = (startDatetime: Moment, endDatetime: Moment): number => {
 
-  const startDate: Moment = getDateByDatetime(moment(startDatetime));
-  const endDate: Moment = getDateByDatetime(moment(endDatetime));
+  const startDate: Moment = getDateByDatetime(startDatetime);
+  const endDate: Moment = getDateByDatetime(endDatetime);
   const dayCount: number = endDate.diff(startDate, 'days');
 
-  const isSameDay: boolean = moment(startDatetime, 'YYYY/MM/DD').isSame(moment(endDatetime, 'YYYY/MM/DD'));
+  //const isSameDay: boolean = moment(startDatetime, 'YYYY/MM/DD').isSame(moment(endDatetime, 'YYYY/MM/DD'));
+  const isSameDay: boolean = startDate.isSame(endDate);
   
   let diffWorkingHours: number;
 
@@ -51,7 +88,7 @@ export const getManDayByDates = (startDatetime: Moment, endDatetime: Moment): nu
 
 
 export const getDateByDatetime = (datetime: Moment) => {
-  return moment(datetime.clone().startOf('day').format('LL')).startOf('day');
+  return moment(datetime.clone().startOf('day').format('LL'), 'LL').startOf('day');
 };
 
 
@@ -74,7 +111,7 @@ export const getActualWorkingHours = (startHour: number, endHour: number): numbe
 
   const breakTime = getBreakTime(startHour, endHour);
 
-  console.log('hour2', endHour - startHour - breakTime);
+  //console.log('hour2', endHour - startHour - breakTime);
 
   return endHour - startHour - breakTime;
 }
