@@ -1,4 +1,4 @@
-import { getTaskWidth, getManDayByDates, getActualWorkingHours } from './index';
+import { getTaskWidth, getManDayByDates, getActualWorkingHours, getHolidayCount } from './index';
 import * as consts from '/components/GanttChart/consts';
 
 import { Moment } from 'moment';
@@ -28,18 +28,28 @@ describe('getTaskWidth file', () => {
     });
   });
    */
+  describe('getHolidayCount method', () => {
+    it('a week from Sunday to Saturday', () => {
+      const startDate = moment('2020-07-09 10:00:00', 'YYYY-MM-DD hh:mm:ss');
+      const endDate = moment('2020-07-15 15:00:00', 'YYYY-MM-DD hh:mm:ss');
+      const holidayCount = getHolidayCount(startDate, endDate);
+
+      expect(holidayCount).toBe(2);
+    });
+  });
+
   describe('getManDayByDates method', () => {
     it('other days but less than 24h', () => {
-      const startDatetime = moment('2020/07/13 15:00', 'YYYY/MM/DD hh:mm').toDate();
-      const endDatetime = moment('2020/07/14 10:00', 'YYYY/MM/DD hh:mm').toDate();
+      const startDatetime = moment('2020-07-13 15:00:00', 'YYYY-MM-DD hh:mm:ss');
+      const endDatetime = moment('2020-07-14 10:00:00', 'YYYY-MM-DD hh:mm:ss');
       const ManDay = getManDayByDates(startDatetime, endDatetime);
 
       expect(ManDay).toBe(0.5);
     });
 
     it('more than 2 days', () => {
-      const startDatetime = moment('2020/07/13 15:00', 'YYYY/MM/DD hh:mm').toDate();
-      const endDatetime = moment('2020/07/16 10:00', 'YYYY/MM/DD hh:mm').toDate();
+      const startDatetime = moment('2020-07-13 15:00:00', 'YYYY-MM-DD hh:mm:ss');
+      const endDatetime = moment('2020-07-16 10:00:00', 'YYYY-MM-DD hh:mm:ss');
       const ManDay = getManDayByDates(startDatetime, endDatetime);
 
       expect(ManDay).toBe(2.5);
