@@ -1,4 +1,7 @@
 import { Dimensions } from 'react-native';
+import { Moment } from 'moment';
+
+const moment = require('moment');
 
 // 定数
 export const WINDOW_WIDTH: number = Dimensions.get('window').width;
@@ -28,4 +31,22 @@ type Term = {
 }
 export const BREAK_TIMES: Array<Term> = [
   {start: 12, end: 13}
+];
+
+// 祝日
+export const PUBLIC_HOLIDAYS: Array<Moment> = [
+  moment('2020-07-23'),
+  moment('2020-07-24'),
+];
+
+// ユーザー設定の休日
+export const ADDITIONAL_HOLIDAYS: Array<Moment> = [
+  moment('2020-07-22'),
+  moment('2020-07-27'),
+];
+
+// ユーザー設定の営業日
+export const ADDITIONAL_WORKING_DAYS: Array<Moment> = [
+  moment('2020-07-18'),
+  moment('2020-07-19'),
 ];
