@@ -1,4 +1,4 @@
-import { getTaskWidth, getManDayByDates, getActualWorkingHours, getHolidayCount } from './index';
+import { getTaskWidth, getManDays, getActualWorkingHours, getHolidayCount } from './index';
 import * as consts from '/components/GanttChart/consts';
 
 import { Moment } from 'moment';
@@ -6,9 +6,10 @@ import { Moment } from 'moment';
 const moment = require('moment');
 
 
-const taskLength = 12;
+//const taskLength = 12;
 
 describe('getTaskWidth file', () => {
+  /*
   describe('getTaskWidth method', () => {
     it('should calculate proper task width', () => {
       const taskWidth = getTaskWidth(taskLength);
@@ -16,6 +17,7 @@ describe('getTaskWidth file', () => {
       expect(taskWidth).toBe(consts.DAY_WIDTH * 1.5);
     });
   });
+   */
 
   /*
   describe('getTermWidth method', () => {
@@ -28,29 +30,20 @@ describe('getTaskWidth file', () => {
     });
   });
    */
-  describe('getHolidayCount method', () => {
-    it('a week from Sunday to Saturday', () => {
-      const startDate = moment('2020-07-09 10:00:00', 'YYYY-MM-DD hh:mm:ss');
-      const endDate = moment('2020-07-15 15:00:00', 'YYYY-MM-DD hh:mm:ss');
-      const holidayCount = getHolidayCount(startDate, endDate);
 
-      expect(holidayCount).toBe(2);
-    });
-  });
-
-  describe('getManDayByDates method', () => {
+  describe('getManDays method', () => {
     it('other days but less than 24h', () => {
-      const startDatetime = moment('2020-07-13 15:00:00', 'YYYY-MM-DD hh:mm:ss');
-      const endDatetime = moment('2020-07-14 10:00:00', 'YYYY-MM-DD hh:mm:ss');
-      const ManDay = getManDayByDates(startDatetime, endDatetime);
+      const startDatetime = moment('2020-07-13 15:00:00', 'YYYY-MM-DD HH:mm:ss');
+      const endDatetime = moment('2020-07-14 10:00:00', 'YYYY-MM-DD HH:mm:ss');
+      const ManDay = getManDays(startDatetime, endDatetime);
 
       expect(ManDay).toBe(0.5);
     });
 
     it('more than 2 days', () => {
-      const startDatetime = moment('2020-07-13 15:00:00', 'YYYY-MM-DD hh:mm:ss');
-      const endDatetime = moment('2020-07-16 10:00:00', 'YYYY-MM-DD hh:mm:ss');
-      const ManDay = getManDayByDates(startDatetime, endDatetime);
+      const startDatetime = moment('2020-07-13 15:00:00', 'YYYY-MM-DD HH:mm:ss');
+      const endDatetime = moment('2020-07-16 10:00:00', 'YYYY-MM-DD HH:mm:ss');
+      const ManDay = getManDays(startDatetime, endDatetime);
 
       expect(ManDay).toBe(2.5);
     });
@@ -58,132 +51,39 @@ describe('getTaskWidth file', () => {
 
 
   describe('getActualWorkingHours method', () => {
-    it('1: end < opening', () => {
-      const startHour = 6;
-      const endHour = 8;
+    it('start < opening < break < closing < end', () => {
+      const startTime: Moment = moment('06:00:00', 'HH:mm:ss');
+      const endTime: Moment = moment('14:00:00', 'HH:mm:ss');
 
-      const workingHour = getActualWorkingHours(startHour, endHour);
-      expect(workingHour).toBe(0);
-    });
-
-    it('2: start < opening < end < break < closing', () => {
-      const startHour = 6;
-      const endHour = 11;
-
-      const workingHour = getActualWorkingHours(startHour, endHour);
-      expect(workingHour).toBe(2);
-    });
-
-    it('3: start < opening < breakStart < end < breakEnd < closing', () => {
-      const startHour = 6;
-      const endHour = 12.5;
-
-      const workingHour = getActualWorkingHours(startHour, endHour);
-      expect(workingHour).toBe(3);
-    });
-
-    it('4: start < opening < break < end < closing', () => {
-      const startHour = 6;
-      const endHour = 14;
-
-      const workingHour = getActualWorkingHours(startHour, endHour);
+      const workingHour: number = getActualWorkingHours(startTime, endTime);
       expect(workingHour).toBe(4);
     });
 
-    it('5: start < opening < break < closing < end', () => {
-      const startHour = 6;
-      const endHour = 14;
+    it('opening < start < end < break < closing', () => {
+      const startTime: Moment = moment('10:00:00', 'HH:mm:ss');
+      const endTime: Moment = moment('11:00:00', 'HH:mm:ss');
 
-      const workingHour = getActualWorkingHours(startHour, endHour);
-      expect(workingHour).toBe(4);
-    });
-
-    it('6: opening < start < end < break < closing', () => {
-      const startHour = 10;
-      const endHour = 11;
-
-      const workingHour = getActualWorkingHours(startHour, endHour);
+      const workingHour: number = getActualWorkingHours(startTime, endTime);
       expect(workingHour).toBe(1);
     });
 
-    it('7: opening < start < breakStart < end < breakEnd < closing', () => {
-      const startHour = 10;
-      const endHour = 12.5;
+    it('opening < start < breakStart < end < breakEnd < closing', () => {
+      const startTime: Moment = moment('10:00:00', 'HH:mm:ss');
+      const endTime: Moment = moment('12:30:00', 'HH:mm:ss');
 
-      const workingHour = getActualWorkingHours(startHour, endHour);
+      const workingHour: number = getActualWorkingHours(startTime, endTime);
       expect(workingHour).toBe(2);
     });
+  });
 
-    it('8: opening < start < break < end < closing', () => {
-      const startHour = 10;
-      const endHour = 14;
 
-      const workingHour = getActualWorkingHours(startHour, endHour);
-      expect(workingHour).toBe(3);
-    });
+  describe('getHolidayCount method', () => {
+    it('a week from Sunday to Saturday', () => {
+      const startDate = moment('2020-07-09', 'YYYY-MM-DD');
+      const endDate = moment('2020-07-15', 'YYYY-MM-DD');
+      const holidayCount = getHolidayCount(startDate, endDate);
 
-    it('9: opening < start < break < closing < end', () => {
-      const startHour = 10;
-      const endHour = 19;
-
-      const workingHour = getActualWorkingHours(startHour, endHour);
-      expect(workingHour).toBe(7);
-    });
-
-    it('10: opening < breakStart < start < end < breakEnd < closing', () => {
-      const startHour = 12.5;
-      const endHour = 12.6;
-
-      const workingHour = getActualWorkingHours(startHour, endHour);
-      expect(workingHour).toBe(0);
-    });
-
-    it('11: opening < breakStart < start < breakEnd < end < closing', () => {
-      const startHour = 12.5;
-      const endHour = 14;
-
-      const workingHour = getActualWorkingHours(startHour, endHour);
-      expect(workingHour).toBe(1);
-    });
-
-    it('12: opening < breakStart < start < breakEnd < closing < end', () => {
-      const startHour = 12.5;
-      const endHour = 19;
-
-      const workingHour = getActualWorkingHours(startHour, endHour);
-      expect(workingHour).toBe(5);
-    });
-
-    it('13: opening < break < start < end < closing', () => {
-      const startHour = 14;
-      const endHour = 16;
-
-      const workingHour = getActualWorkingHours(startHour, endHour);
-      expect(workingHour).toBe(2);
-    });
-
-    it('14: opening < break < start < closing < end', () => {
-      const startHour = 14;
-      const endHour = 19;
-
-      const workingHour = getActualWorkingHours(startHour, endHour);
-      expect(workingHour).toBe(4);
-    });
-
-    it('15: opening < break < closing < start < end', () => {
-      const startHour = 18;
-      const endHour = 19;
-
-      const workingHour = getActualWorkingHours(startHour, endHour);
-      expect(workingHour).toBe(0);
-    });
-
-    it('16: should return -1 when endHour < startHour', () => {
-      const startHour = 19;
-      const endHour = 0;
-
-      const workingHour = getActualWorkingHours(startHour, endHour);
-      expect(workingHour).toBe(-1);
+      expect(holidayCount).toBe(2);
     });
   });
 });
