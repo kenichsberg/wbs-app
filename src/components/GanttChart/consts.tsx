@@ -21,16 +21,16 @@ export const DAY_WIDTH: number = CHART_WIDTH / 7;
 export const ORIGIN_DATE: Date = new Date();
 
 // 営業時間
-export const OPEN_HOUR = 9;
-export const CLOSE_HOUR = 18;
+export const OPEN_TIME: string = '09:00:00';
+export const CLOSE_TIME: string = '18:00:00';
 
 // 休憩時間
 type Term = {
-  start: number;
-  end: number;
+  start: string;
+  end: string;
 }
 export const BREAK_TIMES: Array<Term> = [
-  {start: 12, end: 13}
+  {start: '12:00:00', end: '13:00:00'}
 ];
 
 // 祝日
