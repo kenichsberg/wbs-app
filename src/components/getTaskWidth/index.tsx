@@ -13,18 +13,124 @@ export const getTaskWidth = (diffHour: number): number => {
 };
 
 
-export const getTermWidth = (startDatetime: Moment, endDatetime: Moment): number | false => {
+export const getTermWidth = (startDatetime: Moment, endDatetime: Moment): number => {
 
-  if (startDatetime.isAfter(endDatetime)) return false;
-
-  return getManDayByDates(startDatetime, endDatetime) * consts.DAY_WIDTH;
+  return getManDays(startDatetime, endDatetime) * consts.DAY_WIDTH;
 };
 
 
-export const getHolidayCount = (startDatetime: Moment, endDatetime: Moment): number => {
+export const getManDays = (startDatetime: Moment, endDatetime: Moment): number => {
 
-  const startDate = getDateByDatetime(startDatetime);
-  const endDate = getDateByDatetime(endDatetime);
+  const startOfDay = moment('00:00:00', 'HH:mm:ss');
+  const endOfDay = moment('23:59:59', 'HH:mm:ss');
+
+  const workingHoursPerDay: number = getActualWorkingHours(startOfDay, endOfDay);
+
+  const startDate: Moment = getDateByDatetime(startDatetime);
+  const endDate: Moment = getDateByDatetime(endDatetime);
+
+  const startTime: Moment = getTimeByDatetime(startDatetime);
+  const endTime: Moment = getTimeByDatetime(endDatetime);
+
+  if (startDate.isSame(endDate)) {
+    const hours: number = getActualWorkingHours(startTime, endTime);
+    
+    return hours / workingHoursPerDay;
+  }
+
+  const startDateHours = getActualWorkingHours(startTime, endOfDay);
+  const endDateHours = getActualWorkingHours(startOfDay, endTime);
+
+  const dayAfterStartDate = startDate.clone().add(1, 'day');
+
+  const workingDays = getWorkingDayCount(dayAfterStartDate, endDate);
+
+  return (startDateHours + endDateHours) / workingHoursPerDay + workingDays;
+
+};
+
+
+export const getDateByDatetime = (datetime: Moment) => {
+
+  return moment(datetime.clone().startOf('day').format('LL'), 'LL').startOf('day');
+
+};
+
+
+export const getTimeByDatetime = (datetime: Moment) => {
+
+  return moment(datetime.clone().format('HH:mm:ss'), 'HH:mm:ss');
+
+};
+
+
+export const getActualWorkingHours = (startTime: Moment, endTime: Moment): number => {
+
+  const openTime: Moment = moment(consts.OPEN_TIME, 'HH:mm:ss');
+  const closeTime: Moment = moment(consts.CLOSE_TIME, 'HH:mm:ss');
+
+  if (startTime.isAfter(closeTime)
+    || endTime.isBefore(openTime)) 
+  {
+    return 0;
+  }
+
+  if (startTime.isBefore(openTime)) {
+    startTime = openTime;
+  }
+
+  if (endTime.isAfter(closeTime)) {
+    endTime = closeTime;
+  }
+
+  const breakTime = getBreakTime(startTime, endTime);
+
+  return endTime.diff(startTime, 'hours') - breakTime;
+
+};
+
+
+export const getBreakTime = (startTime: Moment, endTime: Moment): number =>  {
+
+  const breakTimes = consts.BREAK_TIMES.filter(breakTime => {
+    return startTime.isBefore(moment(breakTime.end, 'HH:mm:ss')) 
+      && endTime.isAfter(moment(breakTime.start, 'HH:mm:ss'));
+  });
+
+  if (breakTimes.length === 0) return 0;
+
+  return breakTimes.reduce(
+    (accumlator, currentValue) => {
+      const breakStart = moment(currentValue.start, 'HH:mm:ss');
+      const breakEnd = moment(currentValue.end, 'HH:mm:ss');
+
+      if (startTime.isBefore(breakStart)) {
+        startTime = breakStart;
+      }
+
+      if (endTime.isAfter(breakEnd)) {
+        endTime = breakEnd;
+      }
+
+      return accumlator + endTime.diff(startTime, 'hours');
+
+    }, 0
+  );
+};
+
+
+export const getWorkingDayCount = (startDate: Moment, endDate: Moment): number => { 
+
+  const dayCount: number = endDate.diff(startDate, 'days');
+  
+  const holidayCount: number = getHolidayCount(startDate, endDate);
+
+  return dayCount - holidayCount;
+
+};
+
+
+export const getHolidayCount = (startDate: Moment, endDate: Moment): number => {
 
   let date: Moment = startDate.clone();
   let dates: Array<Moment> = [];
@@ -54,90 +160,5 @@ export const getHolidayCount = (startDatetime: Moment, endDatetime: Moment): num
 
 
   return holidayCount + publicHolidayCount + additionalHolidayCount - additionalWorkingDayCount;
+
 };
-
-// milliSeconds -> days 換算
-//const factor = 1 / (1000 * 60 * 60 * 24);
-
-export const getManDayByDates = (startDatetime: Moment, endDatetime: Moment): number => {
-
-  const startDate: Moment = getDateByDatetime(startDatetime);
-  const endDate: Moment = getDateByDatetime(endDatetime);
-  const dayCount: number = endDate.diff(startDate, 'days');
-
-  //const isSameDay: boolean = moment(startDatetime, 'YYYY/MM/DD').isSame(moment(endDatetime, 'YYYY/MM/DD'));
-  const isSameDay: boolean = startDate.isSame(endDate);
-  
-  let diffWorkingHours: number;
-
-  if (isSameDay) {
-    diffWorkingHours = getActualWorkingHours(startDatetime.hour(), endDatetime.hour());
-
-    //console.log('diffhour:', diffWorkingHours);
-  } else {
-    const workingHoursStartDay: number = getActualWorkingHours(startDatetime.hour(), 24);
-
-    const workingHoursEndDay: number = getActualWorkingHours(0, endDatetime.hour());
-
-    diffWorkingHours = workingHoursStartDay + workingHoursEndDay + (dayCount - 1) * 8;
-    //console.log(startDatetime, startDatetime.hour(), endDatetime, endDatetime.hour(), 'day:', dayCount, 'hour: ', diffWorkingHours);
-  }
-
-  return diffWorkingHours / 8;
-};
-
-
-export const getDateByDatetime = (datetime: Moment) => {
-  return moment(datetime.clone().startOf('day').format('LL'), 'LL').startOf('day');
-};
-
-
-export const getActualWorkingHours = (startHour: number, endHour: number): number => {
-  if (endHour < startHour) return -1;
-
-  if (consts.CLOSE_HOUR < startHour 
-    || endHour < consts.OPEN_HOUR) 
-  {
-    return 0;
-  }
-
-  if (startHour < consts.OPEN_HOUR) {
-    startHour = consts.OPEN_HOUR;
-  }
-
-  if (consts.CLOSE_HOUR < endHour) {
-    endHour = consts.CLOSE_HOUR;
-  } 
-
-  const breakTime = getBreakTime(startHour, endHour);
-
-  //console.log('hour2', endHour - startHour - breakTime);
-
-  return endHour - startHour - breakTime;
-}
-
-
-export const getBreakTime = (startHour: number, endHour: number): number =>  {
-
-  const breakTimes = consts.BREAK_TIMES.filter(breakTime => {
-
-    return !(endHour < breakTime.start || breakTime.end < startHour)
-  })
-
-  if (breakTimes.length === 0) return 0;
-
-  return breakTimes.reduce(
-    (accumlator, currentValue) => {
-      if (startHour < currentValue.start) {
-        startHour = currentValue.start;
-      }
-
-      if (currentValue.end < endHour) {
-        endHour = currentValue.end;
-      }
-
-      return accumlator + (endHour - startHour);
-
-    }, 0
-  );
-}
