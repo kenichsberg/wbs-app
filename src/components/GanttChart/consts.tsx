@@ -18,7 +18,7 @@ export const CHART_HEIGHT: number = WINDOW_HEIGHT - PADDING_Y * 2;
 export const DAY_WIDTH: number = CHART_WIDTH / 7;
 
 // 左端日付
-export const ORIGIN_DATE: Date = new Date();
+//export const ORIGIN_DATE: Date = new Date();
 
 // 営業時間
 export const OPEN_TIME: string = '09:00:00';
@@ -30,7 +30,7 @@ type Term = {
   end: string;
 }
 export const BREAK_TIMES: Array<Term> = [
-  {start: '12:00:00', end: '13:00:00'}
+  { start: '12:00:00', end: '13:00:00' }
 ];
 
 // 祝日
