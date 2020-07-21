@@ -1,5 +1,4 @@
-import { getTaskWidth, getDateByDatetime, getManHour, getActualWorkingHours, getHolidayCount, getDayCount } from './index';
-import * as consts from '/components/GanttChart/consts';
+import { getDateByDatetime,  getActualWorkingHours, getHolidayCount, getDayCount } from './index';
 
 import { Moment } from 'moment';
 
@@ -9,27 +8,6 @@ const moment = require('moment');
 //const taskLength = 12;
 
 describe('getTaskWidth file', () => {
-  /*
-  describe('getTaskWidth method', () => {
-    it('should calculate proper task width', () => {
-      const taskWidth = getTaskWidth(taskLength);
-
-      expect(taskWidth).toBe(consts.DAY_WIDTH * 1.5);
-    });
-  });
-   */
-
-  /*
-  describe('getTermWidth method', () => {
-    it('should calculate proper term width', () => {
-      const startDate = new Date('2020-07-01 19:00');
-      const endDate = new Date('2020-07-03 19:00');
-      const termWidth = getTermWidth(startDate, endDate);
-
-      expect(termWidth).toBe(2);
-    });
-  });
-   */
   describe('getDateByDatetime method', () => {
     it('makes moment obj without time', () => {
       const datetime = moment('2020-07-13 15:00:00', 'YYYY-MM-DD HH:mm:ss');
@@ -37,33 +15,6 @@ describe('getTaskWidth file', () => {
       const expected = moment('2020-07-13 15:00:00');
 
       expect(date.format('LL')).toBe(expected.format('LL'));
-    });
-  });
-
-
-  describe('getManHour method', () => {
-    it('other days but less than 24h', () => {
-      const startDatetime = moment('2020-07-13 15:00:00', 'YYYY-MM-DD HH:mm:ss');
-      const endDatetime = moment('2020-07-14 10:00:00', 'YYYY-MM-DD HH:mm:ss');
-      const manHour = getManHour(startDatetime, endDatetime);
-
-      expect(manHour).toBe(4);
-    });
-
-    it('more than 2 days', () => {
-      const startDatetime = moment('2020-07-13 15:00:00', 'YYYY-MM-DD HH:mm:ss');
-      const endDatetime = moment('2020-07-16 10:00:00', 'YYYY-MM-DD HH:mm:ss');
-      const manHour = getManHour(startDatetime, endDatetime);
-
-      expect(manHour).toBe(20);
-    });
-
-    it('more than a week', () => {
-      const startDatetime = moment('2020-07-01 15:00:00', 'YYYY-MM-DD HH:mm:ss');
-      const endDatetime = moment('2020-07-10 10:00:00', 'YYYY-MM-DD HH:mm:ss');
-      const manHour = getManHour(startDatetime, endDatetime);
-
-      expect(manHour).toBe(52);
     });
   });
 

@@ -2,8 +2,8 @@ import * as React from 'react';
 import 'react-native-gesture-handler';
 import { Container, Segment, Content, View, Body, Right, Text, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
 import moment from 'moment';
-import { TaskListView } from '/screens/ScheduleScreen/TaskListView';
-import { TaskCalendarView } from '/screens/ScheduleScreen/TaskCalendarView';
+import { TaskListView } from '/screens/TaskListView';
+import { TaskCalendarView } from '/screens/TaskCalendarView';
 import { TaskListProps } from '/navigations/types.tsx';
 import { Task } from '/screens/CreateTaskScreen';
 

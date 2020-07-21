@@ -4,8 +4,8 @@ import 'jest-enzyme';
 import { shallow, ShallowWrapper } from 'enzyme';
 import * as renderer from 'react-test-renderer';
 
-import { TaskListView } from './TaskListView';
-import { PartialTask } from './index';
+import { TaskListView } from './index';
+import { PartialTask } from '/screens/ScheduleScreen/';
 
 
 const createTestProps = (props: Object) => ({

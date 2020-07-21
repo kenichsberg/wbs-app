@@ -7,9 +7,10 @@ export const SettingsScreen: React.FC<SettingsProps> = ({ navigation }) => {
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>設定画面</Text>
       <Button
-        title="Go to Details"
         onPress={() => navigation.navigate('Details')}
-      />
+      >
+        <Text>Go to Details</Text>
+      </Button>
     </View>
   );
 }

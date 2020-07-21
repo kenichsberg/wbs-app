@@ -16,7 +16,7 @@ type Formatted = {
   tasksFormatted: TasksFormatted;
 }
 
-export const FormatTasks = (tasks: Array<PartialTask>): Formatted => {
+export const getFormattedTasks = (tasks: Array<PartialTask>): Formatted => {
 
   // categoryのセット(の配列)を取得
   const categories: Array<string> = Array.from(new Set(tasks.map(task => task.category)));

@@ -2,11 +2,10 @@ import * as React from 'react';
 import { Dimensions } from 'react-native';
 import 'react-native-gesture-handler';
 import { Container, Segment, Content, View, Body, Right, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
-//import moment from 'moment';
 import Svg, { Line, Text } from 'react-native-svg';
-import { FormatTasks } from '/components/FormatTasks/';
-import { getTermWidth, getActualWorkingHours, getTimeByDatetime } from '/components/getTaskWidth/';
-import * as consts from '/components/GanttChart/consts';
+import { getFormattedTasks } from '/domain/Task/';
+import { getDayCount, getActualWorkingHours, parseJsonToMoment, getTimeByDatetime } from '/services/Date/';
+import * as constants from '/domain/constants';
 import { PartialTask } from '/screens/ScheduleScreen/';
 
 import { Moment } from 'moment';
@@ -20,20 +19,19 @@ type Props = {
 };
 
 
-//const parseJsonToDate = (jsonDateString: string): Date => {
-const parseJsonToDate = (jsonDateString: string): Moment => {
-  //return new Date(JSON.parse(jsonDateString));
-  return moment(JSON.parse(jsonDateString));
+const getTermWidth = (startDatetime: Moment, endDatetime: Moment): number => {
+
+  return getDayCount(startDatetime, endDatetime) * constants.DAY_WIDTH;
 };
 
 
 export const GanttRow: React.FC<Props> = ({ task, index, leftEndDate }) => {
 
-  const startPlanned = parseJsonToDate(task.startDatetimePlanned);
-  const endPlanned = parseJsonToDate(task.endDatetimePlanned);
+  const startPlanned = parseJsonToMoment(task.startDatetimePlanned);
+  const endPlanned = parseJsonToMoment(task.endDatetimePlanned);
 
-  const startResult = parseJsonToDate(task.startDatetimeResult);
-  const endResult = parseJsonToDate(task.endDatetimeResult);
+  const startResult = parseJsonToMoment(task.startDatetimeResult);
+  const endResult = parseJsonToMoment(task.endDatetimeResult);
 
   const lengthPlanned: number = getTermWidth(startPlanned, endPlanned);
 
