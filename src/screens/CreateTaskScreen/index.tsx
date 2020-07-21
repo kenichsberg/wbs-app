@@ -37,6 +37,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   // datetime初期値を設定
   const now = new Date();
   now.setMinutes(0);
+  now.setSeconds(0);
   // 予定開始日時
   const [startDatetimePlanned, setStartDatetimePlanned] = React.useState<Date>(now);
   // 予定終了日時
