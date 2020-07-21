@@ -5,11 +5,12 @@ import { Container, Segment, Content, View, Body, Right, Button, List, ListItem,
 //import moment from 'moment';
 import Svg, { Line, Text } from 'react-native-svg';
 import { FormatTasks } from '/components/FormatTasks/';
-import { getTermWidth } from '/components/getTaskWidth/';
+import { getTermWidth, getActualWorkingHours, getTimeByDatetime } from '/components/getTaskWidth/';
 import * as consts from '/components/GanttChart/consts';
 import { PartialTask } from '/screens/ScheduleScreen/';
 
 import { Moment } from 'moment';
+
 const moment = require('moment');
 
 type Props = {
@@ -57,7 +58,7 @@ export const GanttRow: React.FC<Props> = ({ task, index, leftEndDate }) => {
   }
 
   // 上端の座標
-  const yTop: number = 30 + 40 * index;
+  const yTop: number = 30 + 90 * index;
 
   return (
     <>
@@ -70,11 +71,11 @@ export const GanttRow: React.FC<Props> = ({ task, index, leftEndDate }) => {
       </Text>
       <Line 
         x1={xStartPlanned} 
-        y1={yTop + 15} 
+        y1={yTop + 25} 
         x2={xEndPlanned} 
-        y2={yTop + 15} 
+        y2={yTop + 25} 
         stroke="white" 
-        strokeWidth="20" 
+        strokeWidth="40" 
       />
       {
         xStartResult == null
