@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as constants from '/domain/Gantt/constants';
+import * as constants from '/domain/constants';
 import { Moment } from 'moment';
 
 const moment = require('moment');
