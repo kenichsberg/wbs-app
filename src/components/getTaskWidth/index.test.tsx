@@ -1,4 +1,4 @@
-import { getTaskWidth, getManDays, getActualWorkingHours, getHolidayCount } from './index';
+import { getTaskWidth, getDateByDatetime, getManHour, getActualWorkingHours, getHolidayCount, getDayCount } from './index';
 import * as consts from '/components/GanttChart/consts';
 
 import { Moment } from 'moment';
@@ -30,22 +30,59 @@ describe('getTaskWidth file', () => {
     });
   });
    */
+  describe('getDateByDatetime method', () => {
+    it('makes moment obj without time', () => {
+      const datetime = moment('2020-07-13 15:00:00', 'YYYY-MM-DD HH:mm:ss');
+      const date = getDateByDatetime(datetime);
+      const expected = moment('2020-07-13 15:00:00');
 
-  describe('getManDays method', () => {
+      expect(date.format('LL')).toBe(expected.format('LL'));
+    });
+  });
+
+
+  describe('getManHour method', () => {
     it('other days but less than 24h', () => {
       const startDatetime = moment('2020-07-13 15:00:00', 'YYYY-MM-DD HH:mm:ss');
       const endDatetime = moment('2020-07-14 10:00:00', 'YYYY-MM-DD HH:mm:ss');
-      const ManDay = getManDays(startDatetime, endDatetime);
+      const manHour = getManHour(startDatetime, endDatetime);
 
-      expect(ManDay).toBe(0.5);
+      expect(manHour).toBe(4);
     });
 
     it('more than 2 days', () => {
       const startDatetime = moment('2020-07-13 15:00:00', 'YYYY-MM-DD HH:mm:ss');
       const endDatetime = moment('2020-07-16 10:00:00', 'YYYY-MM-DD HH:mm:ss');
-      const ManDay = getManDays(startDatetime, endDatetime);
+      const manHour = getManHour(startDatetime, endDatetime);
 
-      expect(ManDay).toBe(2.5);
+      expect(manHour).toBe(20);
+    });
+
+    it('more than a week', () => {
+      const startDatetime = moment('2020-07-01 15:00:00', 'YYYY-MM-DD HH:mm:ss');
+      const endDatetime = moment('2020-07-10 10:00:00', 'YYYY-MM-DD HH:mm:ss');
+      const manHour = getManHour(startDatetime, endDatetime);
+
+      expect(manHour).toBe(52);
+    });
+  });
+
+
+  describe('getDayCount method', () => {
+    it('more than a week', () => {
+      const startDatetime = moment('2020-07-01 15:00:00', 'YYYY-MM-DD HH:mm:ss');
+      const endDatetime = moment('2020-07-10 10:00:00', 'YYYY-MM-DD HH:mm:ss');
+      const dayCount = getDayCount(startDatetime, endDatetime);
+
+      expect(dayCount).toBe(8.5);
+    });
+
+    it('less than a week', () => {
+      const startDatetime = moment('2020-06-28 00:00:00', 'YYYY-MM-DD HH:mm:ss');
+      const endDatetime = moment('2020-07-01 15:00:00', 'YYYY-MM-DD HH:mm:ss');
+      const dayCount = getDayCount(startDatetime, endDatetime);
+
+      expect(dayCount).toBe(3.625);
     });
   });
 
