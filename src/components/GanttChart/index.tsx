@@ -57,7 +57,8 @@ export const GanttChart: React.FC<Props> = ({ tasks }) => {
         paddingBottom: consts.PADDING_Y 
       }}>
         <ScrollView horizontal={true}>
-          <Svg height="1300" width={ consts.WINDOW_WIDTH * weekCount }>
+          {/*<Svg height="1300" width={ consts.WINDOW_WIDTH * weekCount }>*/}
+          <Svg height="1300" width={ (consts.WINDOW_WIDTH - consts.PADDING_X * 2) * weekCount }>
             {/* 縦線 */}
             { 
               [...Array(7 * weekCount).keys()].map(index => (
@@ -84,9 +85,9 @@ export const GanttChart: React.FC<Props> = ({ tasks }) => {
             }
             {
               <Line 
-                x1={ consts.WINDOW_WIDTH * weekCount - consts.PADDING_X * 2 } 
+                x1={ (consts.WINDOW_WIDTH - consts.PADDING_X * 2) * weekCount } 
                 y1="20" 
-                x2={ consts.WINDOW_WIDTH * weekCount - consts.PADDING_X * 2 } 
+                x2={ (consts.WINDOW_WIDTH - consts.PADDING_X * 2) * weekCount } 
                 y2={ consts.CHART_HEIGHT } 
                 stroke="#3E6B57" 
                 strokeWidth="1" 
