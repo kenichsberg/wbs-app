@@ -15,11 +15,56 @@ export const getTaskWidth = (diffHour: number): number => {
 
 export const getTermWidth = (startDatetime: Moment, endDatetime: Moment): number => {
 
-  return getManDays(startDatetime, endDatetime) * consts.DAY_WIDTH;
+  return getDayCount(startDatetime, endDatetime) * consts.DAY_WIDTH;
 };
 
 
-export const getManDays = (startDatetime: Moment, endDatetime: Moment): number => {
+export const getManHour = (startDatetime: Moment, endDatetime: Moment): number => {
+
+  const startOfDay = moment('00:00:00', 'HH:mm:ss');
+  const endOfDay = moment('23:59:59', 'HH:mm:ss');
+
+  const startDate: Moment = getDateByDatetime(startDatetime);
+  const endDate: Moment = getDateByDatetime(endDatetime);
+
+  const startTime: Moment = getTimeByDatetime(startDatetime);
+  const endTime: Moment = getTimeByDatetime(endDatetime);
+
+  if (startDate.isSame(endDate)) {
+    const hours: number = isHoliday(startDate)
+      ? 0
+      : getActualWorkingHours(startTime, endTime);
+    
+    //return hours / workingHoursPerDay;
+    return hours;
+  }
+
+  const startDateHours = isHoliday(startDate)
+    ? 0
+    : getActualWorkingHours(startTime, endOfDay);
+
+  const endDateHours = isHoliday(endDate)
+    ? 0 
+    : getActualWorkingHours(startOfDay, endTime);
+
+  const dayAfterStartDate = startDate.clone().add(1, 'day');
+
+  //const workingDays = getWorkingDayCount(dayAfterStartDate, endDate);
+  const dayCount: number = endDate.diff(dayAfterStartDate, 'days');
+  const holidayCount: number = getHolidayCount(dayAfterStartDate, endDate);
+
+  const workingDays = dayCount - holidayCount;
+
+
+  const workingHoursPerDay: number = getActualWorkingHours(startOfDay, endOfDay);
+
+  //return (startDateHours + endDateHours) / workingHoursPerDay + workingDays;
+  return (startDateHours + endDateHours) + workingDays * workingHoursPerDay;
+
+};
+
+
+export const getDayCount = (startDatetime: Moment, endDatetime: Moment): number => {
 
   const startOfDay = moment('00:00:00', 'HH:mm:ss');
   const endOfDay = moment('23:59:59', 'HH:mm:ss');
@@ -39,13 +84,14 @@ export const getManDays = (startDatetime: Moment, endDatetime: Moment): number =
   }
 
   const startDateHours = getActualWorkingHours(startTime, endOfDay);
+
   const endDateHours = getActualWorkingHours(startOfDay, endTime);
 
   const dayAfterStartDate = startDate.clone().add(1, 'day');
 
-  const workingDays = getWorkingDayCount(dayAfterStartDate, endDate);
+  const dayCount: number = endDate.diff(dayAfterStartDate, 'days');
 
-  return (startDateHours + endDateHours) / workingHoursPerDay + workingDays;
+  return (startDateHours + endDateHours) / workingHoursPerDay + dayCount;
 
 };
 
@@ -127,6 +173,13 @@ export const getWorkingDayCount = (startDate: Moment, endDate: Moment): number =
 
   return dayCount - holidayCount;
 
+};
+
+
+export const isHoliday = (date: Moment): boolean => {
+  const holidayCount = getHolidayCount(date, date);
+
+  return holidayCount > 0;
 };
 
 
