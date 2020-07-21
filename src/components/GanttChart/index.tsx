@@ -1,109 +1,113 @@
 import * as React from 'react';
-import { Dimensions } from 'react-native';
 import 'react-native-gesture-handler';
+import { ScrollView } from 'react-native';
 import { Container, Segment, Content, View, Body, Right, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
-import moment from 'moment';
+//import moment from 'moment';
 import Svg, { Line, Text } from 'react-native-svg';
-import { FormatTasks } from '/components/FormatTasks';
-import { PartialTask } from '/screens/ScheduleScreen';
+import { FormatTasks } from '/components/FormatTasks/';
+import { getLeftEndDate, getRightEndDate, getWeekCount } from '/components/getTaskWidth/dateCounter'; 
+import { GanttRow } from '/components/GanttRow/';
+import { PartialTask } from '/screens/ScheduleScreen/';
+import * as consts from './consts';
+import { Moment } from 'moment';
+
+const moment = require('moment');
 
 type Props = {
   tasks: Array<PartialTask>;
 };
 
 
-// 定数
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
-const paddingX = 20;
-const paddingY = 30;
-
-// グラフ領域のサイズ
-const chartWidth = windowWidth - paddingX * 2;
-const chartHeight = windowHeight - paddingY * 2;
-
-// １日あたりの幅
-const dayWidth = chartWidth / 6;
-
-// milliSeconds -> days 換算
-const factor = 1000 * 60 * 60 * 24;
-
-
-// 期間の長さに応じて、画面上のグラフの長さを計算する
-const getTaskLength = (diffMilliseconds: number): number => {
-  const diffDays: number = diffMilliseconds / factor;
-  //const int = String(diffDays).split('.')[0];
-  const diffDaysInt: number = parseInt(String(diffDays));
-  const diffDaysDecimal: number = diffDays - diffDaysInt;
-  const lastDayRatio: number = Math.floor(diffDaysDecimal * 24 / 8);
-
-  return diffDaysInt * dayWidth + lastDayRatio * dayWidth;
-}
-
-
 export const GanttChart: React.FC<Props> = ({ tasks }) => {
 
   const { categories, tasksFormatted } = FormatTasks(tasks);
 
-  const getGantt = (item, index) => {
-    // 左端日付
-    const origin: Date = new Date(2020, 4, 5, 9, 0);
-    const legthPlanned: number = getTaskLength(item.taskLength * 60 * 60 * 1000);
-    // 予定開始のX座標
-    const xStartPlanned: number = (item.startDatetimePlanned.getTime() - origin.getTime()) / factor * dayWidth;
-    // 予定終了のX座標
-    const xEndPlanned: number = xStartPlanned + legthPlanned;
-    // 実績開始のX座標
-    const xStartResult: number = (item.startDatetimeResult.getTime() - origin.getTime()) / factor * dayWidth;
-    // 実績期間の長さ
-    const lengthResult: number = (item.endDatetimeResult - item.startDatetimeResult) / factor * dayWidth;
-    // 実績終了のX座標
-    const xEndResult: number = xStartResult + lengthResult;
-    // 上端の座標
-    const yTop: number = 30 + 40 * index;
-    console.log(item.startDatetimePlanned, origin, item.startDatetimePlanned.getTime() - origin.getTime(), xStartPlanned);
+  const startDates: Array<Moment> = tasks.map(task => (
+    moment(JSON.parse(task.startDatetimePlanned))
+  ));
 
-    return (
-      <>
-        <Text x={xStartPlanned} y={yTop} fill="white">{item.taskName}</Text>
-        <Line x1={xStartPlanned} y1={yTop + 10} x2={xEndPlanned} y2={yTop + 10} stroke="white" strokeWidth="2" />
-        <Line x1={xStartResult} y1={yTop + 20} x2={xEndResult} y2={yTop + 20} stroke="white" strokeWidth="3" />
-      </>
-    );
-  };
+  const endDates: Array<Moment>  = tasks.map(task => (
+    moment(JSON.parse(task.endDatetimePlanned))
+  ));
 
-  const item ={
-    taskName: 'sample Gantt',
-    startDatetimePlanned: new Date(2020, 4, 5, 9, 0),
-    endDatetimePlanned: new Date(2020, 4, 5, 21, 0),
-    startDatetimeResult: new Date(2020, 4, 5, 9, 0),
-    endDatetimeResult: new Date(2020, 4, 6, 11, 0),
-    taskLength: 12
-  };
+
+  const now: Moment = moment();
+
+  const leftEndDate: Moment = tasks.length === 0
+    ? now.clone().subtract(now.day(), 'days')
+    : getLeftEndDate(startDates); 
+
+  const rightEndDate: Moment  = tasks.length === 0
+    ? now.clone().add(6 - now.day(), 'days')
+    : getRightEndDate(endDates); 
+
+    const weekCount: number = getWeekCount(leftEndDate, rightEndDate) ?? 1;
+
+  let ganttRowIndex: number = 0;
+
 
   // JSX
   return (
     <>
-      <View style={{backgroundColor: '#051B26', paddingLeft: paddingX, paddingRight: paddingX, paddingTop: paddingY, paddingBottom: paddingY }}>
-        <Svg height="1300" width={windowWidth}>
-          {/* 縦線 */}
-          { 
-            [...Array(7).keys()].map(i => (
+      <View style={{
+        backgroundColor: '#051B26', 
+        paddingLeft: consts.PADDING_X, 
+        paddingRight: consts.PADDING_X, 
+        paddingTop: consts.PADDING_Y, 
+        paddingBottom: consts.PADDING_Y 
+      }}>
+        <ScrollView horizontal={true}>
+          {/*<Svg height="1300" width={ consts.WINDOW_WIDTH * weekCount }>*/}
+          <Svg height="1300" width={ (consts.WINDOW_WIDTH - consts.PADDING_X * 2) * weekCount }>
+            {/* 縦線 */}
+            { 
+              [...Array(7 * weekCount).keys()].map(index => (
+                <React.Fragment 
+                  key={ leftEndDate.clone().add(index, 'days').format('MM/DD') }
+                >
+                  <Text 
+                    x={ consts.DAY_WIDTH * index }
+                    y="10" 
+                    fill="white"
+                  >
+                    { leftEndDate.clone().add(index, 'days').format('MM/DD') }
+                  </Text>
+                  <Line 
+                    x1={ consts.DAY_WIDTH * index } 
+                    y1="20" 
+                    x2={ consts.DAY_WIDTH * index } 
+                    y2={ consts.CHART_HEIGHT } 
+                    stroke="#3E6B57" 
+                    strokeWidth="1" 
+                  />
+                </React.Fragment>
+              ))
+            }
+            {
               <Line 
-                key={i}
-                x1={dayWidth * i} 
-                y1="0" 
-                x2={dayWidth * i} 
-                y2={chartHeight} 
+                x1={ (consts.WINDOW_WIDTH - consts.PADDING_X * 2) * weekCount } 
+                y1="20" 
+                x2={ (consts.WINDOW_WIDTH - consts.PADDING_X * 2) * weekCount } 
+                y2={ consts.CHART_HEIGHT } 
                 stroke="#3E6B57" 
                 strokeWidth="1" 
               />
-            ))
-          }
-          {/* Gantt */}
-          {getGantt(item, 0)}
-        </Svg>
+            }
+            {/* Gantt */}
+            {
+              categories.map(category => (
+                tasksFormatted[category].map(task => (
+                  <GanttRow 
+                    key={ task.id } 
+                    task={ task } 
+                    index={ ganttRowIndex++ } 
+                    leftEndDate={ leftEndDate }
+                  />
+                ))
+              ))
+            }
+          </Svg>
+        </ScrollView>
       </View>
     </>
   );
