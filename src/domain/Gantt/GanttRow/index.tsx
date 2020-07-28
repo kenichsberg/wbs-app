@@ -6,7 +6,6 @@ import Svg, { Line, Text } from 'react-native-svg';
 import { getFormattedTasks } from '/domain/Task/';
 import { getDayCount, getActualWorkingHours, parseJsonToMoment, getTimeByDatetime } from '/services/Date/';
 import * as constants from '/domain/constants';
-//import { PartialTask } from '/screens/ScheduleScreen/';
 import { Task } from '/screens/CreateTaskScreen';
 
 import { Moment } from 'moment';
