@@ -1,10 +1,9 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
 import { Container, Segment, Content, View, Body, Right, Text, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
-//import moment from 'moment';
-import { FormatTasks } from '/components/FormatTasks/';
+import { getFormattedTasks } from '/domain/Task/';
 import { TaskListProps } from '/navigations/types.tsx';
-import { PartialTask } from './index';
+import { PartialTask } from '/screens/ScheduleScreen';
 
 type Props = Partial<TaskListProps> 
   & {
@@ -38,7 +37,7 @@ const getPeriodString = (jsonDateStart: string, jsonDateEnd: string): string => 
 
 export const TaskListView: React.FC<Props> = ({ navigation, tasks }) => {
 
-  const { categories, tasksFormatted } = FormatTasks(tasks);
+  const { categories, tasksFormatted } = getFormattedTasks(tasks);
 
   // リスト1つのJSXを取得
   const getTaskList = (item, index) => {

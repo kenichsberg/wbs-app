@@ -17,9 +17,6 @@ export const CHART_HEIGHT: number = WINDOW_HEIGHT - PADDING_Y * 2;
 // １日あたりの幅
 export const DAY_WIDTH: number = CHART_WIDTH / 7;
 
-// 左端日付
-//export const ORIGIN_DATE: Date = new Date();
-
 // 営業時間
 export const OPEN_TIME: string = '09:00:00';
 export const CLOSE_TIME: string = '18:00:00';

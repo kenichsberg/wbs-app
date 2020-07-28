@@ -2,13 +2,12 @@ import * as React from 'react';
 import 'react-native-gesture-handler';
 import { ScrollView } from 'react-native';
 import { Container, Segment, Content, View, Body, Right, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
-//import moment from 'moment';
 import Svg, { Line, Text } from 'react-native-svg';
-import { FormatTasks } from '/components/FormatTasks/';
-import { getLeftEndDate, getRightEndDate, getWeekCount } from '/components/getTaskWidth/dateCounter'; 
-import { GanttRow } from '/components/GanttRow/';
+import { getFormattedTasks } from '/domain/Task/';
+import { getLeftEndDate, getRightEndDate, getWeekCount } from '/services/Gantt/'; 
+import { GanttRow } from '/domain/Gantt/GanttRow/';
 import { PartialTask } from '/screens/ScheduleScreen/';
-import * as consts from './consts';
+import * as constants from '/domain/constants';
 import { Moment } from 'moment';
 
 const moment = require('moment');
@@ -20,7 +19,7 @@ type Props = {
 
 export const GanttChart: React.FC<Props> = ({ tasks }) => {
 
-  const { categories, tasksFormatted } = FormatTasks(tasks);
+  const { categories, tasksFormatted } = getFormattedTasks(tasks);
 
   const startDates: Array<Moment> = tasks.map(task => (
     moment(JSON.parse(task.startDatetimePlanned))
@@ -51,14 +50,14 @@ export const GanttChart: React.FC<Props> = ({ tasks }) => {
     <>
       <View style={{
         backgroundColor: '#051B26', 
-        paddingLeft: consts.PADDING_X, 
-        paddingRight: consts.PADDING_X, 
-        paddingTop: consts.PADDING_Y, 
-        paddingBottom: consts.PADDING_Y 
+        paddingLeft: constants.PADDING_X, 
+        paddingRight: constants.PADDING_X, 
+        paddingTop: constants.PADDING_Y, 
+        paddingBottom: constants.PADDING_Y 
       }}>
         <ScrollView horizontal={true}>
-          {/*<Svg height="1300" width={ consts.WINDOW_WIDTH * weekCount }>*/}
-          <Svg height="1300" width={ (consts.WINDOW_WIDTH - consts.PADDING_X * 2) * weekCount }>
+          {/*<Svg height="1300" width={ constants.WINDOW_WIDTH * weekCount }>*/}
+          <Svg height="1300" width={ (constants.WINDOW_WIDTH - constants.PADDING_X * 2) * weekCount }>
             {/* 縦線 */}
             { 
               [...Array(7 * weekCount).keys()].map(index => (
@@ -66,17 +65,17 @@ export const GanttChart: React.FC<Props> = ({ tasks }) => {
                   key={ leftEndDate.clone().add(index, 'days').format('MM/DD') }
                 >
                   <Text 
-                    x={ consts.DAY_WIDTH * index }
+                    x={ constants.DAY_WIDTH * index }
                     y="10" 
                     fill="white"
                   >
                     { leftEndDate.clone().add(index, 'days').format('MM/DD') }
                   </Text>
                   <Line 
-                    x1={ consts.DAY_WIDTH * index } 
+                    x1={ constants.DAY_WIDTH * index } 
                     y1="20" 
-                    x2={ consts.DAY_WIDTH * index } 
-                    y2={ consts.CHART_HEIGHT } 
+                    x2={ constants.DAY_WIDTH * index } 
+                    y2={ constants.CHART_HEIGHT } 
                     stroke="#3E6B57" 
                     strokeWidth="1" 
                   />
@@ -85,10 +84,10 @@ export const GanttChart: React.FC<Props> = ({ tasks }) => {
             }
             {
               <Line 
-                x1={ (consts.WINDOW_WIDTH - consts.PADDING_X * 2) * weekCount } 
+                x1={ (constants.WINDOW_WIDTH - constants.PADDING_X * 2) * weekCount } 
                 y1="20" 
-                x2={ (consts.WINDOW_WIDTH - consts.PADDING_X * 2) * weekCount } 
-                y2={ consts.CHART_HEIGHT } 
+                x2={ (constants.WINDOW_WIDTH - constants.PADDING_X * 2) * weekCount } 
+                y2={ constants.CHART_HEIGHT } 
                 stroke="#3E6B57" 
                 strokeWidth="1" 
               />

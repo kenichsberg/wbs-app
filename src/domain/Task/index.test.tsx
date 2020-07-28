@@ -1,4 +1,4 @@
-import { FormatTasks } from './index'
+import { getFormattedTasks } from './index'
 
 
 const task1 = {
@@ -27,7 +27,7 @@ const tasks = [task1, task2];
 
 describe('FormatTasks function', () => {
   it('should join the same category', () => {
-    const ret = FormatTasks(tasks);
+    const ret = getFormattedTasks(tasks);
     const categories = ['開発'];
     const taskFormatted = {
       '開発': [task1, task2]
