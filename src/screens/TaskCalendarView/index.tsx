@@ -9,10 +9,9 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { GanttChart } from '/domain/Gantt/GanttChart';
 import { TaskListProps } from '/navigations/types.tsx';
 import { Task } from '/screens/CreateTaskScreen';
-import { PartialTask } from '/screens/ScheduleScreen';
 
 type Props = {
-  tasks: Array<PartialTask>;
+  tasks: Array<Partial<Task>>;
 };
 
 const TopTab = createMaterialTopTabNavigator();
