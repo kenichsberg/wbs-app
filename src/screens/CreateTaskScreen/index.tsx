@@ -213,7 +213,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
           <Button
             data-test="create-button"
             block
-            onPress={() => {
+            onPress={ () => {
               navigation.navigate('TaskList', { task: task });
             }}
             style={{ marginTop: 60 }}
