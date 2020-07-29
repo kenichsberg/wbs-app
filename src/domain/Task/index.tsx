@@ -3,19 +3,19 @@ import { Task } from '/screens/CreateTaskScreen';
 /** 
  *
  * タスクリストのJSX構築のため、
- * キー：category、値：taskの配列 となるオブジェクトを生成する。
+ * キー：category、値：Taskの配列 となるオブジェクトを生成する。
  *
  */
 type TasksFormatted = {
   [key: string]: Array<Partial<Task>>;
 };
 
-type Formatted = {
+type FormattedList = {
   categories: Array<string>;
   tasksFormatted: TasksFormatted;
 }
 
-export const getFormattedTasks = (tasks: Array<Partial<Task>>): Formatted => {
+export const getFormattedTasks = (tasks: Array<Partial<Task>>): FormattedList => {
 
   // categoryのセット(の配列)を取得
   const categories: Array<string> = Array.from(new Set(tasks.map(task => task.category)));
