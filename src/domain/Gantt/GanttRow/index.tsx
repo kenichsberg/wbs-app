@@ -40,6 +40,7 @@ export const GanttRow: React.FC<Props> = ({ task, index, leftEndDate }) => {
   const xEndPlanned: number = xStartPlanned + lengthPlanned;
 
   // 実績開始のX座標
+  /*
   const xStartResult: number | null = JSON.parse(task.startDatetimeResult) == null
     ? null
     : getTermWidth(leftEndDate, startResult);
@@ -53,6 +54,7 @@ export const GanttRow: React.FC<Props> = ({ task, index, leftEndDate }) => {
     // 実績終了のX座標
     xEndResult = xStartResult + lengthResult;
   }
+   */
 
   // 上端の座標
   const yTop: number = 30 + 90 * index;
@@ -75,6 +77,7 @@ export const GanttRow: React.FC<Props> = ({ task, index, leftEndDate }) => {
         strokeWidth="40" 
       />
       {
+        /*
         xStartResult == null
           ? null
           : <Line 
@@ -85,6 +88,7 @@ export const GanttRow: React.FC<Props> = ({ task, index, leftEndDate }) => {
               stroke="white" 
               strokeWidth="3" 
             />
+         */
       }
     </>
   );

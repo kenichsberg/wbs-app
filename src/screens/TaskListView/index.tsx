@@ -46,7 +46,9 @@ export const TaskListView: React.FC<Props> = ({ navigation, tasks }) => {
           <Body>
             <Text>{ item.taskName }</Text>
             <Text note>予定：{ getPeriodString(item.startDatetimePlanned, item.endDatetimePlanned) }</Text>
+            {/*
             <Text note>実績：{ getPeriodString(item.startDatetimeResult, item.endDatetimeResult) }</Text>
+              */}
             <Text note>成果物: { item.selectedDocument }</Text>
           </Body>
           <Right>
