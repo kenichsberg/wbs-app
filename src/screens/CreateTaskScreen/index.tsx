@@ -111,18 +111,18 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   const getDatetimeInputField = (value: Date, name: string, label: string): JSX.Element => {
     return (
       <Item stackedLabel>
-        <Label>{label}</Label>
+        <Label>{ label }</Label>
         <DateTimePickerModal
           isVisible={ datePickerVisibilities[name] }
           mode="datetime"
-          date={value}
-          onConfirm={event => handleConfirm(event, name)}
-          onCancel={() => handleDatePicker(false, name)}
+          date={ value }
+          onConfirm={ event => handleConfirm(event, name) }
+          onCancel={ () => handleDatePicker(false, name) }
           headerTextIOS="選択してください"
           confirmTextIOS="OK"
           cancelTextIOS="キャンセル"
         />
-        <ListItem onPress={() => handleDatePicker(true, name)} >
+        <ListItem onPress={ () => handleDatePicker(true, name) } >
           <Text>
             { moment(value).format('YYYY年MM月DD日 HH:mm') }
           </Text>
@@ -130,7 +130,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
             small
             primary
             transparent
-            onPress={() => handleDatePicker(true, name)}
+            onPress={ () => handleDatePicker(true, name) }
           >
             <Text>変更する</Text>
           </Button>
@@ -163,26 +163,26 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
             <Item stackedLabel>
               <Label>分類</Label>
               <Input
-                value={category}
-                onChangeText={setCategory}
+                value={ category }
+                onChangeText={ setCategory }
               />
             </Item>
             <Item stackedLabel>
               <Label>プロセス名</Label>
               <Input
-                value={taskName}
-                onChangeText={setTaskName}
+                value={ taskName }
+                onChangeText={ setTaskName }
               />
             </Item>
 
-            {getDatetimeInputField(startDatetimePlanned, 'startDatetimePlanned', '予定開始日時')}
-            {getDatetimeInputField(endDatetimePlanned, 'endDatetimePlanned', '予定終了日時')}
-            {route.params?.task == null
+            { getDatetimeInputField(startDatetimePlanned, 'startDatetimePlanned', '予定開始日時') }
+            { getDatetimeInputField(endDatetimePlanned, 'endDatetimePlanned', '予定終了日時') }
+            { route.params?.task == null
                 ? null
-                : getDatetimeInputField(startDatetimeResult, 'startDatetimeResult', '実績開始日時')}
-            {route.params?.task == null
+                : getDatetimeInputField(startDatetimeResult, 'startDatetimeResult', '実績開始日時') }
+            { route.params?.task == null
                 ? null
-                : getDatetimeInputField(endDatetimeResult, 'endDatetimeResult', '実績終了日時')}
+                : getDatetimeInputField(endDatetimeResult, 'endDatetimeResult', '実績終了日時') }
 
             <Item stackedLabel picker last>
               <Label>成果物</Label>
@@ -193,8 +193,8 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
                 placeholder="選択してください"
                 placeholderStyle={{ color: "#bfc6ea" }}
                 placeholderIconColor="#007aff"
-                selectedValue={selectedDocument}
-                onValueChange={event => setSelectedDocument(event)}
+                selectedValue={ selectedDocument }
+                onValueChange={ event => setSelectedDocument(event) }
               >
                 <Picker.Item label="設計書" value="0" />
                 <Picker.Item label="単体検査項目" value="1" />
