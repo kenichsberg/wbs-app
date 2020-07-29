@@ -40,10 +40,10 @@ export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) =
   let view: JSX.Element; 
   switch (viewType) {
     case 'LIST':
-      view = <TaskListView tasks={tasks} navigation={navigation} />;
+      view = <TaskListView tasks={ tasks } navigation={ navigation } />;
       break;
     case 'CALENDAR':
-      view = <TaskCalendarView tasks={tasks} />;
+      view = <TaskCalendarView tasks={ tasks } />;
       break;
     default:
       view = <Text>error</Text>;
@@ -55,16 +55,16 @@ export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) =
       <Segment>
         <Button 
           first 
-          active={viewType === 'LIST'}
-          onPress={() => setViewType('LIST')}
+          active={ viewType === 'LIST' }
+          onPress={ () => setViewType('LIST') }
           data-test="list-view-button"
         >
           <Icon name="md-list" />
         </Button>
         <Button 
           last 
-          active={viewType === 'CALENDAR'}
-          onPress={() => setViewType('CALENDAR')}
+          active={ viewType === 'CALENDAR' }
+          onPress={ () => setViewType('CALENDAR') }
           data-test="calendar-view-button"
         >
           <Icon name="md-calendar" />
@@ -76,9 +76,9 @@ export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) =
 
       <Fab 
         position="bottomRight"
-        active={false}
+        active={ false }
         containerStyle={{ }}
-        onPress={() => navigation.navigate('CreateTask')}
+        onPress={ () => navigation.navigate('CreateTask') }
         data-test="fab"
       >
         <Icon name="ios-add" />
