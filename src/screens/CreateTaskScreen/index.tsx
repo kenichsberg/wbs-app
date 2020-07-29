@@ -13,16 +13,16 @@ export type Task = {
   taskName: string;
   startDatetimePlanned: string;
   endDatetimePlanned: string;
-  startDatetimeResult: string;
-  endDatetimeResult: string;
+  //startDatetimeResult: string;
+  //endDatetimeResult: string;
   selectedDocument: number;
 };
 
 type DatePickerVisibilities = {
   startDatetimePlanned: boolean;
   endDatetimePlanned: boolean;
-  startDatetimeResult: boolean;
-  endDatetimeResult: boolean;
+  //startDatetimeResult: boolean;
+  //endDatetimeResult: boolean;
 };
 
 
@@ -54,8 +54,8 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   const [datePickerVisibilities, setDatePickerVisibilities] = React.useState<DatePickerVisibilities>({
     startDatetimePlanned: false,
     endDatetimePlanned: false,
-    startDatetimeResult: false,
-    endDatetimeResult: false,
+    //startDatetimeResult: false,
+    //endDatetimeResult: false,
   });
 
 
@@ -70,6 +70,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
       setStartDatetimePlanned(new Date(JSON.parse(values.startDatetimePlanned)));
       setEndDatetimePlanned(new Date(JSON.parse(values.endDatetimePlanned)));
 
+      /*
       const startDatetimeResult = JSON.parse(values.startDatetimeResult) == null
         ? now
         : new Date(JSON.parse(values.startDatetimeResult));
@@ -78,6 +79,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
       const endDatetimeResult = JSON.parse(values.endDatetimeResult) == null
         ? now
         : new Date(JSON.parse(values.endDatetimeResult));
+       */
       setEndDatetimeResult(endDatetimeResult);
 
       setSelectedDocument(values.selectedDocument);
@@ -145,12 +147,14 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
     taskName: taskName,
     startDatetimePlanned: JSON.stringify(startDatetimePlanned),
     endDatetimePlanned: JSON.stringify(endDatetimePlanned),
+    /*
     startDatetimeResult: startDatetimeResult
       ? JSON.stringify(startDatetimeResult)
       : 'null',
     endDatetimeResult: endDatetimeResult
       ? JSON.stringify(endDatetimeResult)
       : 'null',
+     */
     selectedDocument: selectedDocument
   };
 
