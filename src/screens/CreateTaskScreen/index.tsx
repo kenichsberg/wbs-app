@@ -188,7 +188,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
               <Label>成果物</Label>
               <Picker
                 mode="dropdown"
-                iosIcon={<Icon name="arrow-down" />}
+                iosIcon={ <Icon name="arrow-down" /> }
                 style={{ width: undefined }}
                 placeholder="選択してください"
                 placeholderStyle={{ color: "#bfc6ea" }}
