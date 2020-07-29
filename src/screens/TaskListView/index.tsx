@@ -29,7 +29,7 @@ const getPeriodString = (jsonDateStart: string, jsonDateEnd: string): string => 
     ? '対応中'
     : moment(JSON.parse(jsonDateEnd)).format('YYYY年MM月DD日 HH:mm');
 
-  return `${dateStartString} 〜 ${dateEndString}`;
+  return `${ dateStartString } 〜 ${ dateEndString }`;
 
 }
 
@@ -42,19 +42,19 @@ export const TaskListView: React.FC<Props> = ({ navigation, tasks }) => {
   // リスト1つのJSXを取得
   const getTaskList = (item, index) => {
     return (
-        <ListItem key={`ListItem-${index}`}>
+        <ListItem key={ item.id }>
           <Body>
-            <Text>{item.taskName}</Text>
-            <Text note>予定：{getPeriodString(item.startDatetimePlanned, item.endDatetimePlanned)}</Text>
-            <Text note>実績：{getPeriodString(item.startDatetimeResult, item.endDatetimeResult)}</Text>
-            <Text note>成果物: {item.selectedDocument}</Text>
+            <Text>{ item.taskName }</Text>
+            <Text note>予定：{ getPeriodString(item.startDatetimePlanned, item.endDatetimePlanned) }</Text>
+            <Text note>実績：{ getPeriodString(item.startDatetimeResult, item.endDatetimeResult) }</Text>
+            <Text note>成果物: { item.selectedDocument }</Text>
           </Body>
           <Right>
             <Button transparent data-test="edit-button">
               <Icon 
                 name="ios-create" 
-                style={{color: 'tomato'}}
-                onPress={() => navigation.navigate('EditTask', {task: item })}
+                style={{ color: 'tomato' }}
+                onPress={ () => navigation.navigate('EditTask', {task: item }) }
               />
             </Button>
           </Right>
@@ -70,13 +70,13 @@ export const TaskListView: React.FC<Props> = ({ navigation, tasks }) => {
           ? <ListItem>
               <Text >タスクを追加してください</Text>
             </ListItem>
-          : categories.map (category => {
+          : categories.map(category => {
               return (
-                <List key={category}>
-                  <Separator bordered key={`Separator-${category}`}>
-                    <Text>{category}</Text>
+                <List key={ category }>
+                  <Separator bordered>
+                    <Text>{ category }</Text>
                   </Separator>
-                  {tasksFormatted[category].map ((item, index) => getTaskList(item, index))}
+                  { tasksFormatted[category].map((item, index) => getTaskList(item, index)) }
                 </List>
               )
             })
