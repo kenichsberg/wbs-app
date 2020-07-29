@@ -181,12 +181,14 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
 
             { getDatetimeInputField(startDatetimePlanned, 'startDatetimePlanned', '予定開始日時') }
             { getDatetimeInputField(endDatetimePlanned, 'endDatetimePlanned', '予定終了日時') }
+            {/*
             { route.params?.task == null
                 ? null
                 : getDatetimeInputField(startDatetimeResult, 'startDatetimeResult', '実績開始日時') }
             { route.params?.task == null
                 ? null
                 : getDatetimeInputField(endDatetimeResult, 'endDatetimeResult', '実績終了日時') }
+              */}
 
             <Item stackedLabel picker last>
               <Label>成果物</Label>
