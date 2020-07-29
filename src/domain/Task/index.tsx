@@ -1,5 +1,4 @@
-//import { Task } from '/screens/CreateTaskScreen';
-import { PartialTask } from '/screens/ScheduleScreen';
+import { Task } from '/screens/CreateTaskScreen';
 
 /** 
  *
@@ -8,7 +7,7 @@ import { PartialTask } from '/screens/ScheduleScreen';
  *
  */
 type TasksFormatted = {
-  [key: string]: Array<PartialTask>;
+  [key: string]: Array<Partial<Task>>;
 };
 
 type Formatted = {
@@ -16,7 +15,7 @@ type Formatted = {
   tasksFormatted: TasksFormatted;
 }
 
-export const getFormattedTasks = (tasks: Array<PartialTask>): Formatted => {
+export const getFormattedTasks = (tasks: Array<Partial<Task>>): Formatted => {
 
   // categoryのセット(の配列)を取得
   const categories: Array<string> = Array.from(new Set(tasks.map(task => task.category)));

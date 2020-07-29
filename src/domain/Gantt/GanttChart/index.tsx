@@ -6,14 +6,14 @@ import Svg, { Line, Text } from 'react-native-svg';
 import { getFormattedTasks } from '/domain/Task/';
 import { getLeftEndDate, getRightEndDate, getWeekCount } from '/services/Gantt/'; 
 import { GanttRow } from '/domain/Gantt/GanttRow/';
-import { PartialTask } from '/screens/ScheduleScreen/';
+import { Task } from '/screens/CreateTaskScreen';
 import * as constants from '/domain/constants';
 import { Moment } from 'moment';
 
 const moment = require('moment');
 
 type Props = {
-  tasks: Array<PartialTask>;
+  tasks: Array<Partial<Task>>;
 };
 
 

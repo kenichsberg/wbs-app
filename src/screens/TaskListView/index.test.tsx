@@ -5,7 +5,7 @@ import { shallow, ShallowWrapper } from 'enzyme';
 import * as renderer from 'react-test-renderer';
 
 import { TaskListView } from './index';
-import { PartialTask } from '/screens/ScheduleScreen/';
+import { Task } from '/screens/CreateTaskScreen';
 
 
 const createTestProps = (props: Object) => ({
@@ -42,7 +42,7 @@ const task2 = {
   selectedDocument: 4
 };
 
-const tasks: Array<PartialTask>  = [task1, task2];
+const tasks: Array<Partial<Task>>  = [task1, task2];
 
 
 describe('TaskListView', () => {

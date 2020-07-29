@@ -3,11 +3,11 @@ import 'react-native-gesture-handler';
 import { Container, Segment, Content, View, Body, Right, Text, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
 import { getFormattedTasks } from '/domain/Task/';
 import { TaskListProps } from '/navigations/types.tsx';
-import { PartialTask } from '/screens/ScheduleScreen';
+import { Task } from '/screens/CreateTaskScreen';
 
 type Props = Partial<TaskListProps> 
   & {
-    tasks: Array<PartialTask>;
+    tasks: Array<Partial<Task>>;
   };
 
 const moment = require('moment');
