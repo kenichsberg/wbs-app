@@ -45,9 +45,9 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   // 予定終了日時
   const [endDatetimePlanned, setEndDatetimePlanned] = React.useState<Date>(now);
   // 実績開始日時
-  const [startDatetimeResult, setStartDatetimeResult] = React.useState<Date | null>(null);
+  //const [startDatetimeResult, setStartDatetimeResult] = React.useState<Date | null>(null);
   // 実績終了日時
-  const [endDatetimeResult, setEndDatetimeResult] = React.useState<Date | null>(null);
+  //const [endDatetimeResult, setEndDatetimeResult] = React.useState<Date | null>(null);
   // 成果物
   const [selectedDocument, setSelectedDocument] = React.useState<number | null>(null);
 
@@ -141,8 +141,8 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
       const endDatetimeResult = JSON.parse(values.endDatetimeResult) == null
         ? now
         : new Date(JSON.parse(values.endDatetimeResult));
-       */
       setEndDatetimeResult(endDatetimeResult);
+       */
 
       setSelectedDocument(values.selectedDocument);
 
@@ -156,11 +156,11 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   };
 
   // map of name -> setState()
-  const nameToSetStateFunc = new Map([
+  const nameToSetStateFunc: Map<string, (Date)=>any> = new Map([
     ['startDatetimePlanned', setStartDatetimePlanned],
     ['endDatetimePlanned', setEndDatetimePlanned],
-    ['startDatetimeResult', setStartDatetimeResult],
-    ['endDatetimeResult', setEndDatetimeResult]
+    //['startDatetimeResult', setStartDatetimeResult],
+    //['endDatetimeResult', setEndDatetimeResult]
   ]);
 
   // 日時選択モーダル　選択時の処理
