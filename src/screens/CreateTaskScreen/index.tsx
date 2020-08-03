@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Container, Header, Content, Text, View, Body, Right, Button, Form, Item, Input, Label, Picker, Icon, DatePicker, List, ListItem } from 'native-base';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { CreateTaskProps } from '/navigations/types.tsx';
+import { getManHour, getEndDatetime } from '/services/Task';
 
 const moment = require('moment');
 
@@ -12,6 +13,7 @@ export type Task = {
   category: string;
   taskName: string;
   startDatetimePlanned: string;
+  manHour: number;
   endDatetimePlanned: string;
   //startDatetimeResult: string;
   //endDatetimeResult: string;
@@ -31,7 +33,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   const [id, setId] = React.useState<number | null>(null);
   // 分類
   const [category, setCategory] = React.useState<string>('');
-  // プロセス名
+  // タスク名
   const [taskName, setTaskName] = React.useState<string>('');
 
   // datetime初期値を設定
@@ -162,6 +164,23 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
     //['startDatetimeResult', setStartDatetimeResult],
     //['endDatetimeResult', setEndDatetimeResult]
   ]);
+
+  // 工数入力時の処理
+  const handleManHourInput = (text: string): void => {
+    setManHour(text);
+    if (isNaN(parseFloat(text))) return;
+
+    const endDatetime = getEndDatetime(moment(startDatetimePlanned, 'YYYY-MM-DD HH:mm:ss'), parseFloat(text));
+
+    setEndDatetimePlanned(endDatetime.toDate());
+  }
+
+  // 工数フォーカス時の処理
+  const handleManHourFocus = ():void => {
+    if (manHour === '0') {
+      setManHour('');
+    }
+  }
 
   // 日時選択モーダル　選択時の処理
   const handleConfirm = (date: Date, name: string): void => {
