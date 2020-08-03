@@ -40,6 +40,8 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   now.setSeconds(0);
   // 予定開始日時
   const [startDatetimePlanned, setStartDatetimePlanned] = React.useState<Date>(now);
+  // 工数
+  const [manHour, setManHour] = React.useState<string>('0');
   // 予定終了日時
   const [endDatetimePlanned, setEndDatetimePlanned] = React.useState<Date>(now);
   // 実績開始日時
@@ -127,6 +129,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
       setCategory(values.category);
       setTaskName(values.taskName);
       setStartDatetimePlanned(new Date(JSON.parse(values.startDatetimePlanned)));
+      setManHour(values.manHour.toString());
       setEndDatetimePlanned(new Date(JSON.parse(values.endDatetimePlanned)));
 
       /*
@@ -222,6 +225,29 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
             </Item>
 
             { getDatetimeInputField(startDatetimePlanned, 'startDatetimePlanned', '予定開始日時') }
+
+            <Item stackedLabel>
+              <Label>工数</Label>
+              <View
+                style={{
+                  flexDirection: "row",
+                  flex: 1,
+                  paddingRight: 120,
+                  alignItems: 'center'
+                }}
+              >
+                <Input
+                  keyboardType="decimal-pad"
+                  value={ manHour }
+                  //onChangeText={ setManHour }
+                  onChangeText={ handleManHourInput }
+                  onFocus={ handleManHourFocus }
+                  style={{ textAlign: 'right', paddingRight: 40 }}
+                />
+                <Text style={{ fontWeight: '600', color: '#6B453E' }}>h</Text>
+              </View>
+            </Item>
+
             { getDatetimeInputField(endDatetimePlanned, 'endDatetimePlanned', '予定終了日時') }
             {/*
             { route.params?.task == null
