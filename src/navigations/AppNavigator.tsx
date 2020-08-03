@@ -3,34 +3,10 @@ import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import { ScheduleScreen } from '/screens/ScheduleScreen';
-import { CreateTaskScreen } from '/screens/CreateTaskScreen';
-import { SettingsScreen } from '/screens/SettingsScreen';
-import { ScheduleStackParamList } from '/navigations/types.tsx';
-import { SettingsStackParamList } from '/navigations/types.tsx';
 
+import { ScheduleStackScreen } from './ScheduleStack/';
+import { SettingsStackScreen } from './SettingsStack/';
 
-const ScheduleStack = createStackNavigator<ScheduleStackParamList>();
-
-const ScheduleStackScreen: React.FC = () => {
-  return (
-    <ScheduleStack.Navigator>
-      <ScheduleStack.Screen name="TaskList" component={ScheduleScreen} />
-      <ScheduleStack.Screen name="CreateTask" component={CreateTaskScreen} />
-      <ScheduleStack.Screen name="EditTask" component={CreateTaskScreen} />
-    </ScheduleStack.Navigator>
-  );
-}
-
-const SettingsStack = createStackNavigator<SettingsStackParamList>();
-
-const SettingsStackScreen: React.FC = () => {
-  return (
-    <SettingsStack.Navigator>
-      <SettingsStack.Screen name="Settings" component={SettingsScreen} />
-    </SettingsStack.Navigator>
-  );
-}
 
 const Tab = createBottomTabNavigator();
 
@@ -52,8 +28,11 @@ export const AppNavigator: React.FC = () => {
         },
       })}
       tabBarOptions={{
-        activeTintColor: 'tomato',
+        //activeTintColor: 'tomato',
+        activeTintColor: '#912221',
         inactiveTintColor: 'gray',
+        labelStyle: { fontWeight: '600' },
+        style: { backgroundColor: '#f9f9f9' },
       }}
     >
       <Tab.Screen
