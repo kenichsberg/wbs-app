@@ -29,8 +29,10 @@ export const GanttRow: React.FC<Props> = ({ task, index, leftEndDate }) => {
   const startPlanned = parseJsonToMoment(task.startDatetimePlanned);
   const endPlanned = parseJsonToMoment(task.endDatetimePlanned);
 
+  /*
   const startResult = parseJsonToMoment(task.startDatetimeResult);
   const endResult = parseJsonToMoment(task.endDatetimeResult);
+   */
 
   const lengthPlanned: number = getTermWidth(startPlanned, endPlanned);
 
