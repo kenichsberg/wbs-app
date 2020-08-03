@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as constants from '/domain/constants';
-import { isHoliday, getDateByDatetime, getTimeByDatetime, getActualWorkingHours, getBreakTime, getHolidayCount } from 'services/Date';
+import { isHoliday, getDateByDatetime, getTimeByDatetime, getActualWorkingHours, getBreakTime, getHolidayCount } from '/services/Date';
 import { Moment } from 'moment';
 
 const moment = require('moment');
@@ -22,7 +22,6 @@ export const getManHour = (startDatetime: Moment, endDatetime: Moment): number =
       ? 0
       : getActualWorkingHours(startTime, endTime);
     
-    //return hours / workingHoursPerDay;
     return hours;
   }
 
@@ -36,7 +35,6 @@ export const getManHour = (startDatetime: Moment, endDatetime: Moment): number =
 
   const dayAfterStartDate = startDate.clone().add(1, 'day');
 
-  //const workingDays = getWorkingDayCount(dayAfterStartDate, endDate);
   const dayCount: number = endDate.diff(dayAfterStartDate, 'days');
   const holidayCount: number = getHolidayCount(dayAfterStartDate, endDate);
 
@@ -45,14 +43,12 @@ export const getManHour = (startDatetime: Moment, endDatetime: Moment): number =
 
   const workingHoursPerDay: number = getActualWorkingHours(startOfDay, endOfDay);
 
-  //return (startDateHours + endDateHours) / workingHoursPerDay + workingDays;
   return (startDateHours + endDateHours) + workingDays * workingHoursPerDay;
 
 };
 
 
 export const getEndDatetime = (datetime: Moment, remainHours: number): Moment => {
-  console.log(datetime.format('YYYY-MM-DD HH:mm:ss'), remainHours);
 
   if (remainHours === 0) return datetime;
 
@@ -67,32 +63,69 @@ export const getEndDatetime = (datetime: Moment, remainHours: number): Moment =>
 
   const originalTime = getTimeByDatetime(datetime);
 
-  const time = originalTime.isBefore(openTime)
+  // 時間計算の開始時刻
+  const startTime = originalTime.isBefore(openTime)
     ? openTime
     : originalTime;
 
-  const hour = time.get('hour');
-  const minute = time.get('minute');
-  const second = time.get('second');
+  const hour = startTime.get('hour');
+  const minute = startTime.get('minute');
+  const second = startTime.get('second');
 
   datetime.set('hour', hour)
     .set('minute', minute)
     .set('second', second);
 
-  if (time.isSameOrAfter(closeTime)) {
+  if (startTime.isSameOrAfter(closeTime)) {
     return getEndDatetime(datetime.clone().add(1, 'day').startOf('day'), remainHours);
   }
 
-  const hoursUntilClose = getActualWorkingHours(time, closeTime);
+  const hoursUntilClose = getActualWorkingHours(startTime, closeTime);
 
-  const breakTime = getBreakTime(time, closeTime);
-
+  /*
   const hours = hoursUntilClose < remainHours
     ? hoursUntilClose 
     : remainHours;
+   */
+  const hours: number = Math.min(remainHours, hoursUntilClose);
 
   remainHours -= hours;
 
+  const endTime = getEndTime(startTime, hours);
+
+  const breakTime = getBreakTime(startTime, endTime);
+
   return getEndDatetime(datetime.clone().add(hours + breakTime, 'hour'), remainHours);
+
+};
+
+
+export const getEndTime = (startTime: Moment, remainHours: number) => {
+  if (remainHours <= 0) {
+    return startTime;
+  }
+
+  const endTime: Moment = startTime.clone().add(remainHours, 'hour');
+
+  const breakTimes = constants.BREAK_TIMES.filter(breakTime => {
+    return startTime.isBefore(moment(breakTime.end, 'HH:mm:ss')) 
+      && endTime.isAfter(moment(breakTime.start, 'HH:mm:ss'));
+  });
+
+  if (breakTimes.length === 0) {
+    return endTime;
+  }
+
+  const breakTime: { start: string, end: string } = breakTimes[0];
+
+  const hoursUntilBreakStart: number = moment(breakTime.start, 'HH:mm:ss').diff(startTime, 'hours');
+
+  const hours: number = Math.min(remainHours, hoursUntilBreakStart);
+
+  remainHours -= hours;
+
+  const nextStartTime: Moment = moment(breakTime.end, 'HH:mm:ss');
+
+  return getEndTime(nextStartTime, remainHours);
 
 };
