@@ -8,15 +8,20 @@ import { TaskListProps } from '/navigations/types.tsx';
 import { Task } from '/screens/CreateTaskScreen';
 
 
-type ViewType = 'LIST' | 'CALENDAR';
+export type ViewType = 'LIST' | 'CALENDAR';
 
 export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) => {
 
-  // プロセスオブジェクトを保持するstate
-  const [tasks, setTasks] = React.useState<Array<Partial<Task>>>([]);
+  const currentView: ViewType = route.name === 'CALENDAR'
+    ? 'CALENDAR'
+    : 'LIST';
 
   // ビュー切り替え用state
-  const [viewType, setViewType] = React.useState<ViewType>('LIST');
+  //const [viewType, setViewType] = React.useState<ViewType>('LIST');
+  const [viewType, setViewType] = React.useState<ViewType>(currentView);
+
+  // プロセスオブジェクトを保持するstate
+  const [tasks, setTasks] = React.useState<Array<Partial<Task>>>([]);
 
   // 引数を格納する変数
   let param: Partial<Task> = {};
@@ -52,6 +57,7 @@ export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) =
   // JSX
   return (
     <Container>
+      {/*
       <Segment>
         <Button 
           first 
@@ -70,9 +76,8 @@ export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) =
           <Icon name="md-calendar" />
         </Button>
       </Segment>
-      <Content>
-        { view }
-      </Content>
+        */}
+      <Content>{ view }</Content>
 
       <Fab 
         position="bottomRight"
@@ -80,6 +85,9 @@ export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) =
         containerStyle={{ }}
         onPress={ () => navigation.navigate('CreateTask') }
         data-test="fab"
+        style={{
+          backgroundColor: '#1F5E56'
+        }}
       >
         <Icon name="ios-add" />
       </Fab>
