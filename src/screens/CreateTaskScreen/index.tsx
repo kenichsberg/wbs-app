@@ -200,23 +200,6 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
     );
   }
 
-  const task: Task = {
-    id: id,
-    category: category,
-    taskName: taskName,
-    startDatetimePlanned: JSON.stringify(startDatetimePlanned),
-    endDatetimePlanned: JSON.stringify(endDatetimePlanned),
-    /*
-    startDatetimeResult: startDatetimeResult
-      ? JSON.stringify(startDatetimeResult)
-      : 'null',
-    endDatetimeResult: endDatetimeResult
-      ? JSON.stringify(endDatetimeResult)
-      : 'null',
-     */
-    selectedDocument: selectedDocument
-  };
-
   // JSX
   return (
     <>
@@ -269,17 +252,26 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
               </Picker>
             </Item>
           </Form>
-          <Button
-            data-test="create-button"
-            block
-            onPress={ () => {
-              navigation.navigate('TaskList', { task: task });
-            }}
-            style={{ marginTop: 60 }}
-          >
-            <Text>作成する</Text>
-          </Button>
         </Content>
+        {/*
+        <Button
+          data-test="create-button"
+          block
+          rounded
+          onPress={ () => {
+            navigation.navigate('TaskList', { task: task });
+          }}
+          style={{ 
+            marginTop: 20,
+            marginBottom: 10,
+            marginLeft: 10,
+            marginRight: 10,
+            backgroundColor: '#1F5E56'
+          }}
+        >
+          <Text style={{ fontWeight: "600" }}>作成する</Text>
+        </Button>
+         */}
       </Container>
     </>
   );
