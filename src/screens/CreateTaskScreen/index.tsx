@@ -196,7 +196,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
             transparent
             onPress={ () => handleDatePicker(true, name) }
           >
-            <Text>変更する</Text>
+            <Text style={{ fontWeight: '600', color: '#8FAFC4' }}>タップして変更</Text>
           </Button>
         </ListItem>
       </Item>
@@ -214,13 +214,15 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
               <Input
                 value={ category }
                 onChangeText={ setCategory }
+                style={{ textAlign: 'center' }}
               />
             </Item>
             <Item stackedLabel>
-              <Label>プロセス名</Label>
+              <Label>タスク名</Label>
               <Input
                 value={ taskName }
                 onChangeText={ setTaskName }
+                style={{ textAlign: 'center' }}
               />
             </Item>
 
