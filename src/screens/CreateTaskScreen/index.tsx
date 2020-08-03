@@ -58,6 +58,65 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
     //endDatetimeResult: false,
   });
 
+  const task: Task = {
+    id: id,
+    category: category,
+    taskName: taskName,
+    startDatetimePlanned: JSON.stringify(startDatetimePlanned),
+    manHour: parseFloat(manHour),
+    endDatetimePlanned: JSON.stringify(endDatetimePlanned),
+    /*
+    startDatetimeResult: startDatetimeResult
+      ? JSON.stringify(startDatetimeResult)
+      : 'null',
+    endDatetimeResult: endDatetimeResult
+      ? JSON.stringify(endDatetimeResult)
+      : 'null',
+     */
+    selectedDocument: selectedDocument
+  };
+
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button 
+          data-test="create-button"
+          hasText
+          transparent
+          onPress={ (): void => {
+            navigation.navigate('TaskList', { task: task });
+          }}
+          style={{ 
+            marginRight: 20,
+          }}
+        >
+          <View style={{ 
+              flexDirection: 'row',
+              justifyContent: "space-between",
+              alignItems: "center"
+            }}
+          >
+            <Icon 
+              name="checkmark" 
+              style={{ 
+                color: '#1F5E56' ,
+                marginRight: 5,
+              }} 
+            />
+            <Text style={{ 
+                color: '#1F5E56',
+                fontWeight: "600",
+              }}
+            >
+               作成
+            </Text>
+          </View>
+        </Button>
+      ),
+    });
+  }, [navigation]);
+
 
   // 引数を受け取った時の処理
   React.useEffect(() => {
