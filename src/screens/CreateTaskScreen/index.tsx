@@ -182,10 +182,27 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
     }
   }
 
+  // 終了日時入力時の処理
+  const handleDatetimeInput = (date: Date, name: string): void => {
+    const startDatetime = name === 'startDatetimePlanned'
+      ? moment(date, 'YYYY-MM-DD HH:mm:ss')
+      : moment(startDatetimePlanned, 'YYYY-MM-DD HH:mm:ss');
+
+    const endDatetime = name === 'endDatetimePlanned'
+      ? moment(date, 'YYYY-MM-DD HH:mm:ss')
+      : moment(endDatetimePlanned, 'YYYY-MM-DD HH:mm:ss');
+
+    const hour = getManHour(startDatetime, endDatetime);
+
+    setManHour(hour.toString());
+  };
+
   // 日時選択モーダル　選択時の処理
   const handleConfirm = (date: Date, name: string): void => {
     const func = nameToSetStateFunc.get(name);
     func(date);
+
+    handleDatetimeInput(date, name);
 
     handleDatePicker(false, name);
   };
