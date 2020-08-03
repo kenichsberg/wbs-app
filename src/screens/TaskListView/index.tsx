@@ -55,7 +55,8 @@ export const TaskListView: React.FC<Props> = ({ navigation, tasks }) => {
             <Button transparent data-test="edit-button">
               <Icon 
                 name="ios-create" 
-                style={{ color: 'tomato' }}
+                //style={{ color: 'tomato' }}
+                style={{ color: '#912221' }}
                 onPress={ () => navigation.navigate('EditTask', {task: item }) }
               />
             </Button>
