@@ -1,13 +1,13 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
 import { View, Button, Text, Icon } from 'native-base';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { ScheduleScreen } from '/screens/ScheduleScreen';
 import { TaskListView } from '/screens/TaskListView';
 import { TaskCalendarView } from '/screens/TaskCalendarView';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { ScheduleTabParamList } from '/navigations/types.tsx';
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator<ScheduleTabParamList>();
 
 export const ScheduleTab: React.FC = () => {
   return (
