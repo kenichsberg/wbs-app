@@ -4,13 +4,13 @@ import { Container, Segment, Content, View, Body, Right, Text, Button, List, Lis
 import moment from 'moment';
 import { TaskListView } from '/screens/TaskListView';
 import { TaskCalendarView } from '/screens/TaskCalendarView';
-import { TaskListProps } from '/navigations/types.tsx';
+import { TaskListProps, ListTabProps, CalendarTabProps } from '/navigations/types.tsx';
 import { Task } from '/screens/CreateTaskScreen';
 
 
 export type ViewType = 'LIST' | 'CALENDAR';
 
-export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) => {
+export const ScheduleScreen: React.FC<ListTabProps | CalendarTabProps> = ({ navigation, route }) => {
 
   const currentView: ViewType = route.name === 'CALENDAR'
     ? 'CALENDAR'
