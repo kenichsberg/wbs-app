@@ -15,7 +15,7 @@ export const AppNavigator: React.FC = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
+          let iconName: string = '';
 
           if (route.name === 'スケジュール管理') {
             iconName = 'ios-list-box';
@@ -24,7 +24,7 @@ export const AppNavigator: React.FC = () => {
           }
 
           // You can return any component that you like here!
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return <Ionicons name={ iconName } size={ size } color={ color } />;
         },
       })}
       tabBarOptions={{
