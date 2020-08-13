@@ -5,7 +5,7 @@ import { Moment } from 'moment';
 const moment = require('moment');
 
 
-export const parseJsonToMoment = (jsonDateString: string): Moment => {
+export const parseJsonToMoment = (jsonDateString: string = ''): Moment => {
 
   return moment(JSON.parse(jsonDateString));
 };

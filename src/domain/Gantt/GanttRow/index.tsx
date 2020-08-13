@@ -12,7 +12,7 @@ import { Moment } from 'moment';
 const moment = require('moment');
 
 type Props = {
-  task: Partial<Task>;
+  task: Task;
   index: number;
   leftEndDate: Moment;
 };

@@ -14,8 +14,8 @@ const createTestProps = (props: Object) => ({
   ...props
 });
 
-const TaskListView = jest.mock('./TaskListView');
-const TaskCalendarView = jest.mock('./TaskCalendarView');
+const TaskListView = jest.mock('../TaskListView');
+const TaskCalendarView = jest.mock('../TaskCalendarView');
 
 describe('ScheduleScreen', () => {
   let wrapper: ShallowWrapper;
@@ -31,45 +31,46 @@ describe('ScheduleScreen', () => {
   it("should navigate to CreateTaskScreen", () => {
     const navigate = jest.spyOn(props.navigation, 'navigate');
 
-    const simulateClick = async () => {
-      await wrapper.find('[data-test="fab"]').simulate('click');
-      expect(navigate).toBeCalledWith('CreateTask');
-    };
+    const fab: ShallowWrapper = wrapper.find('[data-test="fab"]');
+    expect(fab).toHaveLength(1);
 
-    simulateClick();
+    fab.simulate('press');
+
+    expect(navigate).toBeCalledWith('CreateTask');
   });
 
+  /*
   it("should call TaskListView on default", () => {
     const navigate = jest.spyOn(props.navigation, 'navigate');
 
-    const simulateClick = async () => {
-      await wrapper.find('[data-test="list-view-button"]').simulate('click');
-      expect(TaskListView).toBeCalled();
-    };
+    const listTabButton: ShallowWrapper = wrapper.find('[data-test="list-view-button"]');
+    expect(listTabButton).toHaveLength(1);
 
-    simulateClick();
+    listTabButton.simulate('press');
+
+    expect(navigate).toBeCalledWith('ListTab');
   });
 
   it("should call TaskCalendarView on click toggle-button", () => {
     const navigate = jest.spyOn(props.navigation, 'navigate');
 
-    const simulateClick = async () => {
-      await wrapper.find('[data-test="calendar-view-button"]').simulate('click');
-      expect(TaskCalendarView).toBeCalled();
-    };
+    const calendarTabButton: ShallowWrapper = wrapper.find('[data-test="calendar-view-button"]');
+    expect(calendarTabButton).toHaveLength(1);
 
-    simulateClick();
+    calendarTabButton.simulate('press');
+
+    expect(navigate).toBeCalledWith('CalendarTab');
   });
 
   it("should call TaskListView on click toggle-button", () => {
     const navigate = jest.spyOn(props.navigation, 'navigate');
 
-    const simulateClick = async () => {
-      await wrapper.find('[data-test="calendar-view-button"]').simulate('click');
-      await wrapper.find('[data-test="list-view-button"]').simulate('click');
-      expect(TaskListView).toBeCalled();
-    };
+    const listTabButton: ShallowWrapper = wrapper.find('[data-test="list-view-button"]');
+    expect(listTabButton).toHaveLength(1);
 
-    simulateClick();
+    listTabButton.simulate('press');
+
+    expect(navigate).toBeCalledWith('ListTab');
   });
+   */
 });

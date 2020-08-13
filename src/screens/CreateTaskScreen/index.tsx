@@ -9,18 +9,19 @@ import { getManHour, getEndDatetime } from '/services/Task';
 const moment = require('moment');
 
 export type Task = {
-  id: number;
+  id: number | undefined;
   category: string;
   taskName: string;
   startDatetimePlanned: string;
-  manHour: number;
+  manHour: number | undefined;
   endDatetimePlanned: string;
   //startDatetimeResult: string;
   //endDatetimeResult: string;
-  selectedDocument: number;
+  selectedDocument: number | undefined;
 };
 
 type DatePickerVisibilities = {
+  [key: string]: boolean,
   startDatetimePlanned: boolean;
   endDatetimePlanned: boolean;
   //startDatetimeResult: boolean;
@@ -30,7 +31,7 @@ type DatePickerVisibilities = {
 
 export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route }) => {
   // id
-  const [id, setId] = React.useState<number | null>(null);
+  const [id, setId] = React.useState<number | undefined>(undefined);
   // 分類
   const [category, setCategory] = React.useState<string>('');
   // タスク名
@@ -51,7 +52,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   // 実績終了日時
   //const [endDatetimeResult, setEndDatetimeResult] = React.useState<Date | null>(null);
   // 成果物
-  const [selectedDocument, setSelectedDocument] = React.useState<number | null>(null);
+  const [selectedDocument, setSelectedDocument] = React.useState<number | undefined>(undefined);
 
 
   // 日時選択モーダル　表示・非表示
@@ -113,7 +114,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
                 fontWeight: "600",
               }}
             >
-               作成
+              作成
             </Text>
           </View>
         </Button>
@@ -131,7 +132,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
       setCategory(values.category);
       setTaskName(values.taskName);
       setStartDatetimePlanned(new Date(JSON.parse(values.startDatetimePlanned)));
-      setManHour(values.manHour.toString());
+      setManHour(values.manHour?.toString() ?? '');
       setEndDatetimePlanned(new Date(JSON.parse(values.endDatetimePlanned)));
 
       /*
@@ -158,7 +159,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   };
 
   // map of name -> setState()
-  const nameToSetStateFunc: Map<string, (Date)=>any> = new Map([
+  const nameToSetStateFunc: Map<string, (arg0: Date) => any> = new Map([
     ['startDatetimePlanned', setStartDatetimePlanned],
     ['endDatetimePlanned', setEndDatetimePlanned],
     //['startDatetimeResult', setStartDatetimeResult],
@@ -199,7 +200,10 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
 
   // 日時選択モーダル　選択時の処理
   const handleConfirm = (date: Date, name: string): void => {
-    const func = nameToSetStateFunc.get(name);
+    const func: ((arg0: Date) => any) | undefined  = nameToSetStateFunc.get(name);
+
+    if (func === undefined) return;
+
     func(date);
 
     handleDatetimeInput(date, name);

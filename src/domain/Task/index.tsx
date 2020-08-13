@@ -7,7 +7,7 @@ import { Task } from '/screens/CreateTaskScreen';
  *
  */
 type TasksFormatted = {
-  [key: string]: Array<Partial<Task>>;
+  [key: string]: Array<Task>;
 };
 
 type FormattedList = {
@@ -15,7 +15,7 @@ type FormattedList = {
   tasksFormatted: TasksFormatted;
 }
 
-export const getFormattedTasks = (tasks: Array<Partial<Task>>): FormattedList => {
+export const getFormattedTasks = (tasks: Array<Task>): FormattedList => {
 
   // categoryのセット(の配列)を取得
   const categories: Array<string> = Array.from(new Set(tasks.map(task => task.category)));

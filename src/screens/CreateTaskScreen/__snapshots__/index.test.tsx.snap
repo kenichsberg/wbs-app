@@ -119,19 +119,24 @@ exports[`CreateTaskScreen should render correctly with params 1`] = `
             placeholderTextColor="#575757"
             rejectResponderTermination={true}
             style={
-              Object {
-                "alignSelf": "stretch",
-                "color": "#000",
-                "flex": 1,
-                "fontSize": 17,
-                "height": 50,
-                "lineHeight": 18,
-                "marginLeft": null,
-                "paddingLeft": null,
-                "paddingRight": 5,
-                "top": 1.5,
-                "width": null,
-              }
+              Array [
+                Object {
+                  "alignSelf": "stretch",
+                  "color": "#000",
+                  "flex": 1,
+                  "fontSize": 17,
+                  "height": 50,
+                  "lineHeight": 18,
+                  "marginLeft": null,
+                  "paddingLeft": null,
+                  "paddingRight": 5,
+                  "top": 1.5,
+                  "width": null,
+                },
+                Object {
+                  "textAlign": "center",
+                },
+              ]
             }
             underlineColorAndroid="rgba(0,0,0,0)"
             value=""
@@ -182,7 +187,7 @@ exports[`CreateTaskScreen should render correctly with params 1`] = `
               }
             }
           >
-            プロセス名
+            タスク名
           </Text>
           <TextInput
             allowFontScaling={true}
@@ -191,19 +196,24 @@ exports[`CreateTaskScreen should render correctly with params 1`] = `
             placeholderTextColor="#575757"
             rejectResponderTermination={true}
             style={
-              Object {
-                "alignSelf": "stretch",
-                "color": "#000",
-                "flex": 1,
-                "fontSize": 17,
-                "height": 50,
-                "lineHeight": 18,
-                "marginLeft": null,
-                "paddingLeft": null,
-                "paddingRight": 5,
-                "top": 1.5,
-                "width": null,
-              }
+              Array [
+                Object {
+                  "alignSelf": "stretch",
+                  "color": "#000",
+                  "flex": 1,
+                  "fontSize": 17,
+                  "height": 50,
+                  "lineHeight": 18,
+                  "marginLeft": null,
+                  "paddingLeft": null,
+                  "paddingRight": 5,
+                  "top": 1.5,
+                  "width": null,
+                },
+                Object {
+                  "textAlign": "center",
+                },
+              ]
             }
             underlineColorAndroid="rgba(0,0,0,0)"
             value=""
@@ -259,6 +269,8 @@ exports[`CreateTaskScreen should render correctly with params 1`] = `
           <Modal
             animationType="none"
             hardwareAccelerated={false}
+            isVisible={false}
+            onHide={[Function]}
             transparent={true}
             visible={false}
           >
@@ -367,23 +379,136 @@ exports[`CreateTaskScreen should render correctly with params 1`] = `
               >
                 <Text
                   style={
-                    Object {
-                      "backgroundColor": "transparent",
-                      "color": "#007aff",
-                      "fontFamily": "System",
-                      "fontSize": 14,
-                      "marginLeft": 0,
-                      "marginRight": 0,
-                      "paddingLeft": 16,
-                      "paddingRight": 16,
-                    }
+                    Array [
+                      Object {
+                        "backgroundColor": "transparent",
+                        "color": "#007aff",
+                        "fontFamily": "System",
+                        "fontSize": 14,
+                        "marginLeft": 0,
+                        "marginRight": 0,
+                        "paddingLeft": 16,
+                        "paddingRight": 16,
+                      },
+                      Object {
+                        "color": "#8FAFC4",
+                        "fontWeight": "600",
+                      },
+                    ]
                   }
                   uppercase={false}
                 >
-                  変更する
+                  タップして変更
                 </Text>
               </View>
             </View>
+          </View>
+        </View>
+        <View
+          accessible={true}
+          focusable={false}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "borderBottomWidth": 1,
+              "borderColor": "#D9D5DC",
+              "borderLeftWidth": 0,
+              "borderRadius": undefined,
+              "borderRightWidth": 0,
+              "borderTopWidth": 0,
+              "borderWidth": undefined,
+              "flexDirection": null,
+              "marginLeft": 15,
+              "minHeight": 65,
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignSelf": "flex-start",
+                "color": "#575757",
+                "fontSize": 15,
+                "left": null,
+                "paddingLeft": null,
+                "paddingRight": 5,
+                "paddingTop": 5,
+                "position": null,
+                "right": null,
+                "top": 5,
+              }
+            }
+          >
+            工数
+          </Text>
+          <View
+            style={
+              Array [
+                Object {},
+                Object {
+                  "alignItems": "center",
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "paddingRight": 120,
+                },
+              ]
+            }
+          >
+            <TextInput
+              allowFontScaling={true}
+              editable={true}
+              keyboardType="decimal-pad"
+              onChangeText={[Function]}
+              onFocus={[Function]}
+              placeholderTextColor="#575757"
+              rejectResponderTermination={true}
+              style={
+                Array [
+                  Object {
+                    "color": "#000",
+                    "flex": 1,
+                    "fontSize": 17,
+                    "height": 50,
+                    "paddingLeft": 5,
+                    "paddingRight": 5,
+                  },
+                  Object {
+                    "paddingRight": 40,
+                    "textAlign": "right",
+                  },
+                ]
+              }
+              underlineColorAndroid="rgba(0,0,0,0)"
+              value="0"
+            />
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#000",
+                    "fontFamily": "System",
+                    "fontSize": 16,
+                  },
+                  Object {
+                    "color": "#6B453E",
+                    "fontWeight": "600",
+                  },
+                ]
+              }
+              uppercase={false}
+            >
+              h
+            </Text>
           </View>
         </View>
         <View
@@ -436,6 +561,8 @@ exports[`CreateTaskScreen should render correctly with params 1`] = `
           <Modal
             animationType="none"
             hardwareAccelerated={false}
+            isVisible={false}
+            onHide={[Function]}
             transparent={true}
             visible={false}
           >
@@ -544,20 +671,26 @@ exports[`CreateTaskScreen should render correctly with params 1`] = `
               >
                 <Text
                   style={
-                    Object {
-                      "backgroundColor": "transparent",
-                      "color": "#007aff",
-                      "fontFamily": "System",
-                      "fontSize": 14,
-                      "marginLeft": 0,
-                      "marginRight": 0,
-                      "paddingLeft": 16,
-                      "paddingRight": 16,
-                    }
+                    Array [
+                      Object {
+                        "backgroundColor": "transparent",
+                        "color": "#007aff",
+                        "fontFamily": "System",
+                        "fontSize": 14,
+                        "marginLeft": 0,
+                        "marginRight": 0,
+                        "paddingLeft": 16,
+                        "paddingRight": 16,
+                      },
+                      Object {
+                        "color": "#8FAFC4",
+                        "fontWeight": "600",
+                      },
+                    ]
                   }
                   uppercase={false}
                 >
-                  変更する
+                  タップして変更
                 </Text>
               </View>
             </View>
@@ -1360,62 +1493,6 @@ exports[`CreateTaskScreen should render correctly with params 1`] = `
             </Modal>
           </View>
         </View>
-      </View>
-      <View
-        accessible={true}
-        focusable={true}
-        isTVSelectable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "alignItems": "center",
-            "alignSelf": "stretch",
-            "backgroundColor": "#007aff",
-            "borderBottomWidth": null,
-            "borderColor": "#007aff",
-            "borderLeftWidth": null,
-            "borderRadius": 5,
-            "borderRightWidth": null,
-            "borderTopWidth": null,
-            "borderWidth": undefined,
-            "elevation": 2,
-            "flexDirection": "row",
-            "height": 45,
-            "justifyContent": "center",
-            "marginTop": 60,
-            "opacity": 1,
-            "paddingBottom": 6,
-            "paddingTop": 6,
-            "shadowColor": undefined,
-            "shadowOffset": undefined,
-            "shadowOpacity": undefined,
-            "shadowRadius": undefined,
-          }
-        }
-      >
-        <Text
-          style={
-            Object {
-              "backgroundColor": "transparent",
-              "color": "#fff",
-              "fontFamily": "System",
-              "fontSize": 16.5,
-              "marginLeft": 0,
-              "marginRight": 0,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-            }
-          }
-          uppercase={false}
-        >
-          作成する
-        </Text>
       </View>
     </View>
   </RCTScrollView>
@@ -1541,19 +1618,24 @@ exports[`CreateTaskScreen should render correctly without params 1`] = `
             placeholderTextColor="#575757"
             rejectResponderTermination={true}
             style={
-              Object {
-                "alignSelf": "stretch",
-                "color": "#000",
-                "flex": 1,
-                "fontSize": 17,
-                "height": 50,
-                "lineHeight": 18,
-                "marginLeft": null,
-                "paddingLeft": null,
-                "paddingRight": 5,
-                "top": 1.5,
-                "width": null,
-              }
+              Array [
+                Object {
+                  "alignSelf": "stretch",
+                  "color": "#000",
+                  "flex": 1,
+                  "fontSize": 17,
+                  "height": 50,
+                  "lineHeight": 18,
+                  "marginLeft": null,
+                  "paddingLeft": null,
+                  "paddingRight": 5,
+                  "top": 1.5,
+                  "width": null,
+                },
+                Object {
+                  "textAlign": "center",
+                },
+              ]
             }
             underlineColorAndroid="rgba(0,0,0,0)"
             value=""
@@ -1604,7 +1686,7 @@ exports[`CreateTaskScreen should render correctly without params 1`] = `
               }
             }
           >
-            プロセス名
+            タスク名
           </Text>
           <TextInput
             allowFontScaling={true}
@@ -1613,19 +1695,24 @@ exports[`CreateTaskScreen should render correctly without params 1`] = `
             placeholderTextColor="#575757"
             rejectResponderTermination={true}
             style={
-              Object {
-                "alignSelf": "stretch",
-                "color": "#000",
-                "flex": 1,
-                "fontSize": 17,
-                "height": 50,
-                "lineHeight": 18,
-                "marginLeft": null,
-                "paddingLeft": null,
-                "paddingRight": 5,
-                "top": 1.5,
-                "width": null,
-              }
+              Array [
+                Object {
+                  "alignSelf": "stretch",
+                  "color": "#000",
+                  "flex": 1,
+                  "fontSize": 17,
+                  "height": 50,
+                  "lineHeight": 18,
+                  "marginLeft": null,
+                  "paddingLeft": null,
+                  "paddingRight": 5,
+                  "top": 1.5,
+                  "width": null,
+                },
+                Object {
+                  "textAlign": "center",
+                },
+              ]
             }
             underlineColorAndroid="rgba(0,0,0,0)"
             value=""
@@ -1681,6 +1768,8 @@ exports[`CreateTaskScreen should render correctly without params 1`] = `
           <Modal
             animationType="none"
             hardwareAccelerated={false}
+            isVisible={false}
+            onHide={[Function]}
             transparent={true}
             visible={false}
           >
@@ -1789,23 +1878,136 @@ exports[`CreateTaskScreen should render correctly without params 1`] = `
               >
                 <Text
                   style={
-                    Object {
-                      "backgroundColor": "transparent",
-                      "color": "#007aff",
-                      "fontFamily": "System",
-                      "fontSize": 14,
-                      "marginLeft": 0,
-                      "marginRight": 0,
-                      "paddingLeft": 16,
-                      "paddingRight": 16,
-                    }
+                    Array [
+                      Object {
+                        "backgroundColor": "transparent",
+                        "color": "#007aff",
+                        "fontFamily": "System",
+                        "fontSize": 14,
+                        "marginLeft": 0,
+                        "marginRight": 0,
+                        "paddingLeft": 16,
+                        "paddingRight": 16,
+                      },
+                      Object {
+                        "color": "#8FAFC4",
+                        "fontWeight": "600",
+                      },
+                    ]
                   }
                   uppercase={false}
                 >
-                  変更する
+                  タップして変更
                 </Text>
               </View>
             </View>
+          </View>
+        </View>
+        <View
+          accessible={true}
+          focusable={false}
+          isTVSelectable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "borderBottomWidth": 1,
+              "borderColor": "#D9D5DC",
+              "borderLeftWidth": 0,
+              "borderRadius": undefined,
+              "borderRightWidth": 0,
+              "borderTopWidth": 0,
+              "borderWidth": undefined,
+              "flexDirection": null,
+              "marginLeft": 15,
+              "minHeight": 65,
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignSelf": "flex-start",
+                "color": "#575757",
+                "fontSize": 15,
+                "left": null,
+                "paddingLeft": null,
+                "paddingRight": 5,
+                "paddingTop": 5,
+                "position": null,
+                "right": null,
+                "top": 5,
+              }
+            }
+          >
+            工数
+          </Text>
+          <View
+            style={
+              Array [
+                Object {},
+                Object {
+                  "alignItems": "center",
+                  "flex": 1,
+                  "flexDirection": "row",
+                  "paddingRight": 120,
+                },
+              ]
+            }
+          >
+            <TextInput
+              allowFontScaling={true}
+              editable={true}
+              keyboardType="decimal-pad"
+              onChangeText={[Function]}
+              onFocus={[Function]}
+              placeholderTextColor="#575757"
+              rejectResponderTermination={true}
+              style={
+                Array [
+                  Object {
+                    "color": "#000",
+                    "flex": 1,
+                    "fontSize": 17,
+                    "height": 50,
+                    "paddingLeft": 5,
+                    "paddingRight": 5,
+                  },
+                  Object {
+                    "paddingRight": 40,
+                    "textAlign": "right",
+                  },
+                ]
+              }
+              underlineColorAndroid="rgba(0,0,0,0)"
+              value="0"
+            />
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#000",
+                    "fontFamily": "System",
+                    "fontSize": 16,
+                  },
+                  Object {
+                    "color": "#6B453E",
+                    "fontWeight": "600",
+                  },
+                ]
+              }
+              uppercase={false}
+            >
+              h
+            </Text>
           </View>
         </View>
         <View
@@ -1858,6 +2060,8 @@ exports[`CreateTaskScreen should render correctly without params 1`] = `
           <Modal
             animationType="none"
             hardwareAccelerated={false}
+            isVisible={false}
+            onHide={[Function]}
             transparent={true}
             visible={false}
           >
@@ -1966,20 +2170,26 @@ exports[`CreateTaskScreen should render correctly without params 1`] = `
               >
                 <Text
                   style={
-                    Object {
-                      "backgroundColor": "transparent",
-                      "color": "#007aff",
-                      "fontFamily": "System",
-                      "fontSize": 14,
-                      "marginLeft": 0,
-                      "marginRight": 0,
-                      "paddingLeft": 16,
-                      "paddingRight": 16,
-                    }
+                    Array [
+                      Object {
+                        "backgroundColor": "transparent",
+                        "color": "#007aff",
+                        "fontFamily": "System",
+                        "fontSize": 14,
+                        "marginLeft": 0,
+                        "marginRight": 0,
+                        "paddingLeft": 16,
+                        "paddingRight": 16,
+                      },
+                      Object {
+                        "color": "#8FAFC4",
+                        "fontWeight": "600",
+                      },
+                    ]
                   }
                   uppercase={false}
                 >
-                  変更する
+                  タップして変更
                 </Text>
               </View>
             </View>
@@ -2782,62 +2992,6 @@ exports[`CreateTaskScreen should render correctly without params 1`] = `
             </Modal>
           </View>
         </View>
-      </View>
-      <View
-        accessible={true}
-        focusable={true}
-        isTVSelectable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "alignItems": "center",
-            "alignSelf": "stretch",
-            "backgroundColor": "#007aff",
-            "borderBottomWidth": null,
-            "borderColor": "#007aff",
-            "borderLeftWidth": null,
-            "borderRadius": 5,
-            "borderRightWidth": null,
-            "borderTopWidth": null,
-            "borderWidth": undefined,
-            "elevation": 2,
-            "flexDirection": "row",
-            "height": 45,
-            "justifyContent": "center",
-            "marginTop": 60,
-            "opacity": 1,
-            "paddingBottom": 6,
-            "paddingTop": 6,
-            "shadowColor": undefined,
-            "shadowOffset": undefined,
-            "shadowOpacity": undefined,
-            "shadowRadius": undefined,
-          }
-        }
-      >
-        <Text
-          style={
-            Object {
-              "backgroundColor": "transparent",
-              "color": "#fff",
-              "fontFamily": "System",
-              "fontSize": 16.5,
-              "marginLeft": 0,
-              "marginRight": 0,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-            }
-          }
-          uppercase={false}
-        >
-          作成する
-        </Text>
       </View>
     </View>
   </RCTScrollView>

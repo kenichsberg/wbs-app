@@ -4,32 +4,31 @@ import { Container, Segment, Content, View, Body, Right, Text, Button, List, Lis
 import moment from 'moment';
 import { TaskListView } from '/screens/TaskListView';
 import { TaskCalendarView } from '/screens/TaskCalendarView';
-import { TaskListProps, ListTabProps, CalendarTabProps } from '/navigations/types.tsx';
+import { ListTabProps, CalendarTabProps } from '/navigations/types.tsx';
 import { Task } from '/screens/CreateTaskScreen';
 
 
 export type ViewType = 'LIST' | 'CALENDAR';
 
+//export const ScheduleScreen: React.FC<ListTabProps | CalendarTabProps> = (Props) => {
 export const ScheduleScreen: React.FC<ListTabProps | CalendarTabProps> = ({ navigation, route }) => {
+  //const { navigation, route } = Props;
 
   const currentView: ViewType = route.name === 'CALENDAR'
     ? 'CALENDAR'
     : 'LIST';
 
   // ビュー切り替え用state
-  //const [viewType, setViewType] = React.useState<ViewType>('LIST');
-  const [viewType, setViewType] = React.useState<ViewType>(currentView);
+  //const [viewType, setViewType] = React.useState<ViewType>(currentView);
+  const [viewType, setViewType] = React.useState<ViewType>(route.name);
 
   // プロセスオブジェクトを保持するstate
-  const [tasks, setTasks] = React.useState<Array<Partial<Task>>>([]);
-
-  // 引数を格納する変数
-  let param: Partial<Task> = {};
+  const [tasks, setTasks] = React.useState<Array<Task>>([]);
 
   // 引数を受け取った時の処理
   React.useEffect(() => {
     if (route.params?.task) {
-      param = route.params.task;
+      const param: Task = route.params.task;
 
       // idがない場合は採番
       param.id = param.id ?? tasks.length;
@@ -43,6 +42,7 @@ export const ScheduleScreen: React.FC<ListTabProps | CalendarTabProps> = ({ navi
 
   // ビューの切り替え
   let view: JSX.Element; 
+  /*
   switch (viewType) {
     case 'LIST':
       view = <TaskListView tasks={ tasks } navigation={ navigation } />;
@@ -53,6 +53,42 @@ export const ScheduleScreen: React.FC<ListTabProps | CalendarTabProps> = ({ navi
     default:
       view = <Text>error</Text>;
   }
+   */
+  /*
+  const isListTab = (props: any): props is ListTabProps => 
+    props.navigation && props.route.name === 'LIST';
+
+  const isCalendarTab = (props: any): props is CalendarTabProps => 
+    props.navigation && props.route.name === 'CALENDAR';
+
+  if (isListTab(Props)) {
+    view = <TaskListView tasks={ tasks } parentProps={ Props } />;
+
+  } else if (isCalendarTab(Props)) {
+    view = <TaskCalendarView tasks={ tasks } />;
+
+  } else {
+    view = <Text>error</Text>;
+
+  }
+   */
+  const isListTabNavigation = (props: any): props is ListTabProps['navigation'] => 
+    props.navigate && route.name === 'LIST';
+
+  const isCalendarTabNavigation = (props: any): props is CalendarTabProps['navigation'] => 
+    props.navigate && route.name === 'CALENDAR';
+
+  if (isListTabNavigation(navigation)) {
+    view = <TaskListView tasks={ tasks } navigation={ navigation } />;
+
+  } else if (isCalendarTabNavigation(navigation)) {
+    view = <TaskCalendarView tasks={ tasks } />;
+
+  } else {
+    view = <Text>error</Text>;
+
+  }
+
 
   // JSX
   return (

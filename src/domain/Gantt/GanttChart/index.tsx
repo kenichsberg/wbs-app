@@ -13,7 +13,7 @@ import { Moment } from 'moment';
 const moment = require('moment');
 
 type Props = {
-  tasks: Array<Partial<Task>>;
+  tasks: Array<Task>;
 };
 
 

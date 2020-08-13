@@ -6,11 +6,11 @@ import moment from 'moment';
 import Svg, { Line, Text } from 'react-native-svg';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { GanttChart } from '/domain/Gantt/GanttChart';
-import { TaskListProps } from '/navigations/types.tsx';
+import { CalendarTabProps } from '/navigations/types.tsx';
 import { Task } from '/screens/CreateTaskScreen';
 
 type Props = {
-  tasks: Array<Partial<Task>>;
+  tasks: Array<Task>;
 };
 
 

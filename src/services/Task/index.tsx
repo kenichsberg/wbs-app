@@ -100,7 +100,7 @@ export const getEndDatetime = (datetime: Moment, remainHours: number): Moment =>
 };
 
 
-export const getEndTime = (startTime: Moment, remainHours: number) => {
+export const getEndTime = (startTime: Moment, remainHours: number): any => {
   if (remainHours <= 0) {
     return startTime;
   }

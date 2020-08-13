@@ -2,18 +2,37 @@ import * as React from 'react';
 import 'react-native-gesture-handler';
 import { Container, Segment, Content, View, Body, Right, Text, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
 import { getFormattedTasks } from '/domain/Task/';
-import { TaskListProps } from '/navigations/types.tsx';
+import { ListTabProps } from '/navigations/types.tsx';
 import { Task } from '/screens/CreateTaskScreen';
 
-type Props = Partial<TaskListProps> 
+/*
+type Props = 
+  {
+    parentProps: ListTabProps
+  }
   & {
-    tasks: Array<Partial<Task>>;
+    tasks: Array<Task>;
   };
+ */
+type Props = 
+  {
+    navigation: ListTabProps['navigation']
+  }
+  & {
+    tasks: Array<Task>;
+  };
+
+type ListItemProps = {
+  item: Task,
+  index: number,
+  navigation: ListTabProps['navigation']
+};
 
 const moment = require('moment');
 
 // 日付（期間）の文字列を取得
-const getPeriodString = (jsonDateStart: string, jsonDateEnd: string): string => {
+const getPeriodString = (jsonDateStart:string = '', jsonDateEnd: string = ''): string => {
+
   const dateStart = JSON.parse(jsonDateStart);
   const dateEnd = JSON.parse(jsonDateEnd);
 
@@ -35,12 +54,15 @@ const getPeriodString = (jsonDateStart: string, jsonDateEnd: string): string => 
 
 
 
-export const TaskListView: React.FC<Props> = ({ navigation, tasks }) => {
+//export const TaskListView: React.FC<Props> = ({ tasks, parentProps }) => {
+export const TaskListView: React.FC<Props> = ({ tasks, navigation }) => {
+
+  //const { navigation } = parentProps;
 
   const { categories, tasksFormatted } = getFormattedTasks(tasks);
 
   // リスト1つのJSXを取得
-  const getTaskList = (item, index) => {
+  const getTaskList: React.FC<ListItemProps> = ({ item, index, navigation }) => {
     return (
         <ListItem key={ item.id }>
           <Body>
@@ -52,12 +74,15 @@ export const TaskListView: React.FC<Props> = ({ navigation, tasks }) => {
             <Text note>成果物: { item.selectedDocument }</Text>
           </Body>
           <Right>
-            <Button transparent data-test="edit-button">
+            <Button
+              transparent
+              data-test="edit-button"
+              onPress={ () => navigation.navigate('EditTask', { task: item }) }
+            >
               <Icon 
                 name="ios-create" 
                 //style={{ color: 'tomato' }}
                 style={{ color: '#912221' }}
-                onPress={ () => navigation.navigate('EditTask', {task: item }) }
               />
             </Button>
           </Right>
@@ -79,7 +104,7 @@ export const TaskListView: React.FC<Props> = ({ navigation, tasks }) => {
                   <Separator bordered>
                     <Text>{ category }</Text>
                   </Separator>
-                  { tasksFormatted[category].map((item, index) => getTaskList(item, index)) }
+                  { tasksFormatted[category].map((item, index) => getTaskList({ item, index , navigation})) }
                 </List>
               )
             })
