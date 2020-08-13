@@ -15,7 +15,7 @@ const createTestProps = (props: Object) => ({
 });
 
 const TaskListView = jest.mock('../TaskListView');
-const TaskCalendarView = jest.mock('../TaskCalendarView');
+const TaskChartView = jest.mock('../TaskChartView');
 
 describe('ScheduleScreen', () => {
   let wrapper: ShallowWrapper;
@@ -51,15 +51,15 @@ describe('ScheduleScreen', () => {
     expect(navigate).toBeCalledWith('ListTab');
   });
 
-  it("should call TaskCalendarView on click toggle-button", () => {
+  it("should call TaskChartView on click toggle-button", () => {
     const navigate = jest.spyOn(props.navigation, 'navigate');
 
-    const calendarTabButton: ShallowWrapper = wrapper.find('[data-test="calendar-view-button"]');
-    expect(calendarTabButton).toHaveLength(1);
+    const chartTabButton: ShallowWrapper = wrapper.find('[data-test="chart-view-button"]');
+    expect(chartTabButton).toHaveLength(1);
 
-    calendarTabButton.simulate('press');
+    chartTabButton.simulate('press');
 
-    expect(navigate).toBeCalledWith('CalendarTab');
+    expect(navigate).toBeCalledWith('ChartTab');
   });
 
   it("should call TaskListView on click toggle-button", () => {

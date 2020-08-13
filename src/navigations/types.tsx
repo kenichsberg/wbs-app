@@ -11,15 +11,15 @@ type ScheduleStackParamList = {
   EditTask: { task: Task } | undefined;
 };
 
-type ScheduleTabParamList = {
+export type ScheduleTabParamList = {
   LIST: { task: Task } | undefined;
-  CALENDAR: { task: Task } | undefined;
+  CHART: { task: Task } | undefined;
 };
 
 
 type ListTabRouteProp = RouteProp<ScheduleTabParamList, 'LIST'>;
 
-type CalendarTabRouteProp = RouteProp<ScheduleTabParamList, 'CALENDAR'>;
+type ChartTabRouteProp = RouteProp<ScheduleTabParamList, 'CHART'>;
 
 type TaskListRouteProp = RouteProp<ScheduleStackParamList, 'TaskList'>;
 
@@ -28,8 +28,8 @@ type ListTabNavigationProp = CompositeNavigationProp<
   StackNavigationProp<ScheduleStackParamList>
 >;
 
-type CalendarTabNavigationProp = CompositeNavigationProp<
-  MaterialTopTabNavigationProp<ScheduleTabParamList, 'CALENDAR' >,
+type ChartTabNavigationProp = CompositeNavigationProp<
+  MaterialTopTabNavigationProp<ScheduleTabParamList, 'CHART' >,
   StackNavigationProp<ScheduleStackParamList>
 >;
 
@@ -46,9 +46,9 @@ export type ListTabProps = {
   navigation: ListTabNavigationProp;
 };
 
-export type CalendarTabProps = {
-  route: CalendarTabRouteProp;
-  navigation: CalendarTabNavigationProp;
+export type ChartTabProps = {
+  route: ChartTabRouteProp;
+  navigation: ChartTabNavigationProp;
 };
 
 

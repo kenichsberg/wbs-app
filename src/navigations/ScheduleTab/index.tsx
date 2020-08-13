@@ -4,7 +4,7 @@ import { View, Button, Text, Icon } from 'native-base';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { ScheduleScreen } from '/screens/ScheduleScreen';
 import { TaskListView } from '/screens/TaskListView';
-import { TaskCalendarView } from '/screens/TaskCalendarView';
+import { TaskChartView } from '/screens/TaskChartView';
 import { ScheduleTabParamList } from '/navigations/types.tsx';
 
 const Tab = createMaterialTopTabNavigator<ScheduleTabParamList>();
@@ -28,7 +28,7 @@ export const ScheduleTab: React.FC = () => {
         }}
       />
       <Tab.Screen 
-        name="CALENDAR" 
+        name="CHART" 
         component={ ScheduleScreen }
         options={{
           tabBarLabel: 'チャート',

@@ -3,19 +3,19 @@ import 'react-native-gesture-handler';
 import { Container, Segment, Content, View, Body, Right, Text, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
 import moment from 'moment';
 import { TaskListView } from '/screens/TaskListView';
-import { TaskCalendarView } from '/screens/TaskCalendarView';
-import { ListTabProps, CalendarTabProps } from '/navigations/types.tsx';
+import { TaskChartView } from '/screens/TaskChartView';
+import { ListTabProps, ChartTabProps } from '/navigations/types.tsx';
 import { Task } from '/screens/CreateTaskScreen';
 
 
-export type ViewType = 'LIST' | 'CALENDAR';
+export type ViewType = 'LIST' | 'CHART';
 
-//export const ScheduleScreen: React.FC<ListTabProps | CalendarTabProps> = (Props) => {
-export const ScheduleScreen: React.FC<ListTabProps | CalendarTabProps> = ({ navigation, route }) => {
+//export const ScheduleScreen: React.FC<ListTabProps | ChartTabProps> = (Props) => {
+export const ScheduleScreen: React.FC<ListTabProps | ChartTabProps> = ({ navigation, route }) => {
   //const { navigation, route } = Props;
 
-  const currentView: ViewType = route.name === 'CALENDAR'
-    ? 'CALENDAR'
+  const currentView: ViewType = route.name === 'CHART'
+    ? 'CHART'
     : 'LIST';
 
   // ビュー切り替え用state
@@ -47,8 +47,8 @@ export const ScheduleScreen: React.FC<ListTabProps | CalendarTabProps> = ({ navi
     case 'LIST':
       view = <TaskListView tasks={ tasks } navigation={ navigation } />;
       break;
-    case 'CALENDAR':
-      view = <TaskCalendarView tasks={ tasks } />;
+    case 'CHART':
+      view = <TaskChartView tasks={ tasks } />;
       break;
     default:
       view = <Text>error</Text>;
@@ -58,14 +58,14 @@ export const ScheduleScreen: React.FC<ListTabProps | CalendarTabProps> = ({ navi
   const isListTab = (props: any): props is ListTabProps => 
     props.navigation && props.route.name === 'LIST';
 
-  const isCalendarTab = (props: any): props is CalendarTabProps => 
-    props.navigation && props.route.name === 'CALENDAR';
+  const isChartTab = (props: any): props is ChartTabProps => 
+    props.navigation && props.route.name === 'CHART';
 
   if (isListTab(Props)) {
     view = <TaskListView tasks={ tasks } parentProps={ Props } />;
 
-  } else if (isCalendarTab(Props)) {
-    view = <TaskCalendarView tasks={ tasks } />;
+  } else if (isChartTab(Props)) {
+    view = <TaskChartView tasks={ tasks } />;
 
   } else {
     view = <Text>error</Text>;
@@ -75,14 +75,14 @@ export const ScheduleScreen: React.FC<ListTabProps | CalendarTabProps> = ({ navi
   const isListTabNavigation = (props: any): props is ListTabProps['navigation'] => 
     props.navigate && route.name === 'LIST';
 
-  const isCalendarTabNavigation = (props: any): props is CalendarTabProps['navigation'] => 
-    props.navigate && route.name === 'CALENDAR';
+  const isChartTabNavigation = (props: any): props is ChartTabProps['navigation'] => 
+    props.navigate && route.name === 'CHART';
 
   if (isListTabNavigation(navigation)) {
     view = <TaskListView tasks={ tasks } navigation={ navigation } />;
 
-  } else if (isCalendarTabNavigation(navigation)) {
-    view = <TaskCalendarView tasks={ tasks } />;
+  } else if (isChartTabNavigation(navigation)) {
+    view = <TaskChartView tasks={ tasks } />;
 
   } else {
     view = <Text>error</Text>;
@@ -105,9 +105,9 @@ export const ScheduleScreen: React.FC<ListTabProps | CalendarTabProps> = ({ navi
         </Button>
         <Button 
           last 
-          active={ viewType === 'CALENDAR' }
-          onPress={ () => setViewType('CALENDAR') }
-          data-test="calendar-view-button"
+          active={ viewType === 'CHART' }
+          onPress={ () => setViewType('CHART') }
+          data-test="chart-view-button"
         >
           <Icon name="md-calendar" />
         </Button>
