@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
+    "strict": true,
     "downlevelIteration": true,
-    "target": "es5",
+    "target": "es2019",
     "baseUrl": ".",
     "paths": {
       "*": ["src/*"],
@@ -15,8 +16,7 @@
     "moduleResolution": "node",
     "noEmit": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "strict": true
+    "resolveJsonModule": true
   },
   "include": ["./src/**/*"]
 }
