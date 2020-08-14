@@ -7,8 +7,8 @@ const moment = require('moment');
 export const WINDOW_WIDTH: number = Dimensions.get('window').width;
 export const WINDOW_HEIGHT: number = Dimensions.get('window').height;
 
-export const PADDING_X: number = 20;
-export const PADDING_Y: number = 30;
+export const PADDING_X = 20;
+export const PADDING_Y = 30;
 
 // グラフ領域のサイズ
 export const CHART_WIDTH: number = WINDOW_WIDTH - PADDING_X * 2;
@@ -18,8 +18,8 @@ export const CHART_HEIGHT: number = WINDOW_HEIGHT - PADDING_Y * 2;
 export const DAY_WIDTH: number = CHART_WIDTH / 7;
 
 // 営業時間
-export const OPEN_TIME: string = '09:00:00';
-export const CLOSE_TIME: string = '18:00:00';
+export const OPEN_TIME = '09:00:00';
+export const CLOSE_TIME = '18:00:00';
 
 // 休憩時間
 type Term = {
