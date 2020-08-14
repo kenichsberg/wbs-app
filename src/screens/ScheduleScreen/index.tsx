@@ -1,7 +1,6 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
-import { Container, Segment, Content, View, Body, Right, Text, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
-import moment from 'moment';
+import { Container, Content, Text,  Icon, Fab } from 'native-base';
 import { TaskListView } from '/screens/TaskListView';
 import { TaskChartView } from '/screens/TaskChartView';
 import { ListTabProps, ChartTabProps } from '/navigations/types.tsx';
@@ -14,6 +13,7 @@ export type ViewType = 'LIST' | 'CHART';
 export const ScheduleScreen: React.FC<ListTabProps | ChartTabProps> = ({ navigation, route }) => {
   //const { navigation, route } = Props;
 
+  /*
   const currentView: ViewType = route.name === 'CHART'
     ? 'CHART'
     : 'LIST';
@@ -21,6 +21,7 @@ export const ScheduleScreen: React.FC<ListTabProps | ChartTabProps> = ({ navigat
   // ビュー切り替え用state
   //const [viewType, setViewType] = React.useState<ViewType>(currentView);
   const [viewType, setViewType] = React.useState<ViewType>(route.name);
+   */
 
   // プロセスオブジェクトを保持するstate
   const [tasks, setTasks] = React.useState<Array<Task>>([]);
@@ -72,10 +73,10 @@ export const ScheduleScreen: React.FC<ListTabProps | ChartTabProps> = ({ navigat
 
   }
    */
-  const isListTabNavigation = (props: any): props is ListTabProps['navigation'] => 
+  const isListTabNavigation = (props: ListTabProps['navigation'] | ChartTabProps['navigation']): props is ListTabProps['navigation'] => 
     props.navigate && route.name === 'LIST';
 
-  const isChartTabNavigation = (props: any): props is ChartTabProps['navigation'] => 
+  const isChartTabNavigation = (props: ListTabProps['navigation'] | ChartTabProps['navigation']): props is ChartTabProps['navigation'] => 
     props.navigate && route.name === 'CHART';
 
   if (isListTabNavigation(navigation)) {
