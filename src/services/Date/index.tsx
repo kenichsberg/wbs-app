@@ -1,24 +1,23 @@
-import * as React from 'react';
 import * as constants from '/domain/constants';
 import { Moment } from 'moment';
 
 const moment = require('moment');
 
 
-export const parseJsonToMoment = (jsonDateString: string = ''): Moment => {
+export const parseJsonToMoment = (jsonDateString = ''): Moment => {
 
   return moment(JSON.parse(jsonDateString));
 };
 
 
-export const getDateByDatetime = (datetime: Moment) => {
+export const getDateByDatetime = (datetime: Moment): Moment => {
 
   return moment(datetime.clone().startOf('day').format('LL'), 'LL').startOf('day');
 
 };
 
 
-export const getTimeByDatetime = (datetime: Moment) => {
+export const getTimeByDatetime = (datetime: Moment): Moment => {
 
   return moment(datetime.clone().format('HH:mm:ss'), 'HH:mm:ss');
 
@@ -134,8 +133,8 @@ export const isHoliday = (date: Moment): boolean => {
 
 export const getHolidayCount = (startDate: Moment, endDate: Moment): number => {
 
-  let date: Moment = startDate.clone();
-  let dates: Array<Moment> = [];
+  const date: Moment = startDate.clone();
+  const dates: Array<Moment> = [];
 
   dates.push(date.clone());
 
