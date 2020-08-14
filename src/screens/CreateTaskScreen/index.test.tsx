@@ -1,7 +1,7 @@
 import * as React from 'react';
 import 'react-native';
 import 'jest-enzyme';
-import { shallow, ShallowWrapper } from 'enzyme';
+//import { shallow, ShallowWrapper } from 'enzyme';
 import * as renderer from 'react-test-renderer';
 import MockDate from 'mockdate';
 
@@ -100,7 +100,7 @@ describe('CreateTaskScreen', () => {
   });
 
 
-  let wrapper: ShallowWrapper;
+  //let wrapper: ShallowWrapper;
   let props: any;
   /*
   beforeEach(() => {
