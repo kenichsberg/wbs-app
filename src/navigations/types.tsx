@@ -5,33 +5,14 @@ import { MaterialTopTabNavigationProp } from '@react-navigation/material-top-tab
 import { Task } from '/screens/CreateTaskScreen';
 
 
-type ScheduleStackParamList = {
+// ScheduleStack
+export type ScheduleStackParamList = {
   TaskList: { task: Task } | undefined;
   CreateTask: { task: Task } | undefined;
   EditTask: { task: Task } | undefined;
 };
 
-export type ScheduleTabParamList = {
-  LIST: { task: Task } | undefined;
-  CHART: { task: Task } | undefined;
-};
-
-
-type ListTabRouteProp = RouteProp<ScheduleTabParamList, 'LIST'>;
-
-type ChartTabRouteProp = RouteProp<ScheduleTabParamList, 'CHART'>;
-
-type TaskListRouteProp = RouteProp<ScheduleStackParamList, 'TaskList'>;
-
-type ListTabNavigationProp = CompositeNavigationProp<
-  MaterialTopTabNavigationProp<ScheduleTabParamList, 'LIST' >,
-  StackNavigationProp<ScheduleStackParamList>
->;
-
-type ChartTabNavigationProp = CompositeNavigationProp<
-  MaterialTopTabNavigationProp<ScheduleTabParamList, 'CHART' >,
-  StackNavigationProp<ScheduleStackParamList>
->;
+//type TaskListRouteProp = RouteProp<ScheduleStackParamList, 'TaskList'>;
 
 /*
 export type TaskListProps = {
@@ -40,20 +21,7 @@ export type TaskListProps = {
 };
  */
 
-
-export type ListTabProps = {
-  route: ListTabRouteProp;
-  navigation: ListTabNavigationProp;
-};
-
-export type ChartTabProps = {
-  route: ChartTabRouteProp;
-  navigation: ChartTabNavigationProp;
-};
-
-
 type CreateTaskRouteProp = RouteProp<ScheduleStackParamList, 'CreateTask'>;
-
 
 type CreateTaskNavigationProp = StackNavigationProp<
   ScheduleStackParamList,
@@ -67,3 +35,51 @@ export type CreateTaskProps = {
 };
 
 
+
+// ScheduleTab
+export type ScheduleTabParamList = {
+  LIST: { task: Task } | undefined;
+  CHART: { task: Task } | undefined;
+};
+
+type ListTabRouteProp = RouteProp<ScheduleTabParamList, 'LIST'>;
+
+type ChartTabRouteProp = RouteProp<ScheduleTabParamList, 'CHART'>;
+
+type ListTabNavigationProp = CompositeNavigationProp<
+  MaterialTopTabNavigationProp<ScheduleTabParamList, 'LIST'>,
+  StackNavigationProp<ScheduleStackParamList>
+>;
+
+type ChartTabNavigationProp = CompositeNavigationProp<
+  MaterialTopTabNavigationProp<ScheduleTabParamList, 'CHART'>,
+  StackNavigationProp<ScheduleStackParamList>
+>;
+
+
+export type ListTabProps = {
+  route: ListTabRouteProp;
+  navigation: ListTabNavigationProp;
+};
+
+export type ChartTabProps = {
+  route: ChartTabRouteProp;
+  navigation: ChartTabNavigationProp;
+};
+
+
+// SettingsScreen
+export type SettingsStackParamList = {
+  Settings: undefined;
+  Details: undefined;
+};
+
+type SettingScreenRouteProp = RouteProp<SettingsStackParamList, 'Settings'>;
+
+type SettingsNavigationProp = StackNavigationProp<SettingsStackParamList, 'Settings'>
+
+
+export type SettingsProps = {
+  route: SettingScreenRouteProp;
+  navigation: SettingsNavigationProp;
+};
