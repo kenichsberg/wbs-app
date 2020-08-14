@@ -1,6 +1,5 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
-import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -15,7 +14,7 @@ export const AppNavigator: React.FC = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName: string = '';
+          let iconName = '';
 
           if (route.name === 'スケジュール管理') {
             iconName = 'ios-list-box';
