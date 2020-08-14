@@ -1,8 +1,7 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
-import { Ionicons } from '@expo/vector-icons';
-import { Container, Header, Content, Text, View, Body, Right, Button, Form, Item, Input, Label, Picker, Icon, DatePicker, List, ListItem } from 'native-base';
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { Container, Content, Text, View, Button, Form, Item, Input, Label, Picker, Icon, ListItem } from 'native-base';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { CreateTaskProps } from '/navigations/types.tsx';
 import { getManHour, getEndDatetime } from '/services/Task';
 
@@ -55,7 +54,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   const [selectedDocument, setSelectedDocument] = React.useState<number | undefined>(undefined);
 
 
-  // 日時選択モーダル　表示・非表示
+  // 日時選択モーダル表示・非表示
   const [datePickerVisibilities, setDatePickerVisibilities] = React.useState<DatePickerVisibilities>({
     startDatetimePlanned: false,
     endDatetimePlanned: false,
@@ -98,8 +97,8 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
         >
           <View style={{ 
               flexDirection: 'row',
-              justifyContent: "space-between",
-              alignItems: "center"
+              justifyContent: 'space-between',
+              alignItems: 'center'
             }}
           >
             <Icon 
@@ -111,7 +110,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
             />
             <Text style={{ 
                 color: '#1F5E56',
-                fontWeight: "600",
+                fontWeight: '600',
               }}
             >
               作成
@@ -159,7 +158,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   };
 
   // map of name -> setState()
-  const nameToSetStateFunc: Map<string, (arg0: Date) => any> = new Map([
+  const nameToSetStateFunc: Map<string, (arg0: Date) => void> = new Map([
     ['startDatetimePlanned', setStartDatetimePlanned],
     ['endDatetimePlanned', setEndDatetimePlanned],
     //['startDatetimeResult', setStartDatetimeResult],
@@ -198,9 +197,9 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
     setManHour(hour.toString());
   };
 
-  // 日時選択モーダル　選択時の処理
+  // 日時選択モーダル選択時の処理
   const handleConfirm = (date: Date, name: string): void => {
-    const func: ((arg0: Date) => any) | undefined  = nameToSetStateFunc.get(name);
+    const func: ((arg0: Date) => void) | undefined  = nameToSetStateFunc.get(name);
 
     if (func === undefined) return;
 
@@ -272,7 +271,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
               <Label>工数</Label>
               <View
                 style={{
-                  flexDirection: "row",
+                  flexDirection: 'row',
                   flex: 1,
                   paddingRight: 120,
                   alignItems: 'center'
@@ -307,7 +306,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
                 iosIcon={ <Icon name="arrow-down" /> }
                 style={{ width: undefined }}
                 placeholder="選択してください"
-                placeholderStyle={{ color: "#bfc6ea" }}
+                placeholderStyle={{ color: '#bfc6ea' }}
                 placeholderIconColor="#007aff"
                 selectedValue={ selectedDocument }
                 onValueChange={ event => setSelectedDocument(event) }
