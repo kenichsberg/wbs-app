@@ -1,4 +1,3 @@
-import * as React from 'react';
 import * as constants from '/domain/constants';
 import { isHoliday, getDateByDatetime, getTimeByDatetime, getActualWorkingHours, getBreakTime, getHolidayCount } from '/services/Date';
 import { Moment } from 'moment';

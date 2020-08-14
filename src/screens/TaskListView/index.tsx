@@ -1,6 +1,6 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
-import { Container, Segment, Content, View, Body, Right, Text, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
+import { Body, Right, Text, Button, List, ListItem, Separator, Icon } from 'native-base';
 import { getFormattedTasks } from '/domain/Task/';
 import { ListTabProps } from '/navigations/types.tsx';
 import { Task } from '/screens/CreateTaskScreen';
@@ -31,7 +31,7 @@ type ListItemProps = {
 const moment = require('moment');
 
 // 日付（期間）の文字列を取得
-const getPeriodString = (jsonDateStart:string = '', jsonDateEnd: string = ''): string => {
+const getPeriodString = (jsonDateStart = '', jsonDateEnd = ''): string => {
 
   const dateStart = JSON.parse(jsonDateStart);
   const dateEnd = JSON.parse(jsonDateEnd);
@@ -62,7 +62,7 @@ export const TaskListView: React.FC<Props> = ({ tasks, navigation }) => {
   const { categories, tasksFormatted } = getFormattedTasks(tasks);
 
   // リスト1つのJSXを取得
-  const getTaskList: React.FC<ListItemProps> = ({ item, index, navigation }) => {
+  const getTaskList: React.FC<ListItemProps> = ({ item, navigation }) => {
     return (
         <ListItem key={ item.id }>
           <Body>

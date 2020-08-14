@@ -1,15 +1,12 @@
 import * as React from 'react';
-import { Dimensions } from 'react-native';
 import 'react-native-gesture-handler';
-import { Container, Segment, Content, View, Body, Right, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
-import Svg, { Line, Text } from 'react-native-svg';
-import { getDayCount, getActualWorkingHours, parseJsonToMoment, getTimeByDatetime } from '/services/Date/';
+import { Line, Text } from 'react-native-svg';
+import { getDayCount, parseJsonToMoment } from '/services/Date/';
 import * as constants from '/domain/constants';
 import { Task } from '/screens/CreateTaskScreen';
 
 import { Moment } from 'moment';
 
-const moment = require('moment');
 
 type Props = {
   task: Task;

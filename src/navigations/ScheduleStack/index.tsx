@@ -1,9 +1,7 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
-import { View, Button, Text, Icon } from 'native-base';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ScheduleTab } from '/navigations/ScheduleTab';
-import { ScheduleScreen } from '/screens/ScheduleScreen';
 import { CreateTaskScreen } from '/screens/CreateTaskScreen';
 import { ScheduleStackParamList } from '/navigations/types.tsx';
 
@@ -15,7 +13,6 @@ export const ScheduleStackScreen: React.FC = () => {
     <ScheduleStack.Navigator>
       <ScheduleStack.Screen 
         name="TaskList" 
-        //component={ ScheduleScreen }
         component={ ScheduleTab }
         options={{
           headerTitle: 'タスク一覧',

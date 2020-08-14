@@ -1,10 +1,7 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
-import { View, Button, Text, Icon } from 'native-base';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { ScheduleScreen } from '/screens/ScheduleScreen';
-import { TaskListView } from '/screens/TaskListView';
-import { TaskChartView } from '/screens/TaskChartView';
 import { ScheduleTabParamList } from '/navigations/types.tsx';
 
 const Tab = createMaterialTopTabNavigator<ScheduleTabParamList>();
