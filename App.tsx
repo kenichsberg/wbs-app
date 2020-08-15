@@ -6,7 +6,7 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { AppNavigator } from './src/navigations/AppNavigator';
 
-//export default function App(): JSX.Element {
+
 const App: React.FC = () => { 
   const [isReady, setIsReady] = React.useState<boolean>(false);
 
