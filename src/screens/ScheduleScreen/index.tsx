@@ -1,30 +1,35 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
-import { Container, Segment, Content, View, Body, Right, Text, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
-import moment from 'moment';
+import { Container, Content, Text,  Icon, Fab } from 'native-base';
 import { TaskListView } from '/screens/TaskListView';
-import { TaskCalendarView } from '/screens/TaskCalendarView';
-import { TaskListProps } from '/navigations/types.tsx';
+import { TaskChartView } from '/screens/TaskChartView';
+import { ListTabProps, ChartTabProps } from '/navigations/types.tsx';
 import { Task } from '/screens/CreateTaskScreen';
 
 
-type ViewType = 'LIST' | 'CALENDAR';
+export type ViewType = 'LIST' | 'CHART';
 
-export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) => {
+//export const ScheduleScreen: React.FC<ListTabProps | ChartTabProps> = (Props) => {
+export const ScheduleScreen: React.FC<ListTabProps | ChartTabProps> = ({ navigation, route }) => {
+  //const { navigation, route } = Props;
 
-  // プロセスオブジェクトを保持するstate
-  const [tasks, setTasks] = React.useState<Array<Partial<Task>>>([]);
+  /*
+  const currentView: ViewType = route.name === 'CHART'
+    ? 'CHART'
+    : 'LIST';
 
   // ビュー切り替え用state
-  const [viewType, setViewType] = React.useState<ViewType>('LIST');
+  //const [viewType, setViewType] = React.useState<ViewType>(currentView);
+  const [viewType, setViewType] = React.useState<ViewType>(route.name);
+   */
 
-  // 引数を格納する変数
-  let param: Partial<Task> = {};
+  // プロセスオブジェクトを保持するstate
+  const [tasks, setTasks] = React.useState<Array<Task>>([]);
 
   // 引数を受け取った時の処理
   React.useEffect(() => {
     if (route.params?.task) {
-      param = route.params.task;
+      const param: Task = route.params.task;
 
       // idがない場合は採番
       param.id = param.id ?? tasks.length;
@@ -38,48 +43,88 @@ export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) =
 
   // ビューの切り替え
   let view: JSX.Element; 
+  /*
   switch (viewType) {
     case 'LIST':
-      view = <TaskListView tasks={tasks} navigation={navigation} />;
+      view = <TaskListView tasks={ tasks } navigation={ navigation } />;
       break;
-    case 'CALENDAR':
-      view = <TaskCalendarView tasks={tasks} />;
+    case 'CHART':
+      view = <TaskChartView tasks={ tasks } />;
       break;
     default:
       view = <Text>error</Text>;
   }
+   */
+  /*
+  const isListTab = (props: any): props is ListTabProps => 
+    props.navigation && props.route.name === 'LIST';
+
+  const isChartTab = (props: any): props is ChartTabProps => 
+    props.navigation && props.route.name === 'CHART';
+
+  if (isListTab(Props)) {
+    view = <TaskListView tasks={ tasks } parentProps={ Props } />;
+
+  } else if (isChartTab(Props)) {
+    view = <TaskChartView tasks={ tasks } />;
+
+  } else {
+    view = <Text>error</Text>;
+
+  }
+   */
+  const isListTabNavigation = (props: ListTabProps['navigation'] | ChartTabProps['navigation']): props is ListTabProps['navigation'] => 
+    props.navigate && route.name === 'LIST';
+
+  const isChartTabNavigation = (props: ListTabProps['navigation'] | ChartTabProps['navigation']): props is ChartTabProps['navigation'] => 
+    props.navigate && route.name === 'CHART';
+
+  if (isListTabNavigation(navigation)) {
+    view = <TaskListView tasks={ tasks } navigation={ navigation } />;
+
+  } else if (isChartTabNavigation(navigation)) {
+    view = <TaskChartView tasks={ tasks } />;
+
+  } else {
+    view = <Text>error</Text>;
+
+  }
+
 
   // JSX
   return (
     <Container>
+      {/*
       <Segment>
         <Button 
           first 
-          active={viewType === 'LIST'}
-          onPress={() => setViewType('LIST')}
+          active={ viewType === 'LIST' }
+          onPress={ () => setViewType('LIST') }
           data-test="list-view-button"
         >
           <Icon name="md-list" />
         </Button>
         <Button 
           last 
-          active={viewType === 'CALENDAR'}
-          onPress={() => setViewType('CALENDAR')}
-          data-test="calendar-view-button"
+          active={ viewType === 'CHART' }
+          onPress={ () => setViewType('CHART') }
+          data-test="chart-view-button"
         >
           <Icon name="md-calendar" />
         </Button>
       </Segment>
-      <Content>
-        { view }
-      </Content>
+        */}
+      <Content>{ view }</Content>
 
       <Fab 
         position="bottomRight"
-        active={false}
+        active={ false }
         containerStyle={{ }}
-        onPress={() => navigation.navigate('CreateTask')}
+        onPress={ () => navigation.navigate('CreateTask') }
         data-test="fab"
+        style={{
+          backgroundColor: '#1F5E56'
+        }}
       >
         <Icon name="ios-add" />
       </Fab>

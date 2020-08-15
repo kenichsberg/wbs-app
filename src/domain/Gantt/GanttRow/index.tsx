@@ -1,19 +1,15 @@
 import * as React from 'react';
-import { Dimensions } from 'react-native';
 import 'react-native-gesture-handler';
-import { Container, Segment, Content, View, Body, Right, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
-import Svg, { Line, Text } from 'react-native-svg';
-import { getFormattedTasks } from '/domain/Task/';
-import { getDayCount, getActualWorkingHours, parseJsonToMoment, getTimeByDatetime } from '/services/Date/';
+import { Line, Text } from 'react-native-svg';
+import { getDayCount, parseJsonToMoment } from '/services/Date/';
 import * as constants from '/domain/constants';
 import { Task } from '/screens/CreateTaskScreen';
 
 import { Moment } from 'moment';
 
-const moment = require('moment');
 
 type Props = {
-  task: Partial<Task>;
+  task: Task;
   index: number;
   leftEndDate: Moment;
 };
@@ -30,8 +26,10 @@ export const GanttRow: React.FC<Props> = ({ task, index, leftEndDate }) => {
   const startPlanned = parseJsonToMoment(task.startDatetimePlanned);
   const endPlanned = parseJsonToMoment(task.endDatetimePlanned);
 
+  /*
   const startResult = parseJsonToMoment(task.startDatetimeResult);
   const endResult = parseJsonToMoment(task.endDatetimeResult);
+   */
 
   const lengthPlanned: number = getTermWidth(startPlanned, endPlanned);
 
@@ -41,6 +39,7 @@ export const GanttRow: React.FC<Props> = ({ task, index, leftEndDate }) => {
   const xEndPlanned: number = xStartPlanned + lengthPlanned;
 
   // 実績開始のX座標
+  /*
   const xStartResult: number | null = JSON.parse(task.startDatetimeResult) == null
     ? null
     : getTermWidth(leftEndDate, startResult);
@@ -54,6 +53,7 @@ export const GanttRow: React.FC<Props> = ({ task, index, leftEndDate }) => {
     // 実績終了のX座標
     xEndResult = xStartResult + lengthResult;
   }
+   */
 
   // 上端の座標
   const yTop: number = 30 + 90 * index;
@@ -76,6 +76,7 @@ export const GanttRow: React.FC<Props> = ({ task, index, leftEndDate }) => {
         strokeWidth="40" 
       />
       {
+        /*
         xStartResult == null
           ? null
           : <Line 
@@ -86,6 +87,7 @@ export const GanttRow: React.FC<Props> = ({ task, index, leftEndDate }) => {
               stroke="white" 
               strokeWidth="3" 
             />
+         */
       }
     </>
   );

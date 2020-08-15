@@ -1,24 +1,49 @@
 {
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-    "prettier/@typescript-eslint"
+    "plugin:react/recommended"
   ],
   "plugins": [
+    "react",
     "prettier",
     "@typescript-eslint"
   ],
   "env": { "node": true, "es6": true },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "ecmaVersion" : 2019,
     "sourceType": "module",
-    "project": "./tsconfig.json"
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "globals": {},
   "rules": {
-    "prettier/prettier": ["error", {"singleQuote": true, "parser": "flow"}],
-    "react/jsx-uses-vars": 1
+    "react/jsx-uses-vars": 1,
+    "react/jsx-uses-react": 1,
+    "no-var": "error",
+    "no-console": "off",
+    "no-extra-semi": "warn",
+    "no-undef": "warn",
+    "quotes": ["warn", "single"],
+    "space-before-blocks": ["warn", { 
+      "functions": "always",
+      "keywords": "always",
+      "classes": "always"
+    }],
+    "react/display-name": 0,
+    "strict" : "off",
+    "key-spacing" : ["warn", {
+      "beforeColon" : false,
+      "afterColon" : true
+    }],
+    "no-unused-vars": ["off"],
+    "@typescript-eslint/no-unused-vars": ["warn",
+      { "varsIgnorePattern": "^_" }
+    ],
+    "@typescript-eslint/no-var-requires": 0,
+    "react/prop-types": [0]
   }
 }

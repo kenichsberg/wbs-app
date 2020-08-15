@@ -8,6 +8,14 @@ import { TaskListView } from './index';
 import { Task } from '/screens/CreateTaskScreen';
 
 
+/*
+const parentProps = {
+  navigation: {
+    navigate: jest.fn()
+  },
+};
+ */
+
 const createTestProps = (props: Object) => ({
   navigation: {
     navigate: jest.fn()
@@ -20,12 +28,11 @@ const task1 = {
   id: 0,
   category: '開発',
   taskName: 'Hello World',
-  //startDatetimePlanned: '2020/4/1 9:00',
-  //endDatetimePlanned: '2020/4/2 18:00',
   startDatetimePlanned: "\"2020-06-28T08:00:03.030Z\"",
   endDatetimePlanned: "\"2020-06-29T08:00:03.030Z\"",
-  startDatetimeResult: null,
-  endDatetimeResult: null,
+  manHour: 8,
+  //startDatetimeResult: null,
+  //endDatetimeResult: null,
   selectedDocument: 4
 };
 
@@ -33,26 +40,26 @@ const task2 = {
   id: 1,
   category: '開発',
   taskName: 'ログイン機能開発',
-  //startDatetimePlanned: '2020/4/3 9:00',
-  //endDatetimePlanned: '2020/4/3 18:00',
   startDatetimePlanned: "\"2020-06-29T08:00:03.030Z\"",
   endDatetimePlanned: "\"2020-06-30T08:00:03.030Z\"",
-  startDatetimeResult: null,
-  endDatetimeResult: null,
+  manHour: 8,
+  //startDatetimeResult: null,
+  //endDatetimeResult: null,
   selectedDocument: 4
 };
 
-const tasks: Array<Partial<Task>>  = [task1, task2];
+const tasks: Array<Task>  = [task1, task2];
 
 
 describe('TaskListView', () => {
-  let wrapper: ShallowWrapper;
   let props: any;
 
   it("should render correctly without params", () => {
     props = createTestProps({
       tasks: []
     });
+
+    //props = {...props, parentProps};
 
     const tree = renderer.create(<TaskListView {...props} />).toJSON();
     expect(tree).toMatchSnapshot();
@@ -63,6 +70,8 @@ describe('TaskListView', () => {
       tasks: tasks
     });
 
+    //props = {...props, parentProps};
+
     const tree = renderer.create(<TaskListView {...props}  />).toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -72,13 +81,26 @@ describe('TaskListView', () => {
       tasks: tasks
     });
 
+    const wrapper: ShallowWrapper = shallow(<TaskListView {...props} />);
+    const buttons: ShallowWrapper = wrapper.find('[data-test="edit-button"]');
+    expect(buttons).toHaveLength(2);
+
+    //const navigate = jest.spyOn(parentProps.navigation, 'navigate');
     const navigate = jest.spyOn(props.navigation, 'navigate');
 
-    const simulateClick = async () => {
-      await wrapper.find('[data-test="edit-button"]').simulate('click');
-      expect(navigate).toBeCalledWith('CreateTask');
+    /*
+    const simulateClick = async (target: ShallowWrapper) => {
+      await target.simulate('click');
+
+      return expect(navigate).toBeCalledWith('EditTask');
     };
 
-    simulateClick();
+    simulateClick(button.at(0));
+     */
+    buttons.at(0).simulate('press');
+
+    expect(navigate).toBeCalledWith(
+      'EditTask', expect.objectContaining({ task: task1 })
+    );
   });
 });

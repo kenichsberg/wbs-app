@@ -4,9 +4,9 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-import { AppNavigator } from '/navigations/AppNavigator';
+import { AppNavigator } from './src/navigations/AppNavigator';
 
-//export default function App(): JSX.Element {
+
 const App: React.FC = () => { 
   const [isReady, setIsReady] = React.useState<boolean>(false);
 

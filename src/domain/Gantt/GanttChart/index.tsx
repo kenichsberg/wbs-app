@@ -1,7 +1,7 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
 import { ScrollView } from 'react-native';
-import { Container, Segment, Content, View, Body, Right, Button, List, ListItem, Separator, Icon, Fab } from 'native-base';
+import { View  } from 'native-base';
 import Svg, { Line, Text } from 'react-native-svg';
 import { getFormattedTasks } from '/domain/Task/';
 import { getLeftEndDate, getRightEndDate, getWeekCount } from '/services/Gantt/'; 
@@ -13,7 +13,7 @@ import { Moment } from 'moment';
 const moment = require('moment');
 
 type Props = {
-  tasks: Array<Partial<Task>>;
+  tasks: Array<Task>;
 };
 
 
@@ -42,7 +42,7 @@ export const GanttChart: React.FC<Props> = ({ tasks }) => {
 
     const weekCount: number = getWeekCount(leftEndDate, rightEndDate) ?? 1;
 
-  let ganttRowIndex: number = 0;
+  let ganttRowIndex = 0;
 
 
   // JSX

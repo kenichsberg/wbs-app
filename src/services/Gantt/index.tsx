@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { Moment } from 'moment';
 
 const moment = require('moment');
