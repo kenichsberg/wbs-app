@@ -1,12 +1,33 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { ScheduleScreen } from '/screens/ScheduleScreen';
+//import { useNavigation } from '@react-navigation/native';
+import { TaskChartView } from '/screens/TaskChartView';
+import { TaskListView } from '/screens/TaskListView';
 import { ScheduleTabParamList } from '/navigations/types.tsx';
+//import { Task } from '/domain/Task/';
+
+/*
+type Props = {
+  tasks: Array<Task>;
+};
+ */
 
 const Tab = createMaterialTopTabNavigator<ScheduleTabParamList>();
 
+//export const ScheduleTab: React.FC<Props> = ({ tasks }) => {
 export const ScheduleTab: React.FC = () => {
+
+/*
+  const navigation = useNavigation();
+
+  React.useEffect(() => {
+    navigation.setParams({
+      tasks: tasks,
+    });
+  }, [navigation]);
+ */
+
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -19,14 +40,14 @@ export const ScheduleTab: React.FC = () => {
     >
       <Tab.Screen 
         name="LIST" 
-        component={ ScheduleScreen }
+        component={ TaskListView }
         options={{
           tabBarLabel: 'リスト',
         }}
       />
       <Tab.Screen 
         name="CHART" 
-        component={ ScheduleScreen }
+        component={ TaskChartView }
         options={{
           tabBarLabel: 'チャート',
         }}
