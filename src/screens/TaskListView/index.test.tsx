@@ -5,7 +5,7 @@ import { shallow, ShallowWrapper } from 'enzyme';
 import * as renderer from 'react-test-renderer';
 
 import { TaskListView } from './index';
-import { Task } from '/screens/CreateTaskScreen';
+import { Task } from '/domain/Task/';
 
 
 /*

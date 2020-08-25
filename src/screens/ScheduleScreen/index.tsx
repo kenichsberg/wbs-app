@@ -4,7 +4,7 @@ import { Container, Content, Text,  Icon, Fab } from 'native-base';
 import { TaskListView } from '/screens/TaskListView';
 import { TaskChartView } from '/screens/TaskChartView';
 import { ListTabProps, ChartTabProps } from '/navigations/types.tsx';
-import { Task } from '/screens/CreateTaskScreen';
+import { Task } from '/domain/Task/';
 
 
 export type ViewType = 'LIST' | 'CHART';

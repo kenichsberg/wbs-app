@@ -2,8 +2,8 @@ import * as React from 'react';
 import 'react-native-gesture-handler';
 import { Body, Right, Text, Button, List, ListItem, Separator, Icon } from 'native-base';
 import { getFormattedTasks } from '/domain/Task/';
+import { Task } from '/domain/Task/';
 import { ListTabProps } from '/navigations/types.tsx';
-import { Task } from '/screens/CreateTaskScreen';
 
 /*
 type Props = 

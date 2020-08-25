@@ -1,7 +1,7 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
 import { GanttChart } from '/domain/Gantt/GanttChart';
-import { Task } from '/screens/CreateTaskScreen';
+//import { Task } from '/domain/Task/';
 
 type Props = {
   tasks: Array<Task>;

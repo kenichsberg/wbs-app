@@ -2,7 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MaterialTopTabNavigationProp } from '@react-navigation/material-top-tabs';
-import { Task } from '/screens/CreateTaskScreen';
+import { Task } from '/domain/Task/';
 
 
 // ScheduleStack
