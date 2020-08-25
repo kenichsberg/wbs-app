@@ -4,11 +4,13 @@ import { ScrollView } from 'react-native';
 import { View  } from 'native-base';
 import Svg, { Line, Text } from 'react-native-svg';
 import { getFormattedTasks } from '/domain/Task/';
+import { parseJsonToMoment } from '/services/Date/'; 
 import { getLeftEndDate, getRightEndDate, getWeekCount } from '/services/Gantt/'; 
 import { GanttRow } from '/domain/Gantt/GanttRow/';
-import { Task } from '/screens/CreateTaskScreen';
+import { Task } from '/domain/Task/';
 import * as constants from '/domain/constants';
 import { Moment } from 'moment';
+
 
 const moment = require('moment');
 
@@ -22,11 +24,11 @@ export const GanttChart: React.FC<Props> = ({ tasks }) => {
   const { categories, tasksFormatted } = getFormattedTasks(tasks);
 
   const startDates: Array<Moment> = tasks.map(task => (
-    moment(JSON.parse(task.startDatetimePlanned))
+    parseJsonToMoment(task.startDatetimePlanned)
   ));
 
   const endDates: Array<Moment>  = tasks.map(task => (
-    moment(JSON.parse(task.endDatetimePlanned))
+    parseJsonToMoment(task.startDatetimePlanned)
   ));
 
 
@@ -45,7 +47,6 @@ export const GanttChart: React.FC<Props> = ({ tasks }) => {
   let ganttRowIndex = 0;
 
 
-  // JSX
   return (
     <>
       <View style={{
@@ -56,20 +57,27 @@ export const GanttChart: React.FC<Props> = ({ tasks }) => {
         paddingBottom: constants.PADDING_Y 
       }}>
         <ScrollView horizontal={true}>
-          {/*<Svg height="1300" width={ constants.WINDOW_WIDTH * weekCount }>*/}
           <Svg height="1300" width={ (constants.WINDOW_WIDTH - constants.PADDING_X * 2) * weekCount }>
             {/* 縦線 */}
             { 
               [...Array(7 * weekCount).keys()].map(index => (
                 <React.Fragment 
-                  key={ leftEndDate.clone().add(index, 'days').format('MM/DD') }
+                  key={
+                    leftEndDate.clone()
+                      .add(index, 'days')
+                      .format('MM/DD')
+                  }
                 >
                   <Text 
                     x={ constants.DAY_WIDTH * index }
                     y="10" 
                     fill="white"
                   >
-                    { leftEndDate.clone().add(index, 'days').format('MM/DD') }
+                    { 
+                      leftEndDate.clone()
+                        .add(index, 'days')
+                        .format('MM/DD')
+                    }
                   </Text>
                   <Line 
                     x1={ constants.DAY_WIDTH * index } 

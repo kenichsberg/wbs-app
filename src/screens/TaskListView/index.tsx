@@ -1,19 +1,14 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
-import { Body, Right, Text, Button, List, ListItem, Separator, Icon } from 'native-base';
+import { ScrollView } from 'react-native';
+import { View, Body, Right, Text, Button, List, ListItem, Icon } from 'native-base';
 import { getFormattedTasks } from '/domain/Task/';
+import { Task } from '/domain/Task/';
 import { ListTabProps } from '/navigations/types.tsx';
-import { Task } from '/screens/CreateTaskScreen';
+import { parseJsonToMoment } from '/services/Date/'; 
+import { AppStateContext } from '/contexts/AppStateContext';
 
-/*
-type Props = 
-  {
-    parentProps: ListTabProps
-  }
-  & {
-    tasks: Array<Task>;
-  };
- */
+
 type Props = 
   {
     navigation: ListTabProps['navigation']
@@ -28,36 +23,24 @@ type ListItemProps = {
   navigation: ListTabProps['navigation']
 };
 
-const moment = require('moment');
 
-// 日付（期間）の文字列を取得
-const getPeriodString = (jsonDateStart = '', jsonDateEnd = ''): string => {
-
-  const dateStart = JSON.parse(jsonDateStart);
-  const dateEnd = JSON.parse(jsonDateEnd);
-
-  if (dateStart == null && dateEnd == null) {
-    return '未入力';
+const getDateString = (jsonDate = '"null"'): string => {
+  if (jsonDate === '"null"') {
+    return '-';
   }
 
-  const dateStartString = dateStart == null 
-    ? ''
-    : moment(JSON.parse(jsonDateStart)).format('YYYY年MM月DD日 HH:mm');
-
-  const dateEndString = dateEnd == null 
-    ? '対応中'
-    : moment(JSON.parse(jsonDateEnd)).format('YYYY年MM月DD日 HH:mm');
-
-  return `${ dateStartString } 〜 ${ dateEndString }`;
-
-}
+  const date = parseJsonToMoment(jsonDate);
+  
+  return date.format('YYYY/MM/DD HH:mm');
+};
 
 
 
-//export const TaskListView: React.FC<Props> = ({ tasks, parentProps }) => {
-export const TaskListView: React.FC<Props> = ({ tasks, navigation }) => {
+//export const TaskListView: React.FC<ListTabProps> = ({ navigation, route }) => {
+export const TaskListView: React.FC<Props> = ({ navigation }) => {
 
-  //const { navigation } = parentProps;
+  //const { tasks } = route.params;
+  const { tasks } = React.useContext(AppStateContext);
 
   const { categories, tasksFormatted } = getFormattedTasks(tasks);
 
@@ -67,11 +50,17 @@ export const TaskListView: React.FC<Props> = ({ tasks, navigation }) => {
         <ListItem key={ item.id }>
           <Body>
             <Text>{ item.taskName }</Text>
-            <Text note>予定：{ getPeriodString(item.startDatetimePlanned, item.endDatetimePlanned) }</Text>
-            {/*
-            <Text note>実績：{ getPeriodString(item.startDatetimeResult, item.endDatetimeResult) }</Text>
-              */}
-            <Text note>成果物: { item.selectedDocument }</Text>
+            <View style={{ marginLeft: 20, marginTop: 5 }}>
+              <Text note>
+                Start：{ getDateString(item.startDatetimePlanned) }
+              </Text>
+              <Text note>
+                End  ：{ getDateString(item.endDatetimePlanned) }
+              </Text>
+              {/*
+              <Text note>成果物: { item.selectedDocument }</Text>
+                */}
+            </View>
           </Body>
           <Right>
             <Button
@@ -90,9 +79,8 @@ export const TaskListView: React.FC<Props> = ({ tasks, navigation }) => {
     );
   };
 
-  // JSX
   return (
-    <>
+    <ScrollView>
       {
         tasks.length  === 0
           ? <ListItem>
@@ -101,15 +89,21 @@ export const TaskListView: React.FC<Props> = ({ tasks, navigation }) => {
           : categories.map(category => {
               return (
                 <List key={ category }>
-                  <Separator bordered>
+                  <ListItem itemDivider>
                     <Text>{ category }</Text>
-                  </Separator>
-                  { tasksFormatted[category].map((item, index) => getTaskList({ item, index , navigation})) }
+                  </ListItem>
+                  { 
+                    tasksFormatted[category].map((item, index) => {
+                      return (
+                        getTaskList({ item, index , navigation})
+                      );
+                    })
+                  }
                 </List>
               )
             })
       }
-    </>
+    </ScrollView>
   );
 
 }

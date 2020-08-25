@@ -4,15 +4,19 @@ import { Moment } from 'moment';
 const moment = require('moment');
 
 
-export const parseJsonToMoment = (jsonDateString = ''): Moment => {
+export const parseJsonToMoment = (jsonDateString = '"null"'): Moment => {
 
-  return moment(JSON.parse(jsonDateString));
+  return jsonDateString === '"null"'
+    ? moment(new Date())
+    : moment(JSON.parse(jsonDateString));
+
 };
 
 
 export const getDateByDatetime = (datetime: Moment): Moment => {
 
-  return moment(datetime.clone().startOf('day').format('LL'), 'LL').startOf('day');
+  return moment(datetime.clone().startOf('day').format('LL'), 'LL')
+    .startOf('day');
 
 };
 

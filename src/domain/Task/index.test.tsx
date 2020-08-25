@@ -1,5 +1,5 @@
 import { getFormattedTasks } from './index'
-import { Task } from '/screens/CreateTaskScreen';
+import { Task } from '/domain/Task/';
 
 
 const task1: Task = {

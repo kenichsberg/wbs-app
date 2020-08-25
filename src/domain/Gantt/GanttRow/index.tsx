@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import { Line, Text } from 'react-native-svg';
 import { getDayCount, parseJsonToMoment } from '/services/Date/';
 import * as constants from '/domain/constants';
-import { Task } from '/screens/CreateTaskScreen';
+import { Task } from '/domain/Task/';
 
 import { Moment } from 'moment';
 

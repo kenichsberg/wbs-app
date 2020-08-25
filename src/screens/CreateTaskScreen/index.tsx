@@ -1,23 +1,15 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
-import { Container, Content, Text, View, Button, Form, Item, Input, Label, Picker, Icon, ListItem } from 'native-base';
+import { Container, Content, Text, View, Button, Form, Item, Input, Label, /*Picker,*/ Icon, ListItem } from 'native-base';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { CreateTaskProps } from '/navigations/types.tsx';
+import { parseJsonToMoment } from '/services/Date/'; 
 import { getManHour, getEndDatetime } from '/services/Task';
+import { Task } from '/domain/Task/';
+import { Moment } from 'moment';
+
 
 const moment = require('moment');
-
-export type Task = {
-  id: number | undefined;
-  category: string;
-  taskName: string;
-  startDatetimePlanned: string;
-  manHour: number | undefined;
-  endDatetimePlanned: string;
-  //startDatetimeResult: string;
-  //endDatetimeResult: string;
-  selectedDocument: number | undefined;
-};
 
 type DatePickerVisibilities = {
   [key: string]: boolean,
@@ -30,28 +22,28 @@ type DatePickerVisibilities = {
 
 export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route }) => {
   // id
-  const [id, setId] = React.useState<number | undefined>(undefined);
+  const [id, setId] = React.useState<string | number | null>(null);
   // 分類
   const [category, setCategory] = React.useState<string>('');
   // タスク名
   const [taskName, setTaskName] = React.useState<string>('');
 
-  // datetime初期値を設定
-  const now = new Date();
-  now.setMinutes(0);
-  now.setSeconds(0);
+  // datetime init value
+  const now = moment(new Date()).minute(0).second(0);
+
   // 予定開始日時
-  const [startDatetimePlanned, setStartDatetimePlanned] = React.useState<Date>(now);
+  const [startDatetimePlanned, setStartDatetimePlanned] = React.useState<Moment>(now);
   // 工数
   const [manHour, setManHour] = React.useState<string>('0');
   // 予定終了日時
-  const [endDatetimePlanned, setEndDatetimePlanned] = React.useState<Date>(now);
+  const [endDatetimePlanned, setEndDatetimePlanned] = React.useState<Moment>(now);
   // 実績開始日時
-  //const [startDatetimeResult, setStartDatetimeResult] = React.useState<Date | null>(null);
+  //const [startDatetimeResult, setStartDatetimeResult] = React.useState<Moment | null>(null);
   // 実績終了日時
-  //const [endDatetimeResult, setEndDatetimeResult] = React.useState<Date | null>(null);
+  //const [endDatetimeResult, setEndDatetimeResult] = React.useState<Moment | null>(null);
   // 成果物
-  const [selectedDocument, setSelectedDocument] = React.useState<number | undefined>(undefined);
+  //const [selectedDocument, setSelectedDocument] = React.useState<number | undefined>(undefined);
+  //const [selectedDocument, setSelectedDocument] = React.useState<number | null>(null);
 
 
   // 日時選択モーダル表示・非表示
@@ -77,8 +69,38 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
       ? JSON.stringify(endDatetimeResult)
       : 'null',
      */
-    selectedDocument: selectedDocument
+    //selectedDocument: selectedDocument
   };
+
+
+  // 引数を受け取った時の処理
+  React.useEffect(() => {
+    if (route.params?.task) {
+      const task: Task = route.params.task;
+
+      setId(task.id);
+      setCategory(task.category);
+      setTaskName(task.taskName);
+      setStartDatetimePlanned(parseJsonToMoment(task.startDatetimePlanned));
+      setManHour(task.manHour?.toString() ?? '');
+      setEndDatetimePlanned(parseJsonToMoment(task.endDatetimePlanned));
+
+      /*
+      const startDatetimeResult = JSON.parse(task.startDatetimeResult) == null
+        ? now
+        : new Date(JSON.parse(task.startDatetimeResult));
+      setStartDatetimeResult(startDatetimeResult);
+
+      const endDatetimeResult = JSON.parse(task.endDatetimeResult) == null
+        ? now
+        : new Date(JSON.parse(task.endDatetimeResult));
+      setEndDatetimeResult(endDatetimeResult);
+       */
+
+      //setSelectedDocument(task.selectedDocument);
+
+    }
+  }, [route.params?.task]);
 
 
   React.useLayoutEffect(() => {
@@ -104,7 +126,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
             <Icon 
               name="checkmark" 
               style={{ 
-                color: '#1F5E56' ,
+                color: '#1F5E56',
                 marginRight: 5,
               }} 
             />
@@ -119,37 +141,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
         </Button>
       ),
     });
-  }, [navigation]);
-
-
-  // 引数を受け取った時の処理
-  React.useEffect(() => {
-    if (route.params?.task) {
-      const values: Task = route.params.task;
-
-      setId(values.id);
-      setCategory(values.category);
-      setTaskName(values.taskName);
-      setStartDatetimePlanned(new Date(JSON.parse(values.startDatetimePlanned)));
-      setManHour(values.manHour?.toString() ?? '');
-      setEndDatetimePlanned(new Date(JSON.parse(values.endDatetimePlanned)));
-
-      /*
-      const startDatetimeResult = JSON.parse(values.startDatetimeResult) == null
-        ? now
-        : new Date(JSON.parse(values.startDatetimeResult));
-      setStartDatetimeResult(startDatetimeResult);
-
-      const endDatetimeResult = JSON.parse(values.endDatetimeResult) == null
-        ? now
-        : new Date(JSON.parse(values.endDatetimeResult));
-      setEndDatetimeResult(endDatetimeResult);
-       */
-
-      setSelectedDocument(values.selectedDocument);
-
-    }
-  }, [route.params?.task]);
+  }, [navigation, task]);
 
 
   // 日時選択モーダルの表示・非表示切り替え
@@ -158,7 +150,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   };
 
   // map of name -> setState()
-  const nameToSetStateFunc: Map<string, (arg0: Date) => void> = new Map([
+  const nameToSetStateFunc: Map<string, (arg0: Moment) => void> = new Map([
     ['startDatetimePlanned', setStartDatetimePlanned],
     ['endDatetimePlanned', setEndDatetimePlanned],
     //['startDatetimeResult', setStartDatetimeResult],
@@ -172,18 +164,18 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
 
     const endDatetime = getEndDatetime(moment(startDatetimePlanned, 'YYYY-MM-DD HH:mm:ss'), parseFloat(text));
 
-    setEndDatetimePlanned(endDatetime.toDate());
+    setEndDatetimePlanned(endDatetime);
   }
 
   // 工数フォーカス時の処理
-  const handleManHourFocus = ():void => {
+  const handleManHourFocus = (): void => {
     if (manHour === '0') {
       setManHour('');
     }
   }
 
   // 終了日時入力時の処理
-  const handleDatetimeInput = (date: Date, name: string): void => {
+  const handleDatetimeInput = (date: Moment, name: string): void => {
     const startDatetime = name === 'startDatetimePlanned'
       ? moment(date, 'YYYY-MM-DD HH:mm:ss')
       : moment(startDatetimePlanned, 'YYYY-MM-DD HH:mm:ss');
@@ -198,8 +190,8 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   };
 
   // 日時選択モーダル選択時の処理
-  const handleConfirm = (date: Date, name: string): void => {
-    const func: ((arg0: Date) => void) | undefined  = nameToSetStateFunc.get(name);
+  const handleConfirm = (date: Moment, name: string): void => {
+    const func: ((arg0: Moment) => void) | undefined  = nameToSetStateFunc.get(name);
 
     if (func === undefined) return;
 
@@ -211,15 +203,15 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   };
 
   // datetime型入力フィールドを取得
-  const getDatetimeInputField = (value: Date, name: string, label: string): JSX.Element => {
+  const getDatetimeInputField = (value: Moment, name: string, label: string): JSX.Element => {
     return (
       <Item stackedLabel>
         <Label>{ label }</Label>
         <DateTimePickerModal
           isVisible={ datePickerVisibilities[name] }
           mode="datetime"
-          date={ value }
-          onConfirm={ event => handleConfirm(event, name) }
+          date={ value.toDate() }
+          onConfirm={ event => handleConfirm(moment(event), name) }
           onCancel={ () => handleDatePicker(false, name) }
           headerTextIOS="選択してください"
           confirmTextIOS="OK"
@@ -299,6 +291,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
                 : getDatetimeInputField(endDatetimeResult, 'endDatetimeResult', '実績終了日時') }
               */}
 
+            {/*
             <Item stackedLabel picker last>
               <Label>成果物</Label>
               <Picker
@@ -318,27 +311,9 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
                 <Picker.Item label="移行チェックシート" value="4" />
               </Picker>
             </Item>
+              */}
           </Form>
         </Content>
-        {/*
-        <Button
-          data-test="create-button"
-          block
-          rounded
-          onPress={ () => {
-            navigation.navigate('TaskList', { task: task });
-          }}
-          style={{ 
-            marginTop: 20,
-            marginBottom: 10,
-            marginLeft: 10,
-            marginRight: 10,
-            backgroundColor: '#1F5E56'
-          }}
-        >
-          <Text style={{ fontWeight: "600" }}>作成する</Text>
-        </Button>
-         */}
       </Container>
     </>
   );
