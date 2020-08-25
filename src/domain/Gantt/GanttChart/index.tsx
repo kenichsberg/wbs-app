@@ -7,7 +7,7 @@ import { getFormattedTasks } from '/domain/Task/';
 import { parseJsonToMoment } from '/services/Date/'; 
 import { getLeftEndDate, getRightEndDate, getWeekCount } from '/services/Gantt/'; 
 import { GanttRow } from '/domain/Gantt/GanttRow/';
-import { Task } from '/screens/CreateTaskScreen';
+import { Task } from '/domain/Task/';
 import * as constants from '/domain/constants';
 import { Moment } from 'moment';
 
