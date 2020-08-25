@@ -10,6 +10,7 @@ export const getLeftEndDate = (dates: Array<Moment>): Moment => {
   return leftEndSunday.hour(0).minute(0).second(0);
 };
 
+
 export const getRightEndDate = (dates: Array<Moment>): Moment => {
   const maxDate = moment.max(dates);
   const rightEndSaturday = maxDate.clone().day(6);
