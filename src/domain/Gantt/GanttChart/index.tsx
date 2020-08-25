@@ -4,6 +4,7 @@ import { ScrollView } from 'react-native';
 import { View  } from 'native-base';
 import Svg, { Line, Text } from 'react-native-svg';
 import { getFormattedTasks } from '/domain/Task/';
+import { parseJsonToMoment } from '/services/Date/'; 
 import { getLeftEndDate, getRightEndDate, getWeekCount } from '/services/Gantt/'; 
 import { GanttRow } from '/domain/Gantt/GanttRow/';
 import { Task } from '/screens/CreateTaskScreen';
@@ -22,11 +23,11 @@ export const GanttChart: React.FC<Props> = ({ tasks }) => {
   const { categories, tasksFormatted } = getFormattedTasks(tasks);
 
   const startDates: Array<Moment> = tasks.map(task => (
-    moment(JSON.parse(task.startDatetimePlanned))
+    parseJsonToMoment(task.startDatetimePlanned)
   ));
 
   const endDates: Array<Moment>  = tasks.map(task => (
-    moment(JSON.parse(task.endDatetimePlanned))
+    parseJsonToMoment(task.startDatetimePlanned)
   ));
 
 
