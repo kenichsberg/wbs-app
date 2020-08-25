@@ -11,6 +11,7 @@ import { Task } from '/domain/Task/';
 import * as constants from '/domain/constants';
 import { Moment } from 'moment';
 
+
 const moment = require('moment');
 
 type Props = {
@@ -46,7 +47,6 @@ export const GanttChart: React.FC<Props> = ({ tasks }) => {
   let ganttRowIndex = 0;
 
 
-  // JSX
   return (
     <>
       <View style={{
@@ -57,20 +57,27 @@ export const GanttChart: React.FC<Props> = ({ tasks }) => {
         paddingBottom: constants.PADDING_Y 
       }}>
         <ScrollView horizontal={true}>
-          {/*<Svg height="1300" width={ constants.WINDOW_WIDTH * weekCount }>*/}
           <Svg height="1300" width={ (constants.WINDOW_WIDTH - constants.PADDING_X * 2) * weekCount }>
             {/* 縦線 */}
             { 
               [...Array(7 * weekCount).keys()].map(index => (
                 <React.Fragment 
-                  key={ leftEndDate.clone().add(index, 'days').format('MM/DD') }
+                  key={
+                    leftEndDate.clone()
+                      .add(index, 'days')
+                      .format('MM/DD')
+                  }
                 >
                   <Text 
                     x={ constants.DAY_WIDTH * index }
                     y="10" 
                     fill="white"
                   >
-                    { leftEndDate.clone().add(index, 'days').format('MM/DD') }
+                    { 
+                      leftEndDate.clone()
+                        .add(index, 'days')
+                        .format('MM/DD')
+                    }
                   </Text>
                   <Line 
                     x1={ constants.DAY_WIDTH * index } 
