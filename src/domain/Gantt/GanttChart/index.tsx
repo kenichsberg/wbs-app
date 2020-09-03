@@ -10,6 +10,7 @@ import { GanttRow } from '/domain/Gantt/GanttRow/';
 import { Task } from '/domain/Task/';
 import * as constants from '/domain/constants';
 import { Moment } from 'moment';
+import { Color } from '/style/Color';
 
 
 const moment = require('moment');
@@ -42,7 +43,7 @@ export const GanttChart: React.FC<Props> = ({ tasks }) => {
     ? now.clone().add(6 - now.day(), 'days')
     : getRightEndDate(endDates); 
 
-    const weekCount: number = getWeekCount(leftEndDate, rightEndDate) ?? 1;
+  const weekCount: number = getWeekCount(leftEndDate, rightEndDate) ?? 1;
 
   let ganttRowIndex = 0;
 
@@ -50,7 +51,8 @@ export const GanttChart: React.FC<Props> = ({ tasks }) => {
   return (
     <>
       <View style={{
-        backgroundColor: '#051B26', 
+        //backgroundColor: '#051B26', 
+        backgroundColor: Color.pale, 
         paddingLeft: constants.PADDING_X, 
         paddingRight: constants.PADDING_X, 
         paddingTop: constants.PADDING_Y, 
@@ -71,7 +73,8 @@ export const GanttChart: React.FC<Props> = ({ tasks }) => {
                   <Text 
                     x={ constants.DAY_WIDTH * index }
                     y="10" 
-                    fill="white"
+                    //fill="white"
+                    fill={ Color.dark }
                   >
                     { 
                       leftEndDate.clone()
@@ -84,7 +87,9 @@ export const GanttChart: React.FC<Props> = ({ tasks }) => {
                     y1="20" 
                     x2={ constants.DAY_WIDTH * index } 
                     y2={ constants.CHART_HEIGHT } 
-                    stroke="#3E6B57" 
+                    //stroke="#3E6B57" 
+                    //stroke={ Color.semiLight }
+                    stroke="grey" 
                     strokeWidth="1" 
                   />
                 </React.Fragment>
@@ -96,7 +101,8 @@ export const GanttChart: React.FC<Props> = ({ tasks }) => {
                 y1="20" 
                 x2={ (constants.WINDOW_WIDTH - constants.PADDING_X * 2) * weekCount } 
                 y2={ constants.CHART_HEIGHT } 
-                stroke="#3E6B57" 
+                //stroke="#3E6B57" 
+                stroke="grey" 
                 strokeWidth="1" 
               />
             }

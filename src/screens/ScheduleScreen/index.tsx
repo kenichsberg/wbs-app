@@ -6,6 +6,7 @@ import { TaskListProps } from '/navigations/types.tsx';
 import { Task } from '/domain/Task/';
 import { AppStateContext } from '/contexts/AppStateContext';
 import { db } from '/data-access/firebase';
+import { Color } from '/style/Color';
 
 
 const tasksRef = db.ref('tasks/');
@@ -34,19 +35,31 @@ export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) =
       tasksRef.update(updates);
     }
 
+    console.log(tasksRef);
+    /*
     tasksRef.on('value', (snapshot) => {
       const tasksStore = snapshot.val() ?? [];
       console.log('tasksStore', tasksStore);
       setTasks(Object.values(tasksStore));
       //handleTaskRefChange(Object.values(tasksStore));
     });
+     */
+    tasksRef.once('value')
+      .then((snapshot) => {
+      const tasksStore = snapshot.val() ?? [];
+      console.log('tasksStore', tasksStore);
+      setTasks(Object.values(tasksStore));
+      //handleTaskRefChange(Object.values(tasksStore));
+    });
+
+    return () => tasksRef.off('value');
 
   }, [route.params?.task]);
 
 
   return (
     <Container>
-      <ScheduleTab />
+      <ScheduleTab/>
       <Fab 
         position="bottomRight"
         active={ false }
@@ -54,7 +67,7 @@ export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) =
         onPress={ () => navigation.navigate('CreateTask') }
         data-test="fab"
         style={{
-          backgroundColor: '#1F5E56'
+          backgroundColor: Color.light
         }}
       >
         <Icon name="ios-add" />

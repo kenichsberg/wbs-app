@@ -4,6 +4,7 @@ import { Line, Text } from 'react-native-svg';
 import { getDayCount, parseJsonToMoment } from '/services/Date/';
 import * as constants from '/domain/constants';
 import { Task } from '/domain/Task/';
+import { Color } from '/style/Color';
 
 import { Moment } from 'moment';
 
@@ -63,7 +64,9 @@ export const GanttRow: React.FC<Props> = ({ task, index, leftEndDate }) => {
       <Text 
         x={xStartPlanned} 
         y={yTop} 
-        fill="white"
+        //fill="white"
+        //fill={ Color.semiDark }
+        fill={ Color.black }
       >
         { task.taskName }
       </Text>
@@ -72,7 +75,8 @@ export const GanttRow: React.FC<Props> = ({ task, index, leftEndDate }) => {
         y1={yTop + 25} 
         x2={xEndPlanned} 
         y2={yTop + 25} 
-        stroke="white" 
+        //stroke="white" 
+        stroke={ Color.semiLight }
         strokeWidth="40" 
       />
       {

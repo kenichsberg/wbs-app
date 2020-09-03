@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { ScheduleScreen } from '/screens/ScheduleScreen';
 import { CreateTaskScreen } from '/screens/CreateTaskScreen';
 import { ScheduleStackParamList } from '/navigations/types.tsx';
+import { Color } from '/style/Color';
 
 
 const ScheduleStack = createStackNavigator<ScheduleStackParamList>();
@@ -17,6 +18,12 @@ export const ScheduleStackScreen: React.FC = () => {
         component={ ScheduleScreen }
         options={{
           headerTitle: 'タスク一覧',
+          headerStyle: {
+            backgroundColor: Color.dark,
+          },
+          headerTitleStyle: {
+            color: Color.white,
+          },
         }}
       />
       <ScheduleStack.Screen 
@@ -24,6 +31,16 @@ export const ScheduleStackScreen: React.FC = () => {
         component={ CreateTaskScreen }
         options={{
           headerTitle: '新規タスク作成',
+          headerStyle: {
+            backgroundColor: Color.dark,
+          },
+          headerTitleStyle: {
+            color: Color.white,
+          },
+          headerBackTitleStyle: {
+            color: Color.white,
+          },
+          headerTintColor: Color.pale,
         }}
       />
       <ScheduleStack.Screen 
@@ -31,6 +48,16 @@ export const ScheduleStackScreen: React.FC = () => {
         component={ CreateTaskScreen }
         options={{
           headerTitle: 'タスク編集',
+          headerStyle: {
+            backgroundColor: Color.dark,
+          },
+          headerTitleStyle: {
+            color: Color.white,
+          },
+          headerBackTitleStyle: {
+            color: Color.white,
+          },
+          headerTintColor: Color.pale,
         }}
       />
     </ScheduleStack.Navigator>

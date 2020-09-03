@@ -7,6 +7,7 @@ import { parseJsonToMoment } from '/services/Date/';
 import { getManHour, getEndDatetime } from '/services/Task';
 import { Task } from '/domain/Task/';
 import { Moment } from 'moment';
+import { Color } from '/style/Color';
 
 
 const moment = require('moment');
@@ -126,13 +127,13 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
             <Icon 
               name="checkmark" 
               style={{ 
-                color: '#1F5E56',
+                color: Color.headerButton,
                 marginRight: 5,
               }} 
             />
             <Text style={{ 
-                color: '#1F5E56',
-                fontWeight: '600',
+                color: Color.headerButton,
+                fontWeight: '800',
               }}
             >
               作成
