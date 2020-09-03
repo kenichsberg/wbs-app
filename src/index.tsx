@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { View } from 'react-native';
+//import { View } from 'react-native';
+import { AppLoading } from 'expo';
 import 'react-native-gesture-handler';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { AppNavigator } from '/navigations/AppNavigator';
 import { AppStateProvider } from '/contexts/AppStateContext';
+
+import '/data-access/fixtimerbug';
 
 
 export const Root: React.FC = () => { 
@@ -24,7 +27,7 @@ export const Root: React.FC = () => {
   }, []);
 
   if (!isReady) {
-    return <View></View>;
+    return <AppLoading />;
   }
 
   return (
