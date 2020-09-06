@@ -1,5 +1,5 @@
 import { RouteProp } from '@react-navigation/native';
-//import { CompositeNavigationProp } from '@react-navigation/native';
+import { CompositeNavigationProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MaterialTopTabNavigationProp } from '@react-navigation/material-top-tabs';
 import { Task } from '/domain/Task/';
@@ -49,7 +49,6 @@ type ListTabRouteProp = RouteProp<ScheduleTabParamList, 'LIST'>;
 
 type ChartTabRouteProp = RouteProp<ScheduleTabParamList, 'CHART'>;
 
-/*
 type ListTabNavigationProp = CompositeNavigationProp<
   MaterialTopTabNavigationProp<ScheduleTabParamList, 'LIST'>,
   StackNavigationProp<ScheduleStackParamList>
@@ -59,8 +58,7 @@ type ChartTabNavigationProp = CompositeNavigationProp<
   MaterialTopTabNavigationProp<ScheduleTabParamList, 'CHART'>,
   StackNavigationProp<ScheduleStackParamList>
 >;
- */
-/***/
+/*
 type ListTabNavigationProp = MaterialTopTabNavigationProp<
   ScheduleTabParamList, 'LIST'
 >;
@@ -68,8 +66,7 @@ type ListTabNavigationProp = MaterialTopTabNavigationProp<
 type ChartTabNavigationProp = MaterialTopTabNavigationProp<
   ScheduleTabParamList, 'CHART'
 >;
-/***/
-
+*/
 
 export type ListTabProps = {
   route: ListTabRouteProp;
