@@ -11,7 +11,7 @@ const task1: Task = {
   manHour: undefined,
   //startDatetimeResult: null,
   //endDatetimeResult: null,
-  selectedDocument: 4
+  //selectedDocument: 4
 };
 
 const task2: Task = {
@@ -23,7 +23,7 @@ const task2: Task = {
   manHour: undefined,
   //startDatetimeResult: null,
   //endDatetimeResult: null,
-  selectedDocument: 4
+  //selectedDocument: 4
 };
 
 const tasks = [task1, task2];
