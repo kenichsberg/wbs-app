@@ -1,11 +1,13 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
-import { Container, Content, Text, View, Button, Form, Item, Input, Label, /*Picker,*/ Icon, ListItem } from 'native-base';
+import { AppStateContext } from '/contexts/AppStateContext';
+import { Container, Content, Text, View, Button, Form, Item, Input, Label, Icon, ListItem } from 'native-base';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { CreateTaskProps } from '/navigations/types.tsx';
 import { parseJsonToMoment } from '/services/Date/'; 
-import { getManHour, getEndDatetime } from '/services/Task';
+import { getManHour, getEndDatetime } from '/services/Task/';
 import { Task } from '/domain/Task/';
+import { TaskPicker } from '/component/TaskPicker/';
 import { Moment } from 'moment';
 import { Color } from '/style/Color';
 
@@ -22,12 +24,17 @@ type DatePickerVisibilities = {
 
 
 export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route }) => {
+
+  const { tasks } = React.useContext(AppStateContext);
+
   // id
   const [id, setId] = React.useState<string | number | null>(null);
   // 分類
   const [category, setCategory] = React.useState<string>('');
   // タスク名
   const [taskName, setTaskName] = React.useState<string>('');
+  // 先行タスクid
+  const [predecessorTaskId, setPredecessorTaskId] = React.useState<string | number | null>(null);
 
   // datetime init value
   const now = moment(new Date()).minute(0).second(0);
@@ -59,6 +66,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
     id: id,
     category: category,
     taskName: taskName,
+    predecessorTaskId: predecessorTaskId,
     startDatetimePlanned: JSON.stringify(startDatetimePlanned),
     manHour: parseFloat(manHour),
     endDatetimePlanned: JSON.stringify(endDatetimePlanned),
@@ -82,6 +90,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
       setId(task.id);
       setCategory(task.category);
       setTaskName(task.taskName);
+      setPredecessorTaskId(task.predecessorTaskId);
       setStartDatetimePlanned(parseJsonToMoment(task.startDatetimePlanned));
       setManHour(task.manHour?.toString() ?? '');
       setEndDatetimePlanned(parseJsonToMoment(task.endDatetimePlanned));
@@ -257,6 +266,16 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
                 style={{ textAlign: 'center' }}
               />
             </Item>
+            
+            <Item stackedLabel>
+              <TaskPicker
+                tasks={ tasks }
+                excludeIds={ [task.id] }
+                defaultValue={ task.predecessorTaskId }
+                callback={ setPredecessorTaskId }
+              />
+            </Item>
+
 
             { getDatetimeInputField(startDatetimePlanned, 'startDatetimePlanned', '予定開始日時') }
 
