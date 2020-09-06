@@ -1,12 +1,12 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
+import { AppStateContext } from '/contexts/AppStateContext';
 import { ScrollView } from 'react-native';
 import { View, Body, Right, Text, Button, List, ListItem, Icon } from 'native-base';
 import { getFormattedTasks } from '/domain/Task/';
 import { Task } from '/domain/Task/';
 import { ListTabProps } from '/navigations/types.tsx';
 import { parseJsonToMoment } from '/services/Date/'; 
-import { AppStateContext } from '/contexts/AppStateContext';
 import { Color } from '/style/Color';
 
 
