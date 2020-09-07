@@ -12,31 +12,25 @@ export type ScheduleStackParamList = {
   EditTask: { task: Task } | undefined;
 };
 
-/****/
 type TaskListRouteProp = RouteProp<ScheduleStackParamList, 'TaskList'>;
-
-type TaskListNavigationProp = StackNavigationProp<ScheduleStackParamList, 'TaskList'>
-
+type TaskListNavigationProp = StackNavigationProp<
+  ScheduleStackParamList,
+  'TaskList'
+>;
 export type TaskListProps = {
   route: TaskListRouteProp;
   navigation: TaskListNavigationProp;
 };
-/****/
-
 
 type CreateTaskRouteProp = RouteProp<ScheduleStackParamList, 'CreateTask'>;
-
 type CreateTaskNavigationProp = StackNavigationProp<
   ScheduleStackParamList,
   'CreateTask'
 >;
-
-
 export type CreateTaskProps = {
   route: CreateTaskRouteProp;
   navigation: CreateTaskNavigationProp;
 };
-
 
 
 // ScheduleTab
@@ -46,33 +40,20 @@ export type ScheduleTabParamList = {
 };
 
 type ListTabRouteProp = RouteProp<ScheduleTabParamList, 'LIST'>;
-
-type ChartTabRouteProp = RouteProp<ScheduleTabParamList, 'CHART'>;
-
 type ListTabNavigationProp = CompositeNavigationProp<
   MaterialTopTabNavigationProp<ScheduleTabParamList, 'LIST'>,
   StackNavigationProp<ScheduleStackParamList>
 >;
-
-type ChartTabNavigationProp = CompositeNavigationProp<
-  MaterialTopTabNavigationProp<ScheduleTabParamList, 'CHART'>,
-  StackNavigationProp<ScheduleStackParamList>
->;
-/*
-type ListTabNavigationProp = MaterialTopTabNavigationProp<
-  ScheduleTabParamList, 'LIST'
->;
-
-type ChartTabNavigationProp = MaterialTopTabNavigationProp<
-  ScheduleTabParamList, 'CHART'
->;
-*/
-
 export type ListTabProps = {
   route: ListTabRouteProp;
   navigation: ListTabNavigationProp;
 };
 
+type ChartTabRouteProp = RouteProp<ScheduleTabParamList, 'CHART'>;
+type ChartTabNavigationProp = CompositeNavigationProp<
+  MaterialTopTabNavigationProp<ScheduleTabParamList, 'CHART'>,
+  StackNavigationProp<ScheduleStackParamList>
+>;
 export type ChartTabProps = {
   route: ChartTabRouteProp;
   navigation: ChartTabNavigationProp;
@@ -86,10 +67,10 @@ export type SettingsStackParamList = {
 };
 
 type SettingScreenRouteProp = RouteProp<SettingsStackParamList, 'Settings'>;
-
-type SettingsNavigationProp = StackNavigationProp<SettingsStackParamList, 'Settings'>
-
-
+type SettingsNavigationProp = StackNavigationProp<
+  SettingsStackParamList,
+  'Settings'
+>;
 export type SettingsProps = {
   route: SettingScreenRouteProp;
   navigation: SettingsNavigationProp;
