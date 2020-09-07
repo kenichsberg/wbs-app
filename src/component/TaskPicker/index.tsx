@@ -1,10 +1,9 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
-import { Label, Picker, Icon } from 'native-base';
+import { Picker, Icon } from 'native-base';
 import { Task } from '/domain/Task/';
 
 type Props = {
-  labelName?: string;
   tasks: Array<Task>;
   excludeIds?: Array<string | number | null>;
   defaultValue?: string | number | null;
@@ -12,7 +11,6 @@ type Props = {
 };
 
 export const TaskPicker: React.FC<Props> = ({ 
-    labelName = '先行タスク', 
     tasks, 
     excludeIds = [], 
     defaultValue = null, 
@@ -28,7 +26,6 @@ export const TaskPicker: React.FC<Props> = ({
 
   return (
     <>
-      <Label>{ labelName }</Label>
       <Picker
         mode="dropdown"
         iosIcon={ <Icon name="arrow-down" /> }
@@ -39,6 +36,10 @@ export const TaskPicker: React.FC<Props> = ({
         selectedValue={ defaultValue }
         onValueChange={ callback }
       >
+        <Picker.Item
+          label={ '-----' }
+          value={ undefined }
+        />
         {
           pickerList.map(item => {
             return (
