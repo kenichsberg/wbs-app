@@ -2,7 +2,7 @@ import * as React from 'react';
 import 'react-native-gesture-handler';
 import { Container, Icon, Fab } from 'native-base';
 import { ScheduleTab } from '/navigations/ScheduleTab';
-import { TaskListProps } from '/navigations/types.tsx';
+import { TaskListProps } from '/navigations/types';
 import { Task } from '/domain/Task/';
 import { AppStateContext } from '/contexts/AppStateContext';
 import { db } from '/data-access/firebase';
@@ -35,15 +35,13 @@ export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) =
       tasksRef.update(updates);
     }
 
-    console.log(tasksRef);
-    /*
     tasksRef.on('value', (snapshot) => {
       const tasksStore = snapshot.val() ?? [];
       console.log('tasksStore', tasksStore);
       setTasks(Object.values(tasksStore));
       //handleTaskRefChange(Object.values(tasksStore));
     });
-     */
+    /*
     tasksRef.once('value')
       .then((snapshot) => {
       const tasksStore = snapshot.val() ?? [];
@@ -51,6 +49,7 @@ export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) =
       setTasks(Object.values(tasksStore));
       //handleTaskRefChange(Object.values(tasksStore));
     });
+     */
 
     return () => tasksRef.off('value');
 
