@@ -2,6 +2,7 @@ export type Task = {
   id: string | number | null;
   category: string;
   taskName: string;
+  predecessorTaskId: string | number | null;
   startDatetimePlanned: string;
   manHour: number | undefined;
   endDatetimePlanned: string;

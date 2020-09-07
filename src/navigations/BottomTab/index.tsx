@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { ScheduleStackScreen } from '/navigations/ScheduleStack/';
 import { SettingsStackScreen } from '/navigations/SettingsStack/';
+import { Color } from '/style/Color';
 
 
 const Tab = createBottomTabNavigator();
@@ -28,10 +29,10 @@ export const BottomTabNavigator: React.FC = () => {
       })}
       tabBarOptions={{
         //activeTintColor: 'tomato',
-        activeTintColor: '#912221',
+        activeTintColor: Color.white,
         inactiveTintColor: 'gray',
         labelStyle: { fontWeight: '600' },
-        style: { backgroundColor: '#f9f9f9' },
+        style: { backgroundColor: Color.dark },
       }}
     >
       <Tab.Screen

@@ -1,12 +1,13 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
+import { AppStateContext } from '/contexts/AppStateContext';
 import { ScrollView } from 'react-native';
 import { View, Body, Right, Text, Button, List, ListItem, Icon } from 'native-base';
 import { getFormattedTasks } from '/domain/Task/';
 import { Task } from '/domain/Task/';
 import { ListTabProps } from '/navigations/types.tsx';
 import { parseJsonToMoment } from '/services/Date/'; 
-import { AppStateContext } from '/contexts/AppStateContext';
+import { Color } from '/style/Color';
 
 
 type Props = 
@@ -41,6 +42,7 @@ export const TaskListView: React.FC<Props> = ({ navigation }) => {
 
   //const { tasks } = route.params;
   const { tasks } = React.useContext(AppStateContext);
+  console.log(tasks);
 
   const { categories, tasksFormatted } = getFormattedTasks(tasks);
 
@@ -70,8 +72,7 @@ export const TaskListView: React.FC<Props> = ({ navigation }) => {
             >
               <Icon 
                 name="ios-create" 
-                //style={{ color: 'tomato' }}
-                style={{ color: '#912221' }}
+                style={{ color: Color.semiLight }}
               />
             </Button>
           </Right>
