@@ -6,9 +6,6 @@ export type Task = {
   startDatetimePlanned: string;
   manHour: number | undefined;
   endDatetimePlanned: string;
-  //startDatetimeResult: string;
-  //endDatetimeResult: string;
-  //selectedDocument: number | null;
 };
 
 
@@ -22,12 +19,6 @@ type FormattedList = {
 }
 
 
-/** 
- *
- * タスクリストのJSX構築のため、
- * キー：category、値：Taskの配列 となるオブジェクトを生成する。
- *
- */
 export const getFormattedTasks = (tasks: Array<Task>): FormattedList => {
 
   // categoryのセット(の配列)を取得
@@ -50,4 +41,17 @@ export const getFormattedTasks = (tasks: Array<Task>): FormattedList => {
     categories: categories,
     tasksFormatted: tasksFormatted
   };
+}
+
+
+export const getTaskById = (
+  taskId: string | number | null,
+  tasks: Array<Task>
+): Task | undefined => {
+
+  if (taskId === null) return undefined;
+
+  const targetTask = tasks.filter(task => task.id === taskId);
+
+  return targetTask[0];
 }
