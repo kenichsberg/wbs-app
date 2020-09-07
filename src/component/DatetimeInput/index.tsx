@@ -29,9 +29,9 @@ export const DatetimeInput: React.FC<Props> = ({
         isVisible={ isVisible }
         mode="datetime"
         date={ value.toDate() }
-        onConfirm={ event => {
-          setDate(moment(event));
-          withConfirm(moment(event));
+        onConfirm={ (date: Date) => {
+          setDate(moment(date));
+          withConfirm(moment(date));
           setVisibility(false);
         }}
         onCancel={ () => setVisibility(false) }
