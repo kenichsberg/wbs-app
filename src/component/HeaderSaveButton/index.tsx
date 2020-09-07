@@ -17,7 +17,7 @@ export const HeaderSaveButton: React.FC<Props> = ({ task, navigation })=> (
     data-test="create-button"
     hasText
     transparent
-    onPress={ (): void => {
+    onPress={ () => {
       navigation.navigate('TaskList', { task: task });
     }}
     style={{ 
