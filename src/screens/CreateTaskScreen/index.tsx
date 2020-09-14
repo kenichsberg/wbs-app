@@ -6,10 +6,10 @@ import { CreateTaskProps } from '/navigations/types.tsx';
 import { parseJsonToMoment } from '/services/Date/'; 
 import { getManHour, getEndDatetime } from '/services/Task/';
 import { Task, getTaskById } from '/domain/Task/';
-import { TaskPicker } from '/component/TaskPicker/';
-import { DatetimeInput } from '/component/DatetimeInput/';
-import { ManHourInput } from '/component/ManHourInput/';
-import { HeaderSaveButton } from '/component/HeaderSaveButton/';
+import { TaskPicker } from '/components/TaskPicker/';
+import { DatetimeInput } from '/components/DatetimeInput/';
+import { ManHourInput } from '/components/ManHourInput/';
+import { HeaderSaveButton } from '/components/HeaderSaveButton/';
 import { Moment } from 'moment';
 
 
