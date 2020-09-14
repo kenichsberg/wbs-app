@@ -33,12 +33,12 @@ export const HeaderSaveButton: React.FC<Props> = ({ task, navigation })=> (
       <Icon 
         name="checkmark" 
         style={{ 
-          color: Color.headerButton,
+          color: Color.lightOnDark,
           marginRight: 5,
         }} 
       />
       <Text style={{ 
-          color: Color.headerButton,
+          color: Color.lightOnDark,
           fontWeight: '800',
         }}
       >
