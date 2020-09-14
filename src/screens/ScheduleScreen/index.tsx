@@ -36,10 +36,9 @@ export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) =
     }
 
     tasksRef.on('value', (snapshot) => {
-      const tasksStore = snapshot.val() ?? [];
-      console.log('tasksStore', tasksStore);
-      setTasks(Object.values(tasksStore));
-      //handleTaskRefChange(Object.values(tasksStore));
+      const data = snapshot.val() ?? [];
+      setTasks(Object.values(data));
+      //handleTaskRefChange(Object.values(data));
     });
     /*
     tasksRef.once('value')
