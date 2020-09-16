@@ -5,8 +5,8 @@ import { ScheduleTab } from '/navigations/ScheduleTab';
 import { TaskListProps } from '/navigations/types';
 import { Task } from '/domain/Task/';
 import { AppStateContext } from '/contexts/AppStateContext';
-import { db } from '/data-access/firebase';
 import { Color } from '/style/Color';
+import { db } from '/data-access/firebase';
 
 
 const tasksRef = db.ref('tasks/');
