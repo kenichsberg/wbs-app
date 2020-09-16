@@ -8,6 +8,7 @@ import { Task } from '/domain/Task/';
 import { ListTabProps } from '/navigations/types.tsx';
 import { parseJsonToMoment } from '/services/Date/'; 
 import { Color } from '/style/Color';
+import { db } from '/data-access/firebase';
 
 
 type Props = 
@@ -68,6 +69,11 @@ export const TaskListView: React.FC<Props> = ({ navigation }) => {
               transparent
               data-test="delete-button"
               onPress={ () => {
+                if (item.id === null) return;
+
+                const targetRef = db.ref(`tasks/${item.id}`);
+                targetRef.remove();
+
                 const newTasks = tasks.filter(
                   task => task.id !== item.id
                 );
