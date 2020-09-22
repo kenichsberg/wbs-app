@@ -50,6 +50,18 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   };
 
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <HeaderSaveButton
+          task={ task }
+          navigation={ navigation }
+        />
+      ),
+    });
+  }, [navigation, task]);
+
+
   React.useEffect(() => {
     if (route.params?.task) {
       const task: Task = route.params.task;
@@ -63,18 +75,6 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
       setEndDatetimePlanned(parseJsonToMoment(task.endDatetimePlanned));
     }
   }, [route.params?.task]);
-
-
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <HeaderSaveButton
-          task={ task }
-          navigation={ navigation }
-        />
-      ),
-    });
-  }, [navigation, task]);
 
 
   const setDatetimeByPredecessorTask = (
