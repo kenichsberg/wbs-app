@@ -10,7 +10,7 @@ npm-debug.*
 web-build/
 web-report/
 
-src/data-access/firebaseConfig.ts
+src/data-access/config/**
 
 # macOS
 .DS_Store
