@@ -42,7 +42,7 @@ export const HeaderSaveButton: React.FC<Props> = ({ task, navigation })=> (
           fontWeight: '800',
         }}
       >
-        作成
+        保存
       </Text>
     </View>
   </Button>
