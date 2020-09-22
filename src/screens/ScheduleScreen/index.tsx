@@ -1,6 +1,7 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
 import { Container, Icon, Fab } from 'native-base';
+import { KebabMenuButton, MenuOptions } from '/components/KebabMenuButton/';
 import { ScheduleTab } from '/navigations/ScheduleTab';
 import { TaskListProps } from '/navigations/types';
 import { Task } from '/domain/Task/';
@@ -14,11 +15,22 @@ const tasksRef = db.ref('tasks/');
 export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) => {
   const { setTasks } = React.useContext(AppStateContext);
   
+  const [menuVisible, setMenuVisible] = React.useState<boolean>(false);
   /*
   const handleTaskRefChange = React.useCallback((arg) => {
     setTasks(arg);
   }, []);
    */
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <KebabMenuButton
+          onPress={ () => setMenuVisible(true) }
+        />
+      ),
+    });
+  }, [navigation]);
+
 
   // 引数を受け取った時の処理
   React.useEffect(() => {
@@ -58,6 +70,10 @@ export const ScheduleScreen: React.FC<TaskListProps> = ({ navigation, route }) =
   return (
     <Container>
       <ScheduleTab/>
+      <MenuOptions
+        visible={ menuVisible }
+        onBackdropPress={ () => setMenuVisible(false) }
+      />
       <Fab 
         position="bottomRight"
         active={ false }
