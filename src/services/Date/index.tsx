@@ -27,6 +27,14 @@ export const getTimeByDatetime = (datetime: Moment): Moment => {
 
 };
 
+const getDiffTime = (startTime: Moment, endTime: Moment): number => {
+  const diffHour = endTime.diff(startTime, 'hours');
+  const diffMinute = endTime.diff(startTime, 'minutes');
+  const diffSecond = endTime.diff(startTime, 'seconds');
+
+  return diffHour + diffMinute / 60 + diffSecond / 3600;
+};
+
 
 export const getDayCount = (startDatetime: Moment, endDatetime: Moment): number => {
 
@@ -79,9 +87,12 @@ export const getActualWorkingHours = (startTime: Moment, endTime: Moment): numbe
     endTime = closeTime;
   }
 
+  const grossDiffTime = getDiffTime(startTime, endTime);
+
   const breakTime = getBreakTime(startTime, endTime);
 
-  return endTime.diff(startTime, 'hours') - breakTime;
+  return grossDiffTime - breakTime;
+
 
 };
 
@@ -108,7 +119,7 @@ export const getBreakTime = (startTime: Moment, endTime: Moment): number =>  {
         endTime = breakEnd;
       }
 
-      return accumlator + endTime.diff(startTime, 'hours');
+      return accumlator + getDiffTime(startTime, endTime);
 
     }, 0
   );

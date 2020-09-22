@@ -17,7 +17,7 @@ export const HeaderSaveButton: React.FC<Props> = ({ task, navigation })=> (
     data-test="create-button"
     hasText
     transparent
-    onPress={ (): void => {
+    onPress={ () => {
       navigation.navigate('TaskList', { task: task });
     }}
     style={{ 
@@ -33,16 +33,16 @@ export const HeaderSaveButton: React.FC<Props> = ({ task, navigation })=> (
       <Icon 
         name="checkmark" 
         style={{ 
-          color: Color.headerButton,
+          color: Color.lightOnDark,
           marginRight: 5,
         }} 
       />
       <Text style={{ 
-          color: Color.headerButton,
+          color: Color.lightOnDark,
           fontWeight: '800',
         }}
       >
-        作成
+        保存
       </Text>
     </View>
   </Button>

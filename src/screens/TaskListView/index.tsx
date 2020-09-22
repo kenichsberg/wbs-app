@@ -1,13 +1,14 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
 import { AppStateContext } from '/contexts/AppStateContext';
-import { ScrollView } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native';
 import { View, Body, Right, Text, Button, List, ListItem, Icon } from 'native-base';
 import { getFormattedTasks } from '/domain/Task/';
 import { Task } from '/domain/Task/';
 import { ListTabProps } from '/navigations/types.tsx';
 import { parseJsonToMoment } from '/services/Date/'; 
 import { Color } from '/style/Color';
+import { db } from '/data-access/firebase';
 
 
 type Props = 
@@ -37,12 +38,9 @@ const getDateString = (jsonDate = '"null"'): string => {
 
 
 
-//export const TaskListView: React.FC<ListTabProps> = ({ navigation, route }) => {
 export const TaskListView: React.FC<Props> = ({ navigation }) => {
 
-  //const { tasks } = route.params;
-  const { tasks } = React.useContext(AppStateContext);
-  console.log(tasks);
+  const { tasks, setTasks } = React.useContext(AppStateContext);
 
   const { categories, tasksFormatted } = getFormattedTasks(tasks);
 
@@ -51,28 +49,40 @@ export const TaskListView: React.FC<Props> = ({ navigation }) => {
     return (
         <ListItem key={ item.id }>
           <Body>
-            <Text>{ item.taskName }</Text>
-            <View style={{ marginLeft: 20, marginTop: 5 }}>
-              <Text note>
-                Start：{ getDateString(item.startDatetimePlanned) }
-              </Text>
-              <Text note>
-                End  ：{ getDateString(item.endDatetimePlanned) }
-              </Text>
-              {/*
-              <Text note>成果物: { item.selectedDocument }</Text>
-                */}
-            </View>
+            <TouchableOpacity
+              data-test="edit-button"
+              onPress={ () => navigation.navigate('EditTask', { task: item }) }
+            >
+              <Text>{ item.taskName }</Text>
+              <View style={{ marginLeft: 20, marginTop: 5 }}>
+                <Text note>
+                  Start：{ getDateString(item.startDatetimePlanned) }
+                </Text>
+                <Text note>
+                  End  ：{ getDateString(item.endDatetimePlanned) }
+                </Text>
+              </View>
+            </TouchableOpacity>
           </Body>
           <Right>
             <Button
               transparent
-              data-test="edit-button"
-              onPress={ () => navigation.navigate('EditTask', { task: item }) }
+              data-test="delete-button"
+              onPress={ () => {
+                if (item.id === null) return;
+
+                const targetRef = db.ref(`tasks/${item.id}`);
+                targetRef.remove();
+
+                const newTasks = tasks.filter(
+                  task => task.id !== item.id
+                );
+                setTasks(newTasks);
+              }}
             >
               <Icon 
-                name="ios-create" 
-                style={{ color: Color.semiLight }}
+                name="trash" 
+                style={{ color: Color.red }}
               />
             </Button>
           </Right>

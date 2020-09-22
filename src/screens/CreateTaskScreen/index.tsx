@@ -5,11 +5,11 @@ import { Container, Content, Form, Item, Input, Label } from 'native-base';
 import { CreateTaskProps } from '/navigations/types.tsx';
 import { parseJsonToMoment } from '/services/Date/'; 
 import { getManHour, getEndDatetime } from '/services/Task/';
-import { Task } from '/domain/Task/';
-import { TaskPicker } from '/component/TaskPicker/';
-import { DatetimeInput } from '/component/DatetimeInput/';
-import { ManHourInput } from '/component/ManHourInput/';
-import { HeaderSaveButton } from '/component/HeaderSaveButton/';
+import { Task, getTaskById } from '/domain/Task/';
+import { TaskPicker } from '/components/TaskPicker/';
+import { DatetimeInput } from '/components/DatetimeInput/';
+import { ManHourInput } from '/components/ManHourInput/';
+import { HeaderSaveButton } from '/components/HeaderSaveButton/';
 import { Moment } from 'moment';
 
 
@@ -50,6 +50,18 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   };
 
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <HeaderSaveButton
+          task={ task }
+          navigation={ navigation }
+        />
+      ),
+    });
+  }, [navigation, task]);
+
+
   React.useEffect(() => {
     if (route.params?.task) {
       const task: Task = route.params.task;
@@ -65,30 +77,36 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
   }, [route.params?.task]);
 
 
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <HeaderSaveButton
-          task={ task }
-          navigation={ navigation }
-        />
-      ),
-    });
-  }, [navigation, task]);
+  const setDatetimeByPredecessorTask = (
+    tasks: Array<Task>,
+    manHour: string
+  ) => (
+    taskId: string | number | null
+  ): void => {
 
+    const predecessorTask = getTaskById(taskId, tasks);
+    if (predecessorTask === undefined) return;
 
-  const withManHourChange = (manHour: string): void => {
+    const startDatetime = parseJsonToMoment(predecessorTask.endDatetimePlanned);
+
+    setStartDatetimePlanned(startDatetime);
+    setEndDatetimeByManHour(startDatetime)(manHour);
+  };
+
+  const setEndDatetimeByManHour = (
+    startDatetime: Moment
+  ) => (manHour: string): void => {
     if (isNaN(parseFloat(manHour))) return;
 
     const endDatetime = getEndDatetime(
-      moment(startDatetimePlanned, 'YYYY-MM-DD HH:mm:ss'),
+      moment(startDatetime, 'YYYY-MM-DD HH:mm:ss'),
       parseFloat(manHour)
     );
 
     setEndDatetimePlanned(endDatetime);
   };
 
-  const withConfirmDatePicker = (
+  const setManHourByDatetime = (
     startDatetime: Moment | undefined,
     endDatetime: Moment | undefined
   ) => ( date: Moment ): void => {
@@ -131,7 +149,10 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
               tasks={ tasks }
               excludeIds={ [task.id] }
               defaultValue={ task.predecessorTaskId }
-              callback={ setPredecessorTaskId }
+              setValue={ setPredecessorTaskId }
+              withValueChange={ 
+                setDatetimeByPredecessorTask(tasks, manHour) 
+              }
             />
           </Item>
 
@@ -141,7 +162,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
               value={ moment(startDatetimePlanned) }
               setDate={ setStartDatetimePlanned }
               withConfirm={ 
-                withConfirmDatePicker(
+                setManHourByDatetime(
                   undefined,
                   endDatetimePlanned
                 ) 
@@ -154,7 +175,9 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
             <ManHourInput 
               manHour={ manHour }
               setManHour={ setManHour }
-              withManHourChange={ withManHourChange }
+              withManHourChange={ 
+                setEndDatetimeByManHour(startDatetimePlanned) 
+              }
             />
           </Item>
 
@@ -164,7 +187,7 @@ export const CreateTaskScreen: React.FC<CreateTaskProps> = ({ navigation, route 
               value={ moment(endDatetimePlanned) }
               setDate={ setEndDatetimePlanned }
               withConfirm={ 
-                withConfirmDatePicker(
+                setManHourByDatetime(
                   startDatetimePlanned,
                   undefined
                 ) 

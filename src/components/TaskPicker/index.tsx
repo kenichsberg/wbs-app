@@ -7,14 +7,16 @@ type Props = {
   tasks: Array<Task>;
   excludeIds?: Array<string | number | null>;
   defaultValue?: string | number | null;
-  callback: (value: string | number | null) => void;
+  setValue: (value: string | number | null) => void;
+  withValueChange: (value: string | number | null) => void;
 };
 
 export const TaskPicker: React.FC<Props> = ({ 
     tasks, 
     excludeIds = [], 
     defaultValue = null, 
-    callback 
+    setValue,
+    withValueChange
   }) => {
 
   const pickerList = tasks.filter(task =>
@@ -34,11 +36,14 @@ export const TaskPicker: React.FC<Props> = ({
         placeholderStyle={{ color: '#bfc6ea' }}
         placeholderIconColor="#007aff"
         selectedValue={ defaultValue }
-        onValueChange={ callback }
+        onValueChange={ (value: string | number | null) => {
+          setValue(value);
+          withValueChange(value);
+        }}
       >
         <Picker.Item
           label={ '-----' }
-          value={ undefined }
+          value={ null }
         />
         {
           pickerList.map(item => {

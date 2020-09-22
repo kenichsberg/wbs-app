@@ -81,11 +81,6 @@ export const getEndDatetime = (datetime: Moment, remainHours: number): Moment =>
 
   const hoursUntilClose = getActualWorkingHours(startTime, closeTime);
 
-  /*
-  const hours = hoursUntilClose < remainHours
-    ? hoursUntilClose 
-    : remainHours;
-   */
   const hours: number = Math.min(remainHours, hoursUntilClose);
 
   remainHours -= hours;
@@ -99,7 +94,7 @@ export const getEndDatetime = (datetime: Moment, remainHours: number): Moment =>
 };
 
 
-export const getEndTime = (startTime: Moment, remainHours: number): any => {
+export const getEndTime = (startTime: Moment, remainHours: number): Moment => {
   if (remainHours <= 0) {
     return startTime;
   }

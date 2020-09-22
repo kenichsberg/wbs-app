@@ -17,13 +17,13 @@ export const ManHourInput: React.FC<Props> = ({
   withManHourChange
 })=> {
 
-  const handleManHourFocus = (): void => {
+  const handleManHourFocus = () => {
     if (manHour === '0') {
       setManHour('');
     }
   }
 
-  const handleManHourBlur = (): void => {
+  const handleManHourBlur = () => {
     if (manHour === '') {
       setManHour('0');
       withManHourChange('0');
@@ -42,7 +42,7 @@ export const ManHourInput: React.FC<Props> = ({
       <Input
         keyboardType="decimal-pad"
         value={ manHour }
-        onChangeText={ (text) => {
+        onChangeText={ (text: string) => {
           setManHour(text);
           withManHourChange(text);
         }}
@@ -50,7 +50,9 @@ export const ManHourInput: React.FC<Props> = ({
         onBlur={ handleManHourBlur }
         style={{ textAlign: 'right', paddingRight: 40 }}
       />
-      <Text style={{ fontWeight: '500', color: Color.semiDark }}>h</Text>
+      <Text style={{ fontWeight: '500', color: Color.semiDark }}>
+        h
+      </Text>
     </View>
   );
 };

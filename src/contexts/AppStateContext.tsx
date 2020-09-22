@@ -5,7 +5,7 @@ type Tasks = Array<Task>;
 
 type AppState = {
   tasks: Array<Task>;
-  setTasks: React.Dispatch<React.SetStateAction<Tasks>>
+  setTasks: React.Dispatch<React.SetStateAction<Tasks>>;
 };
 
 
